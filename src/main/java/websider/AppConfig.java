@@ -6,6 +6,6 @@ import javax.ws.rs.core.Application;
 /** Initial Configuration
  * Created by Christian on 28-04-2017.
  */
-@ApplicationPath("/")
+@ApplicationPath("/REST")
 public class AppConfig extends Application{
 }
