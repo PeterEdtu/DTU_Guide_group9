@@ -19,7 +19,7 @@ public class Security {
 
     @Path("session")
     @GET
-    public Response login(@CookieParam("sessionToken") Cookie cookie) {
+    public Response getSession(@CookieParam("sessionToken") Cookie cookie) {
         String jsonString = null;
         try{
             AuthenticatedUser user = Auth.authorize(cookie);

@@ -1,9 +1,6 @@
 package security;
 
-import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,9 +44,6 @@ public class Auth {
         String jwtJSON = generateJWT(loggedInUser);
 
         return jwtJSON;
-
-
-
     }
 
     public static AuthenticatedUser authorize(Cookie cookie) throws InvalidToken, NotAuthenticated {
