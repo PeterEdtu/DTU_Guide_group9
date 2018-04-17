@@ -1,0 +1,1661 @@
+{
+  "Locations": {
+    "a020": {
+      "description": "",
+      "floor": "0",
+      "landmark": "STAIRS_UP",
+      "name": "A Stairs Basement",
+      "position": {
+        "latitude": 55.731662,
+        "longitude": 12.397516
+      }
+    },
+    "a120": {
+      "description": "",
+      "floor": "1",
+      "landmark": "STAIRS_DOWN",
+      "name": "A Stairs Ground",
+      "position": {
+        "latitude": 55.731662,
+        "longitude": 12.397516
+      }
+    },
+    "bookstore": {
+      "description": "",
+      "floor": "1",
+      "landmark": "SHOP",
+      "name": "Book Store",
+      "position": {
+        "latitude": 55.731746,
+        "longitude": 12.396251
+      }
+    },
+    "c071": {
+      "description": "",
+      "floor": "0",
+      "landmark": "STAIRS_UP",
+      "name": "U Stairs Basement",
+      "position": {
+        "latitude": 55.732406,
+        "longitude": 12.394476
+      }
+    },
+    "c1100": {
+      "description": "",
+      "floor": "1",
+      "landmark": "STAIRS_UP",
+      "name": "A D Stairs Ground",
+      "position": {
+        "latitude": 55.731551,
+        "longitude": 12.397045
+      }
+    },
+    "c1150": {
+      "description": "Entrance to P S Q",
+      "floor": "1",
+      "landmark": "ENTRANCE",
+      "name": "Entrance East",
+      "position": {
+        "latitude": 55.730446,
+        "longitude": 12.40017
+      }
+    },
+    "c123": {
+      "description": "Entrance to F G N R",
+      "floor": "1",
+      "landmark": "ENTRANCE",
+      "name": "Entrance East Center",
+      "position": {
+        "latitude": 55.73109,
+        "longitude": 12.399053
+      }
+    },
+    "c171": {
+      "description": "",
+      "floor": "1",
+      "landmark": "STAIRS_UP_DOWN",
+      "name": "U Stairs Ground",
+      "position": {
+        "latitude": 55.732406,
+        "longitude": 12.394476
+      }
+    },
+    "c171a": {
+      "description": "",
+      "floor": "1",
+      "landmark": "STAIRS_UP",
+      "name": "V Stairs Ground",
+      "position": {
+        "latitude": 55.732209,
+        "longitude": 12.395074
+      }
+    },
+    "c172": {
+      "description": "Entrance to K U T X V",
+      "floor": "1",
+      "landmark": "ENTRANCE",
+      "name": "Entrance West",
+      "position": {
+        "latitude": 55.73225,
+        "longitude": 12.394506
+      }
+    },
+    "c181": {
+      "description": "",
+      "floor": "1",
+      "landmark": "STAIRS_UP",
+      "name": "K South Stairs Ground",
+      "position": {
+        "latitude": 55.732015,
+        "longitude": 12.395717
+      }
+    },
+    "c183": {
+      "description": "",
+      "floor": "1",
+      "landmark": "STAIRS_UP",
+      "name": "H Stairs Ground",
+      "position": {
+        "latitude": 55.731704,
+        "longitude": 12.396421
+      }
+    },
+    "c193": {
+      "description": "Entrance to A B D H M",
+      "floor": "1",
+      "landmark": "ENTRANCE",
+      "name": "Main Entrance",
+      "position": {
+        "latitude": 55.731561,
+        "longitude": 12.396708
+      }
+    },
+    "c2100": {
+      "description": "",
+      "floor": "2",
+      "landmark": "STAIRS_DOWN",
+      "name": "A D Stairs First",
+      "position": {
+        "latitude": 55.731551,
+        "longitude": 12.397045
+      }
+    },
+    "c271": {
+      "description": "",
+      "floor": "2",
+      "landmark": "STAIRS_DOWN",
+      "name": "U Stairs First",
+      "position": {
+        "latitude": 55.732406,
+        "longitude": 12.394476
+      }
+    },
+    "c272": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "C2.272",
+      "position": {
+        "latitude": 55.732423,
+        "longitude": 12.394463
+      }
+    },
+    "c275": {
+      "description": "",
+      "floor": "2",
+      "landmark": "STAIRS_DOWN",
+      "name": "V Stairs First",
+      "position": {
+        "latitude": 55.732209,
+        "longitude": 12.395074
+      }
+    },
+    "c280": {
+      "description": "",
+      "floor": "2",
+      "landmark": "STAIRS_DOWN",
+      "name": "K South Stairs First",
+      "position": {
+        "latitude": 55.732015,
+        "longitude": 12.395717
+      }
+    },
+    "c284": {
+      "description": "",
+      "floor": "2",
+      "landmark": "STAIRS_DOWN",
+      "name": "H Stairs First",
+      "position": {
+        "latitude": 55.731704,
+        "longitude": 12.396421
+      }
+    },
+    "glasscanteen": {
+      "description": "",
+      "floor": "1",
+      "landmark": "CANTEEN",
+      "name": "Glass Canteen",
+      "position": {
+        "latitude": 55.731011,
+        "longitude": 12.400501
+      }
+    },
+    "k102": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "K1.02",
+      "position": {
+        "latitude": 55.732143,
+        "longitude": 12.395806
+      }
+    },
+    "k103": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "K1.03",
+      "position": {
+        "latitude": 55.732173,
+        "longitude": 12.395915
+      }
+    },
+    "k104": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "K1.04",
+      "position": {
+        "latitude": 55.732202,
+        "longitude": 12.396038
+      }
+    },
+    "k105": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "K1.05",
+      "position": {
+        "latitude": 55.732201,
+        "longitude": 12.396173
+      }
+    },
+    "library": {
+      "description": "",
+      "floor": "1",
+      "landmark": "LIBRARY",
+      "name": "Library",
+      "position": {
+        "latitude": 55.731308,
+        "longitude": 12.39726
+      }
+    },
+    "m035": {
+      "description": "",
+      "floor": "0",
+      "landmark": "STAIRS_UP",
+      "name": "M West Stairs Basement",
+      "position": {
+        "latitude": 55.731539,
+        "longitude": 12.395561
+      }
+    },
+    "m065": {
+      "description": "",
+      "floor": "0",
+      "landmark": "STAIRS_UP",
+      "name": "M East Stairs Basement",
+      "position": {
+        "latitude": 55.731432,
+        "longitude": 12.396074
+      }
+    },
+    "m135": {
+      "description": "",
+      "floor": "1",
+      "landmark": "STAIRS_UP_DOWN",
+      "name": "M West Stairs Ground",
+      "position": {
+        "latitude": 55.731539,
+        "longitude": 12.395561
+      }
+    },
+    "m165": {
+      "description": "",
+      "floor": "1",
+      "landmark": "STAIRS_UP_DOWN",
+      "name": "M East Stairs Ground",
+      "position": {
+        "latitude": 55.731432,
+        "longitude": 12.396074
+      }
+    },
+    "m180": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "M1.80",
+      "position": {
+        "latitude": 55.731474,
+        "longitude": 12.406343
+      }
+    },
+    "m235": {
+      "description": "",
+      "floor": "2",
+      "landmark": "STAIRS_DOWN",
+      "name": "M West Stairs First",
+      "position": {
+        "latitude": 55.731539,
+        "longitude": 12.395561
+      }
+    },
+    "m265": {
+      "description": "",
+      "floor": "2",
+      "landmark": "STAIRS_DOWN",
+      "name": "M East Stairs First",
+      "position": {
+        "latitude": 55.731432,
+        "longitude": 12.396074
+      }
+    },
+    "maincanteen": {
+      "description": "",
+      "floor": "1",
+      "landmark": "CANTEEN",
+      "name": "Main Canteen",
+      "position": {
+        "latitude": 55.731337,
+        "longitude": 12.397619
+      }
+    },
+    "t001": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "T0.01",
+      "position": {
+        "latitude": 55.732504,
+        "longitude": 12.394419
+      }
+    },
+    "t004": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "T0.04",
+      "position": {
+        "latitude": 55.732586,
+        "longitude": 12.394727
+      }
+    },
+    "t005": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "T0.05",
+      "position": {
+        "latitude": 55.732607,
+        "longitude": 12.394814
+      }
+    },
+    "t006": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "T0.06",
+      "position": {
+        "latitude": 55.732635,
+        "longitude": 12.39492
+      }
+    },
+    "t012": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "T0.12",
+      "position": {
+        "latitude": 55.732438,
+        "longitude": 12.394548
+      }
+    },
+    "t013": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "T0.13",
+      "position": {
+        "latitude": 55.732459,
+        "longitude": 12.394571
+      }
+    },
+    "t014": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "T0.14",
+      "position": {
+        "latitude": 55.732459,
+        "longitude": 12.394665
+      }
+    },
+    "t015": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "T0.15",
+      "position": {
+        "latitude": 55.732508,
+        "longitude": 12.3948
+      }
+    },
+    "t020": {
+      "description": "",
+      "floor": "0",
+      "landmark": "STAIRS_UP",
+      "name": "T Stairs Basement",
+      "position": {
+        "latitude": 55.732529,
+        "longitude": 12.394896
+      }
+    },
+    "t102": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "T1.02",
+      "position": {
+        "latitude": 55.732489,
+        "longitude": 12.394441
+      }
+    },
+    "t104": {
+      "description": "Machine Workshop",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "T1.04",
+      "position": {
+        "latitude": 55.732513,
+        "longitude": 12.394547
+      }
+    },
+    "t105": {
+      "description": "Laboratory",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "T1.05",
+      "position": {
+        "latitude": 55.732577,
+        "longitude": 12.394633
+      },
+      "tags": [
+        "Eletric Machinery"
+      ]
+    },
+    "t106": {
+      "description": "Laboratory",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "T1.06",
+      "position": {
+        "latitude": 55.732586,
+        "longitude": 12.394787
+      },
+      "tags": [
+        "Eletric Machinery"
+      ]
+    },
+    "t107": {
+      "description": "Laboratory",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "T1.07",
+      "position": {
+        "latitude": 55.736398,
+        "longitude": 12.394923
+      },
+      "tags": [
+        "Netsimmuleringslaboratorium",
+        "projektor"
+      ]
+    },
+    "t112": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "T1.12",
+      "position": {
+        "latitude": 55.732435,
+        "longitude": 12.39459
+      }
+    },
+    "t113": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "T1.13",
+      "position": {
+        "latitude": 55.73245,
+        "longitude": 12.394638
+      }
+    },
+    "t114": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "T1.14",
+      "position": {
+        "latitude": 55.732471,
+        "longitude": 12.394677
+      }
+    },
+    "t115": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "T1.15",
+      "position": {
+        "latitude": 55.732469,
+        "longitude": 12.394727
+      }
+    },
+    "t116": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "T1.16",
+      "position": {
+        "latitude": 55.732484,
+        "longitude": 12.394773
+      }
+    },
+    "t117": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "T1.17",
+      "position": {
+        "latitude": 55.732501,
+        "longitude": 12.394817
+      }
+    },
+    "t118": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "T1.18",
+      "position": {
+        "latitude": 55.732523,
+        "longitude": 12.394853
+      }
+    },
+    "t120": {
+      "description": "",
+      "floor": "1",
+      "landmark": "STAIRS_UP_DOWN",
+      "name": "T Stairs Ground",
+      "position": {
+        "latitude": 55.732529,
+        "longitude": 12.394896
+      }
+    },
+    "t201": {
+      "description": "Laboratory",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "T2.01",
+      "position": {
+        "latitude": 55.732492,
+        "longitude": 12.394452
+      },
+      "tags": [
+        "Electric Machinery"
+      ]
+    },
+    "t204": {
+      "description": "Laboratory",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "T2.04",
+      "position": {
+        "latitude": 55.732527,
+        "longitude": 12.394544
+      },
+      "tags": [
+        "Electric Machinery"
+      ]
+    },
+    "t205": {
+      "description": "Laboratory",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "T2.05",
+      "position": {
+        "latitude": 55.732545,
+        "longitude": 12.39468
+      },
+      "tags": [
+        "Electric Machinery"
+      ]
+    },
+    "t206": {
+      "description": "Laboratory",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "T2.06",
+      "position": {
+        "latitude": 55.732585,
+        "longitude": 12.394796
+      },
+      "tags": [
+        "whiteboard",
+        "water",
+        "blackboard",
+        "projektor"
+      ]
+    },
+    "t207": {
+      "description": "Laboratory",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "T2.07",
+      "position": {
+        "latitude": 55.732639,
+        "longitude": 12.394972
+      },
+      "tags": [
+        "EDB",
+        "water",
+        "blackboard"
+      ]
+    },
+    "t210": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "T2.10",
+      "position": {
+        "latitude": 55.732536,
+        "longitude": 12.394929
+      }
+    },
+    "t212": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "T2.12",
+      "position": {
+        "latitude": 55.732426,
+        "longitude": 12.394625
+      }
+    },
+    "t213": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "T2.13",
+      "position": {
+        "latitude": 55.732437,
+        "longitude": 12.39469
+      }
+    },
+    "t214": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "T2.14",
+      "position": {
+        "latitude": 55.732456,
+        "longitude": 12.394741
+      }
+    },
+    "t215": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "T2.15",
+      "position": {
+        "latitude": 55.732473,
+        "longitude": 12.394806
+      }
+    },
+    "t216": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "T2.16",
+      "position": {
+        "latitude": 55.732488,
+        "longitude": 12.39487
+      }
+    },
+    "t220": {
+      "description": "",
+      "floor": "2",
+      "landmark": "STAIRS_DOWN",
+      "name": "T Stairs First",
+      "position": {
+        "latitude": 55.732529,
+        "longitude": 12.394896
+      }
+    },
+    "u101": {
+      "description": "Højspændings Laboratorium",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "U1.01",
+      "position": {
+        "latitude": 55.732397,
+        "longitude": 12.394356
+      },
+      "tags": [
+        "Højeffekt Laboratorium",
+        "KontrolRum"
+      ]
+    },
+    "u102": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "U1.02",
+      "position": {
+        "latitude": 55.7322976,
+        "longitude": 12.39436
+      }
+    },
+    "u103": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "U1.03",
+      "position": {
+        "latitude": 55.732455,
+        "longitude": 12.394238
+      }
+    },
+    "u104": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "U1.04",
+      "position": {
+        "latitude": 55.732381,
+        "longitude": 12.394257
+      }
+    },
+    "u105": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "U1.05",
+      "position": {
+        "latitude": 55.73235,
+        "longitude": 12.394295
+      }
+    },
+    "u204": {
+      "description": "Meeting room",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "U2.04",
+      "position": {
+        "latitude": 55.732356,
+        "longitude": 12.394334
+      }
+    },
+    "v001": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "V0.01",
+      "position": {
+        "latitude": 55.732223,
+        "longitude": 12.395053
+      }
+    },
+    "v002": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "V0.02",
+      "position": {
+        "latitude": 55.732505,
+        "longitude": 12.394159
+      }
+    },
+    "v101": {
+      "description": "Laboratory",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "V1.01",
+      "position": {
+        "latitude": 55.732148,
+        "longitude": 12.395273
+      },
+      "tags": [
+        "projekter",
+        "whiteboard",
+        "water"
+      ]
+    },
+    "v103": {
+      "description": "Theory room",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "V1.03",
+      "position": {
+        "latitude": 55.732245,
+        "longitude": 12.39522
+      },
+      "tags": [
+        "water"
+      ]
+    },
+    "v104": {
+      "description": "Theory room",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "V1.04",
+      "position": {
+        "latitude": 55.732347,
+        "longitude": 12.395121
+      },
+      "tags": [
+        "water",
+        "blackboard"
+      ]
+    },
+    "v106": {
+      "description": "Kulinarisk laboratorium",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "V1.06",
+      "position": {
+        "latitude": 55.73232,
+        "longitude": 12.394968
+      }
+    },
+    "v107": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "V1.07",
+      "position": {
+        "latitude": 55.732266,
+        "longitude": 12.395004
+      }
+    },
+    "v201": {
+      "description": "Laboratory",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "V2.01",
+      "position": {
+        "latitude": 55.732172,
+        "longitude": 12.395293
+      },
+      "tags": [
+        "hardudvikling",
+        "water",
+        "blackboard",
+        "airsuction"
+      ]
+    },
+    "v202": {
+      "description": "Laboratory",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "V2.02",
+      "position": {
+        "latitude": 55.732234,
+        "longitude": 12.395228
+      },
+      "tags": [
+        "hardudvikling",
+        "water",
+        "blackboard",
+        "projekter",
+        "whiteboard"
+      ]
+    },
+    "v203": {
+      "description": "Health technology",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "V2.03",
+      "position": {
+        "latitude": 55.732323,
+        "longitude": 12.395156
+      },
+      "tags": [
+        "blackboard",
+        "projekter",
+        "water"
+      ]
+    },
+    "v204": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "V2.04",
+      "position": {
+        "latitude": 55.732376,
+        "longitude": 12.395125
+      }
+    },
+    "v206": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "V2.06",
+      "position": {
+        "latitude": 55.732341,
+        "longitude": 12.394969
+      }
+    },
+    "v207": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "V2.07",
+      "position": {
+        "latitude": 55.7323,
+        "longitude": 12.395005
+      }
+    },
+    "v208": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "V2.08",
+      "position": {
+        "latitude": 55.732279,
+        "longitude": 12.395019
+      }
+    },
+    "v209": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "V2.09",
+      "position": {
+        "latitude": 55.732252,
+        "longitude": 12.395025
+      }
+    },
+    "x001": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "X0.01",
+      "position": {
+        "latitude": 55.732226,
+        "longitude": 12.394567
+      }
+    },
+    "x002": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "X0.02",
+      "position": {
+        "latitude": 55.732143,
+        "longitude": 12.394533
+      }
+    },
+    "x003": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "X0.03",
+      "position": {
+        "latitude": 55.732037,
+        "longitude": 12.394444
+      }
+    },
+    "x024": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "X0.24",
+      "position": {
+        "latitude": 55.731929,
+        "longitude": 12.394597
+      }
+    },
+    "x028": {
+      "description": "",
+      "floor": "0",
+      "landmark": "STAIRS_UP",
+      "name": "X West Stairs Basement",
+      "position": {
+        "latitude": 55.731942,
+        "longitude": 12.394439
+      }
+    },
+    "x070": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "X0.70",
+      "position": {
+        "latitude": 55.732169,
+        "longitude": 12.394812
+      }
+    },
+    "x071": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "X0.71",
+      "position": {
+        "latitude": 55.7322,
+        "longitude": 12.394705
+      }
+    },
+    "x072": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "X0.72",
+      "position": {
+        "latitude": 55.732147,
+        "longitude": 12.394915
+      }
+    },
+    "x073": {
+      "description": "",
+      "floor": "0",
+      "landmark": "NONE",
+      "name": "X0.73",
+      "position": {
+        "latitude": 55.732119,
+        "longitude": 12.39395
+      }
+    },
+    "x101": {
+      "description": "",
+      "floor": "1",
+      "landmark": "WC",
+      "name": "X1.01",
+      "position": {
+        "latitude": 55.73222,
+        "longitude": 12.394602
+      }
+    },
+    "x113": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.13",
+      "position": {
+        "latitude": 55.732182,
+        "longitude": 12.394564
+      }
+    },
+    "x114": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.14",
+      "position": {
+        "latitude": 55.732154,
+        "longitude": 12.39455
+      }
+    },
+    "x115": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.15",
+      "position": {
+        "latitude": 55.732129,
+        "longitude": 12.394543
+      }
+    },
+    "x116": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.16",
+      "position": {
+        "latitude": 55.732104,
+        "longitude": 12.394531
+      }
+    },
+    "x117": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.17",
+      "position": {
+        "latitude": 55.732076,
+        "longitude": 12.394513
+      }
+    },
+    "x118": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.18",
+      "position": {
+        "latitude": 55.732046,
+        "longitude": 12.39448
+      }
+    },
+    "x119": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.19",
+      "position": {
+        "latitude": 55.732007,
+        "longitude": 12.394443
+      }
+    },
+    "x121": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.21",
+      "position": {
+        "latitude": 55.732012,
+        "longitude": 12.394567
+      }
+    },
+    "x122": {
+      "description": "",
+      "floor": "1",
+      "landmark": "WC",
+      "name": "X1.22",
+      "position": {
+        "latitude": 55.73198,
+        "longitude": 12.394545
+      }
+    },
+    "x126": {
+      "description": "",
+      "floor": "1",
+      "landmark": "STAIRS_UP_DOWN",
+      "name": "X West Stairs Ground",
+      "position": {
+        "latitude": 55.731942,
+        "longitude": 12.394439
+      }
+    },
+    "x128": {
+      "description": "Electronic workshop. Open 8-17 all work days.",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.28",
+      "position": {
+        "latitude": 55.731897,
+        "longitude": 12.394462
+      },
+      "tags": [
+        "Komponent Hand Out"
+      ]
+    },
+    "x132": {
+      "description": "Laboratory",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.32",
+      "position": {
+        "latitude": 55.731865,
+        "longitude": 12.394524
+      },
+      "tags": [
+        "TransducerTeknik"
+      ]
+    },
+    "x133": {
+      "description": "Laboratory",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.33",
+      "position": {
+        "latitude": 55.731839,
+        "longitude": 12.394682
+      },
+      "tags": [
+        "Apparatteteknik"
+      ]
+    },
+    "x134": {
+      "description": "Student Workshop",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.34",
+      "position": {
+        "latitude": 55.731822,
+        "longitude": 12.394808
+      }
+    },
+    "x136": {
+      "description": "Mechanical Wokshop. Open 7.30-14:45 Ma-To 7:30-13:45 Fr",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.36",
+      "position": {
+        "latitude": 55.731794,
+        "longitude": 12.394891
+      }
+    },
+    "x138": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.38",
+      "position": {
+        "latitude": 55.731956,
+        "longitude": 12.394596
+      },
+      "tags": [
+        "drill",
+        "loop"
+      ]
+    },
+    "x139": {
+      "description": "Laboratory",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.39",
+      "position": {
+        "latitude": 55.731945,
+        "longitude": 12.394697
+      },
+      "tags": [
+        "AnalogTeknik"
+      ]
+    },
+    "x140": {
+      "description": "Laboratory",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.40",
+      "position": {
+        "latitude": 55.731918,
+        "longitude": 12.394839
+      }
+    },
+    "x142": {
+      "description": "",
+      "floor": "1",
+      "landmark": "STAIRS_UP",
+      "name": "X East Stairs Ground",
+      "position": {
+        "latitude": 55.731838,
+        "longitude": 12.394989
+      }
+    },
+    "x144": {
+      "description": "",
+      "floor": "1",
+      "landmark": "WC",
+      "name": "X1.44",
+      "position": {
+        "latitude": 55.731903,
+        "longitude": 12.394938
+      }
+    },
+    "x149": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.49",
+      "position": {
+        "latitude": 55.731869,
+        "longitude": 12.395039
+      }
+    },
+    "x150": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.50",
+      "position": {
+        "latitude": 55.731899,
+        "longitude": 12.395048
+      }
+    },
+    "x151": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.51",
+      "position": {
+        "latitude": 55.73193,
+        "longitude": 12.395068
+      }
+    },
+    "x152": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.52",
+      "position": {
+        "latitude": 55.731944,
+        "longitude": 12.395097
+      }
+    },
+    "x153": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.53",
+      "position": {
+        "latitude": 55.731985,
+        "longitude": 12.395092
+      }
+    },
+    "x154": {
+      "description": "",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.54",
+      "position": {
+        "latitude": 55.732024,
+        "longitude": 12.395129
+      }
+    },
+    "x160": {
+      "description": "",
+      "floor": "1",
+      "landmark": "WC",
+      "name": "X1.60",
+      "position": {
+        "latitude": 55.732068,
+        "longitude": 12.395165
+      }
+    },
+    "x180": {
+      "description": "Auditorium",
+      "floor": "1",
+      "landmark": "NONE",
+      "name": "X1.80",
+      "position": {
+        "latitude": 55.732175,
+        "longitude": 12.394755
+      },
+      "tags": [
+        "blackboard",
+        "projekter",
+        "water"
+      ]
+    },
+    "x201": {
+      "description": "",
+      "floor": "2",
+      "landmark": "WC",
+      "name": "X2.01",
+      "position": {
+        "latitude": 55.732225,
+        "longitude": 12.394652
+      }
+    },
+    "x213": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.13",
+      "position": {
+        "latitude": 55.732162,
+        "longitude": 12.394591
+      }
+    },
+    "x214": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.14",
+      "position": {
+        "latitude": 55.732127,
+        "longitude": 12.394543
+      }
+    },
+    "x215": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.15",
+      "position": {
+        "latitude": 55.732097,
+        "longitude": 12.394533
+      }
+    },
+    "x216": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.16",
+      "position": {
+        "latitude": 55.73206,
+        "longitude": 12.394509
+      }
+    },
+    "x217": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.17",
+      "position": {
+        "latitude": 55.732047,
+        "longitude": 12.394487
+      }
+    },
+    "x218": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.18",
+      "position": {
+        "latitude": 55.732014,
+        "longitude": 12.394491
+      }
+    },
+    "x219": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.19",
+      "position": {
+        "latitude": 55.731992,
+        "longitude": 12.39446
+      }
+    },
+    "x221": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.21",
+      "position": {
+        "latitude": 55.732001,
+        "longitude": 12.394601
+      }
+    },
+    "x222": {
+      "description": "",
+      "floor": "2",
+      "landmark": "WC",
+      "name": "X2.22",
+      "position": {
+        "latitude": 55.731968,
+        "longitude": 12.394583
+      }
+    },
+    "x226": {
+      "description": "",
+      "floor": "2",
+      "landmark": "STAIRS_DOWN",
+      "name": "X West Stairs First",
+      "position": {
+        "latitude": 55.731942,
+        "longitude": 12.394439
+      }
+    },
+    "x228": {
+      "description": "Laboratory. Electronics Club thursday 17-??",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.28",
+      "position": {
+        "latitude": 55.731881,
+        "longitude": 12.394446
+      },
+      "tags": [
+        "SattelitKommunikation",
+        "Radiostation OZ1KTE"
+      ]
+    },
+    "x232": {
+      "description": "Laboratory",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.32",
+      "position": {
+        "latitude": 55.73187,
+        "longitude": 12.394556
+      },
+      "tags": [
+        "Telekommunikation"
+      ]
+    },
+    "x233": {
+      "description": "Laboratory",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.33",
+      "position": {
+        "latitude": 55.732225,
+        "longitude": 12.394652
+      },
+      "tags": [
+        "HøjfrekvensTeknik"
+      ]
+    },
+    "x234": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.34",
+      "position": {
+        "latitude": 55.731811,
+        "longitude": 12.394787
+      }
+    },
+    "x235": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.35",
+      "position": {
+        "latitude": 55.731789,
+        "longitude": 12.394864
+      }
+    },
+    "x236": {
+      "description": "Laboratory",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.36",
+      "position": {
+        "latitude": 55.731765,
+        "longitude": 12.394967
+      },
+      "tags": [
+        "EMC"
+      ]
+    },
+    "x242": {
+      "description": "",
+      "floor": "2",
+      "landmark": "STAIRS_DOWN",
+      "name": "X East Stairs First",
+      "position": {
+        "latitude": 55.731838,
+        "longitude": 12.394989
+      }
+    },
+    "x244": {
+      "description": "",
+      "floor": "2",
+      "landmark": "WC",
+      "name": "X2.44",
+      "position": {
+        "latitude": 55.731891,
+        "longitude": 12.394971
+      }
+    },
+    "x249": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.49",
+      "position": {
+        "latitude": 55.731868,
+        "longitude": 12.39506
+      }
+    },
+    "x250": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.50",
+      "position": {
+        "latitude": 55.731903,
+        "longitude": 12.395061
+      }
+    },
+    "x251": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.51",
+      "position": {
+        "latitude": 55.731921,
+        "longitude": 12.395093
+      }
+    },
+    "x252": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.52",
+      "position": {
+        "latitude": 55.731948,
+        "longitude": 12.395106
+      }
+    },
+    "x253": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.53",
+      "position": {
+        "latitude": 55.731969,
+        "longitude": 12.395112
+      }
+    },
+    "x254": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.54",
+      "position": {
+        "latitude": 55.732012,
+        "longitude": 12.395142
+      }
+    },
+    "x255": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.55",
+      "position": {
+        "latitude": 55.732037,
+        "longitude": 12.39516
+      }
+    },
+    "x260": {
+      "description": "",
+      "floor": "2",
+      "landmark": "WC",
+      "name": "X2.60",
+      "position": {
+        "latitude": 55.73206,
+        "longitude": 12.395183
+      }
+    },
+    "x271": {
+      "description": "Laboratory",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.71",
+      "position": {
+        "latitude": 55.732131,
+        "longitude": 12.394967
+      },
+      "tags": [
+        "CAE",
+        "whiteboard",
+        "blackboard",
+        "water",
+        "projekter"
+      ]
+    },
+    "x272": {
+      "description": "",
+      "floor": "2",
+      "landmark": "NONE",
+      "name": "X2.73",
+      "position": {
+        "latitude": 55.732186,
+        "longitude": 12.394752
+      }
+    }
+  }
+}
+
+
