@@ -2,7 +2,7 @@ package api.interfaces;
 
 import java.util.ArrayList;
 
-public interface AdminControls {
+public interface IAdminControls {
 
     boolean isAdmin(String username);
 

@@ -4,7 +4,7 @@ import data.Searchable;
 
 import java.util.ArrayList;
 
-public interface AppResources {
+public interface IAppResources {
 
     ArrayList<Searchable> search(String searchText);
 
