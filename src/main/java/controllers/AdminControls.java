@@ -4,7 +4,12 @@ import api.interfaces.IAdminControls;
 
 import java.util.ArrayList;
 
+
 public class AdminControls implements IAdminControls {
+
+ArrayList<String> admins = new ArrayList<String>();
+
+
     @Override
     public boolean isAdmin(String username) {
         return false;
