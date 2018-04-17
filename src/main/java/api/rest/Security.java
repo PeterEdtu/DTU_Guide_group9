@@ -1,4 +1,4 @@
-package api;
+package api.rest;
 
 
 import org.json.JSONObject;
