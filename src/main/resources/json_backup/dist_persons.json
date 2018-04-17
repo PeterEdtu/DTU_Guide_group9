@@ -1,0 +1,277 @@
+{
+  "Persons": {
+    "AgnerFog": {
+      "description": "",
+      "email": "agfo@dtu.dk",
+      "name": "Agner Fog",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD03ODY5Nl9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "",
+      "roomName": "X1.16"
+    },
+    "AnnaFriesel": {
+      "description": "",
+      "email": "anfri@dtu.dk",
+      "name": "Anna Friesel",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD00NDA4NV9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Professor",
+      "roomName": "X2.13"
+    },
+    "BhupjitSingh": {
+      "description": "",
+      "email": "bhsi@dtu.dk",
+      "name": "Bhupjit Singh",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD00MjAzMV9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "",
+      "roomName": "X2.50"
+    },
+    "BipjeetKaur": {
+      "description": "",
+      "email": "bika@dtu.dk",
+      "name": "Bipjeet Kaur",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD00MjAzMl9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Academic Employee",
+      "roomName": "V2.07"
+    },
+    "BirgerAndersen": {
+      "description": "",
+      "email": "birad@dtu.dk",
+      "name": "Birger Andersen",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD03ODcxNV9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Professor",
+      "roomName": "V2.06"
+    },
+    "BjarneNielsenConsultant": {
+      "description": "",
+      "email": "bjni@dtu.dk",
+      "name": "Bjarne Nielsen (1)",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD01OTcxX198fF9fMTAzX198fF9fMTQwX198fF9fVHJ1ZV9ffHxfX0ZhbHNlX198fF9fRmFsc2VfX3x8X18wX198fF9fX198fF9fMA_:_3d_:_3d",
+      "role": "Consultant",
+      "roomName": "V2.09"
+    },
+    "BjørnKlintChristensen": {
+      "description": "",
+      "email": "bjchr@dtu.dk",
+      "name": "Bjørn Klint Christensen",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD0yNDA1N19ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Associate professor",
+      "roomName": "X1.51"
+    },
+    "BoBrøndsted": {
+      "description": "",
+      "email": "brond@dtu.dk",
+      "name": "Bo Brøndsted",
+      "pictureURL": "null",
+      "role": "Teaching Assistant",
+      "roomName": "X2.51"
+    },
+    "BoHolst-Christensen": {
+      "description": "",
+      "email": "bhch@dtu.dk",
+      "name": "Bo Holst-Christensen",
+      "pictureURL": "null",
+      "role": "Associate Professor",
+      "roomName": "X1.54"
+    },
+    "BoyeCKnutz": {
+      "description": "",
+      "email": "bckn@dtu.dk",
+      "name": "Boye C. Knutz",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD03ODcxMl9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Associate Professor",
+      "roomName": "T1.15"
+    },
+    "ClausKjærgaard": {
+      "description": "",
+      "email": "clkj@dtu.dk",
+      "name": "Claus Kjærgaard",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD0xMjgxX198fF9fMTAzX198fF9fMTQwX198fF9fVHJ1ZV9ffHxfX0ZhbHNlX198fF9fRmFsc2VfX3x8X18wX198fF9fX198fF9fMA_:_3d_:_3d",
+      "role": "Professor",
+      "roomName": "X2.14"
+    },
+    "ClausPederSørenAaslet": {
+      "description": "",
+      "email": "clape@dtu.dk",
+      "name": "Claus Peder Søren Aaslet",
+      "pictureURL": "null",
+      "role": "",
+      "roomName": "N1.01"
+    },
+    "DanHarboeBurer": {
+      "description": "",
+      "email": "dabur@dtu.dk",
+      "name": "Dan Harboe Burer",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD0xMTMzOTVfX3x8X18xMDNfX3x8X18xNDBfX3x8X19UcnVlX198fF9fRmFsc2VfX3x8X19GYWxzZV9ffHxfXzBfX3x8X19fX3x8X18w",
+      "role": "",
+      "roomName": "X1.36"
+    },
+    "HansChristianPedersen": {
+      "description": "",
+      "email": "hchpe@dtu.dk",
+      "name": "Hans Christian Pedersen",
+      "pictureURL": "null",
+      "role": "Associate Professor",
+      "roomName": "X1.13"
+    },
+    "HenrikBechmann": {
+      "description": "",
+      "email": "hebec@dtu.dk",
+      "name": "Henrik Bechmann",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD0zMzkwX198fF9fMTAzX198fF9fMTQwX198fF9fVHJ1ZV9ffHxfX0ZhbHNlX198fF9fRmFsc2VfX3x8X18wX198fF9fX198fF9fMA_:_3d_:_3d",
+      "role": "Head of Studies Healthcare Technology, Associate Professor, PhD",
+      "roomName": "X1.50"
+    },
+    "JacobNordfalk": {
+      "description": "",
+      "email": "jacno@dtu.dk",
+      "name": "Jacob Nordfalk",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD03ODc3OF9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Associate Professor",
+      "roomName": "X1.53"
+    },
+    "JillReichel": {
+      "description": "",
+      "email": "jrei@dtu.dk",
+      "name": "Jill Reichel",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD04MDE4MF9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Department Coordinator",
+      "roomName": "X2.51"
+    },
+    "JohnAastedSørensen": {
+      "description": "",
+      "email": "jaas@dtu.dk",
+      "name": "John Aasted Sørensen",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD0yNDEyX198fF9fMTAzX198fF9fMTQwX198fF9fVHJ1ZV9ffHxfX0ZhbHNlX198fF9fRmFsc2VfX3x8X18wX198fF9fX198fF9fMA_:_3d_:_3d",
+      "role": "Associate professor",
+      "roomName": "X2.54"
+    },
+    "JohnKrygerSørensen": {
+      "description": "",
+      "email": "jksor@dtu.dk",
+      "name": "John Kryger Sørensen",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD01NDAyM19ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Associate Professor",
+      "roomName": "X1.14"
+    },
+    "KasperEliAndersen": {
+      "description": "",
+      "email": "kasan@dtu.dk",
+      "name": "Kasper Eli Andersen",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD03OTgzN19ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "",
+      "roomName": "X1.35"
+    },
+    "KasperFløngPedersen": {
+      "description": "",
+      "email": "kflo@dtu.dk",
+      "name": "Kasper Fløng Pedersen",
+      "pictureURL": "null",
+      "role": "Amanuensis",
+      "roomName": "X2.19"
+    },
+    "KurtJeritslev": {
+      "description": "",
+      "email": "kjer@dtu.dk",
+      "name": "Kurt Jeritslev",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD03OTE0MF9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Associate Professor",
+      "roomName": "X2.52"
+    },
+    "LarsMaack": {
+      "description": "",
+      "email": "lmaa@dtu.dk",
+      "name": "Lars Maack",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD03ODgzNV9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Head of studies, associate professor",
+      "roomName": "X2.15"
+    },
+    "MikkelJensGlarboBergmannFuttrup": {
+      "description": "",
+      "email": "mikfu@dtu.dk",
+      "name": "Mikkel Jens Glarbo Bergmann Futtrup",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD0yNzYyN19ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Assistant Professor",
+      "roomName": "X2.17"
+    },
+    "Niels-EbbeDam": {
+      "description": "",
+      "email": "nida@dtu.dk",
+      "name": "Niels-Ebbe Dam",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD02NzQ5X198fF9fMTAzX198fF9fMTQwX198fF9fVHJ1ZV9ffHxfX0ZhbHNlX198fF9fRmFsc2VfX3x8X18wX198fF9fX198fF9fMA_:_3d_:_3d",
+      "role": "Associate Professor",
+      "roomName": "X2.16"
+    },
+    "NielsWinterHansen": {
+      "description": "",
+      "email": "niwinha@dtu.dk",
+      "name": "Niels Winter Hansen",
+      "pictureURL": "null",
+      "role": "External lecturer",
+      "roomName": "X2.51"
+    },
+    "OleSchultz": {
+      "description": "",
+      "email": "osch@dtu.dk",
+      "name": "Ole Schultz",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD03ODg2N19ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Associate Professor",
+      "roomName": "X2.18"
+    },
+    "PerSkafteHansen": {
+      "description": "",
+      "email": "psha@dtu.dk",
+      "name": "Per Skafte Hansen",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD04MDlfX3x8X18xMDNfX3x8X18xNDBfX3x8X19UcnVlX198fF9fRmFsc2VfX3x8X19GYWxzZV9ffHxfXzBfX3x8X19fX3x8X18w",
+      "role": "Associate Professor",
+      "roomName": "X1.15"
+    },
+    "RogerMunck-Fairwood": {
+      "description": "",
+      "email": "romu@dtu.dk",
+      "name": "Roger Munck-Fairwood",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD03ODg5Ml9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Associate Professor",
+      "roomName": "X1.49"
+    },
+    "SvendMortensen": {
+      "description": "",
+      "email": "svmo@dtu.dk",
+      "name": "Svend Mortensen",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD03ODkwMF9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "",
+      "roomName": "X2.53"
+    },
+    "TeddyJensen": {
+      "description": "",
+      "email": "tedje@dtu.dk",
+      "name": "Teddy Jensen",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD0xMjM5NDFfX3x8X18xMDNfX3x8X18xNDBfX3x8X19UcnVlX198fF9fRmFsc2VfX3x8X19GYWxzZV9ffHxfXzBfX3x8X19fX3x8X18w",
+      "role": "",
+      "roomName": "V1.07"
+    },
+    "TomaszBlaszczyk": {
+      "description": "",
+      "email": "tomb@dtu.dk",
+      "name": "Tomasz Blaszczyk",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD03ODkxMV9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Academic Employee",
+      "roomName": "V2.08"
+    },
+    "ianbridgwood": {
+      "description": "",
+      "email": "stbn@dtu.dk",
+      "name": "Ian Bridgwood",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD03ODc2N19ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Associate Professor",
+      "roomName": "X1.52"
+    },
+    "sunethomasbernthnielsen": {
+      "description": "",
+      "email": "iabr@dtu.dk",
+      "name": "Sune Thomas Bernth Nielsen",
+      "pictureURL": "https://www.inside.dtu.dk/gimage.ashx?i=VHJ1ZV9ffHxfX2h0dHBzOi8vd3d3LmR0dWJhc2VuLmR0dS5kay9zaG93aW1hZ2UuYXNweD9pZD04NzE1NV9ffHxfXzEwM19ffHxfXzE0MF9ffHxfX1RydWVfX3x8X19GYWxzZV9ffHxfX0ZhbHNlX198fF9fMF9ffHxfX19ffHxfXzA_:_3d",
+      "role": "Assistant Lecturer",
+      "roomName": "X2.51"
+    }
+  }
+}
+
