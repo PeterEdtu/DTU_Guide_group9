@@ -13,6 +13,9 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
+import security.exception.InvalidCredentials;
+import security.exception.InvalidToken;
+import security.exception.NotAuthenticated;
 
 import javax.ws.rs.core.Cookie;
 
