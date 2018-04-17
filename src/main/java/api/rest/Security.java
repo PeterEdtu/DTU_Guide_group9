@@ -64,7 +64,7 @@ public class Security {
 
             return Response.ok("OK").cookie(newCookie).build();
         }
-        return Response.ok("OK - No session").build();
+        return Response.ok("OK - No Session").build();
     }
 
 }

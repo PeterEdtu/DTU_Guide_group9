@@ -2,9 +2,6 @@ package data;
 
 public class Location extends Searchable {
 
+    public String name;
 
-    @Override
-    public String toJson() {
-        return null;
-    }
 }
