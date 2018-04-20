@@ -14,7 +14,7 @@ public interface IChangedAppResources {
      */
     Location addLocation(Location loc);
 
-    void updateLocation(Location loc,Location previousLocation);
+    void updateLocation(Location newLoc,Location previousLocation);
 
     ArrayList<Location> getAllChangedLocations();
 

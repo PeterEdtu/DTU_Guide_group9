@@ -13,7 +13,11 @@ public class ChangedAppResources implements IChangedAppResources{
     }
 
     @Override
-    public void updateLocation(Location loc, Location previousLocation) {
+    public void updateLocation(Location newLoc, Location previousLocation) { //Comapre the previousLocation with the
+                                                                        //actual (instance) location before update it
+                                                                    //with the variable "newLoc" wich is the new location
+
+
 
     }
 
