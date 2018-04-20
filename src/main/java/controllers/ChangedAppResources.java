@@ -2,11 +2,15 @@ package controllers;
 
 import api.interfaces.IChangedAppResources;
 import data.Person;
+import database.Connector;
 
 import javax.xml.stream.Location;
 import java.util.ArrayList;
 
 public class ChangedAppResources implements IChangedAppResources{
+
+    Connector connect = new Connector();
+
     @Override
     public Location addLocation(Location loc) {
         return null;
@@ -16,7 +20,7 @@ public class ChangedAppResources implements IChangedAppResources{
     public void updateLocation(Location newLoc, Location previousLocation) { //Comapre the previousLocation with the
                                                                         //actual (instance) location before update it
                                                                     //with the variable "newLoc" wich is the new location
-
+    
 
 
     }
