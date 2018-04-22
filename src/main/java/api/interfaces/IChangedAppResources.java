@@ -1,8 +1,8 @@
 package api.interfaces;
 
+import data.Location;
 import data.Person;
 
-import javax.xml.stream.Location;
 import java.util.ArrayList;
 
 public interface IChangedAppResources {
