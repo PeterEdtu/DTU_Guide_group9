@@ -3,13 +3,16 @@ package controllers;
 import api.interfaces.IChangedAppResources;
 import data.Person;
 import database.Connector;
+import data.Location;
+import data.Person;
+import data.Suggestion;
+import database.DummyConnector;
 
-import javax.xml.stream.Location;
 import java.util.ArrayList;
 
 public class ChangedAppResources implements IChangedAppResources{
 
-    Connector connect = new Connector();
+    DummyConnector connector = new DummyConnector();
 
     @Override
     public Location addLocation(Location loc) {
@@ -17,9 +20,11 @@ public class ChangedAppResources implements IChangedAppResources{
     }
 
     @Override
-    public void updateLocation(Location newLoc, Location previousLocation) { //Comapre the previousLocation with the
+    public void updateLocation(Location newLoc, Location previousLocation) { //Compare the previousLocation with the
                                                                         //actual (instance) location before update it
                                                                     //with the variable "newLoc" wich is the new location
+
+    Location actualLocation = connector.getLocations().get(previousLocation.name);
 
 
 
