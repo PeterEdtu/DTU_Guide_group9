@@ -23,6 +23,10 @@ public interface IConnector {
 
     void deleteLocation(Person person);
 
+    void deleteLocation(Location location);
+
+    void createSuggestion(Suggestion suggestion);
+
     void updateSuggestion(Suggestion suggestion);
 
     void deleteSuggestion(int id);
