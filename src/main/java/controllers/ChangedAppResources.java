@@ -20,7 +20,7 @@ public class ChangedAppResources implements IChangedAppResources{
     public void updateLocation(Location newLoc, Location previousLocation) { //Comapre the previousLocation with the
                                                                         //actual (instance) location before update it
                                                                     //with the variable "newLoc" wich is the new location
-    
+
 
 
     }
