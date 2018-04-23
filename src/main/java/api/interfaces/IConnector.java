@@ -1,5 +1,6 @@
 package api.interfaces;
 
+import controllers.exceptions.DataAccessException;
 import data.Location;
 import data.Person;
 import data.Suggestion;
@@ -7,37 +8,40 @@ import data.Suggestion;
 import java.util.HashMap;
 
 public interface IConnector {
-    HashMap<String, Location> getLocations();
 
-    HashMap<String, Location> getLocations(String stringMatch);
+    HashMap<String, Location> getLocations(String stringMatch) throws DataAccessException;
 
-    HashMap<String, Suggestion> getSuggestions();
+    HashMap<String, Suggestion> getSuggestions()throws DataAccessException;
 
-    Suggestion getSuggestion(int id);
+    String[] getAdmins() throws DataAccessException;
 
-    HashMap<String, Person> getPersons();
+    Suggestion getSuggestion(int id) throws DataAccessException;
 
-    HashMap<String, Person> getPersons(String stringMatch);
+    HashMap<Integer, Person> getPersons() throws DataAccessException;
 
-    void updateLocation(Location location);
+    HashMap<Integer, Person> getPersons(String stringMatch) throws DataAccessException;
 
-    void deleteLocation(Person person);
+    void updateLocation(Location location) throws DataAccessException;
 
-    void deleteLocation(Location location);
+    void deleteLocation(Person person) throws DataAccessException;
 
-    void createSuggestion(Suggestion suggestion);
+    void deleteLocation(Location location) throws DataAccessException;
 
-    void updateSuggestion(Suggestion suggestion);
+    void createSuggestion(Suggestion suggestion) throws DataAccessException;
 
-    void deleteSuggestion(int id);
+    void updateSuggestion(Suggestion suggestion) throws DataAccessException;
 
-    void updatePerson(Person person);
+    void deleteSuggestion(int id) throws DataAccessException;
 
-    void deletePerson(int id);
+    void updatePerson(Person person) throws DataAccessException;
 
-    void createLocation(Location location);
+    void deletePerson(int id) throws DataAccessException;
 
-    void createPerson(Person person);
+    void createLocation(Location location) throws DataAccessException;
+
+    void createPerson(Person person) throws DataAccessException;
+
+
 
     }
 
