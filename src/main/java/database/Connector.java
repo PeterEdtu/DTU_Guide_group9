@@ -1,13 +1,14 @@
 package database;//STEP 1. Import required packages
 
 import api.interfaces.IConnector;
+import controllers.exceptions.DataAccessException;
 import data.Location;
 import data.Person;
 import data.Suggestion;
 
 import java.sql.*;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class Connector implements IConnector {
 
@@ -21,9 +22,10 @@ public class Connector implements IConnector {
 
     // Find a way to add information to Hashmap
     @Override
-    public HashMap<String, Location> getLocations() {
+    public HashMap<String, Location> getLocations(String stringMatch) {
         establishedConnection();
         Statement stmt = null;
+        Location location = null;
 
         //Execute a query.
         try {
@@ -33,19 +35,17 @@ public class Connector implements IConnector {
         }
 
         String sql;
-        sql = "SELECT * FROM locations;";
+        sql = "SELECT * FROM locations WHERE loc_name LIKE '%"+stringMatch+"%';";
 
         try {
             ResultSet resultSet = stmt.executeQuery(sql);
             while (resultSet.next()) {
-                String loc_name = resultSet.getString("loc_name");
-                String loc_desc = resultSet.getString("loc_desc");
-                int loc_floor = resultSet.getInt("loc_floor");
-                String loc_landmark = resultSet.getString("loc_landmark");
-                Double loc_latitude = resultSet.getDouble("loc_latitude");
-                Double loc_longitude = resultSet.getDouble("loc_longitude");
-
-                System.out.println("Location name: " + loc_name + ", Location description: " + loc_desc + ", Location floor: " + loc_floor + ", Location landmark: " + loc_landmark + ", Location latitude: " + loc_latitude + ", Location longitude: " + loc_longitude + ".");
+                location.setName(resultSet.getString("loc_name"));
+                location.setDescription(resultSet.getString("loc_desc"));
+                location.setFloor(resultSet.getInt("loc_floor"));
+                location.setLandmark(resultSet.getString("loc_landmark"));
+                location.setLatitude(resultSet.getDouble("loc_latitude"));
+                location.setLongitude(resultSet.getDouble("loc_longitude"));
             }
         } catch (SQLException e) {
             System.out.println("SQL command failed to execute: " + e.getMessage());
@@ -57,17 +57,11 @@ public class Connector implements IConnector {
         } catch (SQLException e) {
             System.out.println("Failed to close connection/statement: " + e.getMessage());
         }
-        return null;
+        return getLocations(stringMatch);
     }
 
     @Override
-    public HashMap<String, Location> getLocations(String stringMatch) {
-        return null;
-    }
-
-    //Experimental - Needs further work!
-    @Override
-    public HashMap<String, Suggestion> getSuggestions() {
+    public HashMap<Integer, Suggestion> getSuggestions() throws DataAccessException {
         establishedConnection();
         Statement stmt = null;
         Suggestion suggestion = null;
@@ -75,7 +69,7 @@ public class Connector implements IConnector {
         try {
             stmt = establishedConnection().createStatement();
         } catch (SQLException e) {
-            System.out.println("Failed to create statement. Verify connection to database: " + e.getMessage());
+            throw new DataAccessException("Failed to create statement. Verify connection to database: " + e.getMessage());
         }
 
         String sql;
@@ -85,23 +79,16 @@ public class Connector implements IConnector {
             ResultSet resultSet = stmt.executeQuery(sql);
             while (resultSet.next()) {
                 suggestion.setAuthor(resultSet.getString("suggestion_person_name"));
+                suggestion.setName(resultSet.getString("suggestion_loc_name"));
+                suggestion.setDescription(resultSet.getString("suggestion_loc_desc"));
+                suggestion.setFloor(resultSet.getInt("suggestion_loc_floor"));
+                suggestion.setLandmark(resultSet.getString("suggestion_loc_landmark"));
+                suggestion.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
+                suggestion.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
                 suggestion.setDate(resultSet.getDate("suggestion_date"));
-                getSuggestions().put("", suggestion);
-
-                int suggestion_loc_ID = resultSet.getInt("suggestion_loc_ID");
-                String suggestion_person_name = resultSet.getString("suggestion_person_name");
-                String suggestion_loc_name = resultSet.getString("suggestion_loc_name");
-                String suggestion_loc_desc = resultSet.getString("suggestion_loc_desc");
-                int suggestion_loc_floor = resultSet.getInt("suggestion_loc_floor");
-                String suggestion_loc_landmark = resultSet.getString("suggestion_loc_landmark");
-                Double suggestion_loc_latitude = resultSet.getDouble("suggestion_loc_latitude");
-                Double suggestion_loc_longitude = resultSet.getDouble("suggestion_loc_longitude");
-                Date suggestion_date = resultSet.getDate("suggestion_date");
-
-                System.out.println("Suggestion ID: " + suggestion_loc_ID + ", Person suggesting: " + suggestion_person_name + ", Suggestion name: " + suggestion_loc_name + ", Suggestion description: " + suggestion_loc_desc + ", Suggestion floor: " + suggestion_loc_floor + ", Suggestion landmark: " + suggestion_loc_landmark + ", Suggestion latitude: " + suggestion_loc_latitude + ", Suggestion longitude: " + suggestion_loc_longitude + ", Suggestion date: " + suggestion_date + ".");
             }
         } catch (SQLException e) {
-            System.out.println("SQL command failed to execute: " + e.getMessage());
+            throw new DataAccessException("SQL command failed to execute: " + e.getMessage());
         }
 
         try {
@@ -110,8 +97,13 @@ public class Connector implements IConnector {
         } catch (SQLException e) {
             System.out.println("Failed to close connection/statement: " + e.getMessage());
         }
-        return null;
+        return getSuggestions();
 
+    }
+
+    @Override
+    public List<String> getAdmins() throws DataAccessException {
+        return getAdmins();
     }
 
     @Override
@@ -120,12 +112,12 @@ public class Connector implements IConnector {
     }
 
     @Override
-    public HashMap<String, Person> getPersons() {
+    public HashMap<Integer, Person> getPersons() {
         return null;
     }
 
     @Override
-    public HashMap<String, Person> getPersons(String stringMatch) {
+    public HashMap<Integer, Person> getPersons(String stringMatch) {
         return null;
     }
 
@@ -158,7 +150,7 @@ public class Connector implements IConnector {
         }
 
         String sql;
-        sql = "DELETE FROM locations WHERE loc_name = '" + location.name + "';";
+        sql = "DELETE FROM locations WHERE loc_name = '" + location.getName() + "';";
 
         try {
             stmt.executeQuery(sql);
