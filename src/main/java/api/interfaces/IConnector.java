@@ -6,14 +6,15 @@ import data.Person;
 import data.Suggestion;
 
 import java.util.HashMap;
+import java.util.List;
 
 public interface IConnector {
 
     HashMap<String, Location> getLocations(String stringMatch) throws DataAccessException;
 
-    HashMap<String, Suggestion> getSuggestions()throws DataAccessException;
+    HashMap<Integer, Suggestion> getSuggestions()throws DataAccessException;
 
-    String[] getAdmins() throws DataAccessException;
+    List<String> getAdmins() throws DataAccessException;
 
     Suggestion getSuggestion(int id) throws DataAccessException;
 
