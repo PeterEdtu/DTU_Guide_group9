@@ -42,5 +42,9 @@ public class SuggestionPerson extends Person implements ISuggestion {
 
 
     }
+
+    public Person toPerson(){
+        return this;
+    }
 }
 

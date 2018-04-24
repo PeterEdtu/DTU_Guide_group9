@@ -93,9 +93,14 @@ public class ChangedAppResources implements IChangedAppResources {
 
     @Override
     public void approveLocation(int id) throws DataAccessException, NotFoundException {
+        SuggestionLocation suggestionLocation = connector.getLocationSuggestion(id);
 
+        if(suggestionLocation == null){
+            throw new NotFoundException("Suggestion ID "+id+" cannot be found");
+        }else{
+            connector.createLocation(suggestionLocation.toLocation());
+        }
     }
-
 
     @Override
     public void addPerson(Person person) throws DataAccessException {

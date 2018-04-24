@@ -43,5 +43,9 @@ public class SuggestionLocation extends Location implements ISuggestion {
 
     }
 
+    public Location toLocation(){
+        return this;
+    }
+
 }
 
