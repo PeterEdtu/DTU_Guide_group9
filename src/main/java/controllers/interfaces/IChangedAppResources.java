@@ -23,11 +23,11 @@ public interface IChangedAppResources {
 
     Location getLocation(String name) throws DataAccessException, NotFoundException;
 
-    void deleteLocationChange(int id) throws DataAccessException, NotFoundException;
+    void deleteLocationChange(String name) throws DataAccessException, NotFoundException;
 
-    void approveLocation(int id) throws DataAccessException, NotFoundException;
+    void approveLocation(String name) throws DataAccessException, NotFoundException;
 
-    void putPerson(Person person) throws DataAccessException;
+    void addPerson(Person person) throws DataAccessException;
 
     void updatePerson(Person person, Person previousPerson) throws DataAccessException, ItemOverwriteException;
 
