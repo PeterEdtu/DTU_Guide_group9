@@ -1,80 +1,92 @@
 package database;
 
+import controllers.exceptions.DataAccessException;
 import database.interfaces.IConnector;
 import data.Location;
 import data.Person;
 import data.Suggestion;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class DummyConnector implements IConnector {
     @Override
-    public HashMap<String, Location> getLocations() {
+    public HashMap<String, Location> getLocations(String stringMatch) throws DataAccessException {
         return null;
     }
 
     @Override
-    public HashMap<String, Location> getLocations(String stringMatch) {
+    public HashMap<Integer, Suggestion> getSuggestions() throws DataAccessException {
         return null;
     }
 
     @Override
-    public HashMap<String, Suggestion> getSuggestions() {
+    public List<String> getAdmins() throws DataAccessException {
         return null;
     }
 
     @Override
-    public Suggestion getSuggestion(int id) {
+    public Suggestion getSuggestion(int id) throws DataAccessException {
         return null;
     }
 
     @Override
-    public HashMap<String, Person> getPersons() {
+    public HashMap<Integer, Person> getPersons() throws DataAccessException {
         return null;
     }
 
     @Override
-    public HashMap<String, Person> getPersons(String stringMatch) {
+    public HashMap<Integer, Person> getPersons(String stringMatch) throws DataAccessException {
         return null;
     }
 
     @Override
-    public void updateLocation(Location location) {
+    public void updateLocation(Location location) throws DataAccessException {
 
     }
 
     @Override
-    public void deleteLocation(Person person) {
+    public void deleteLocation(Person person) throws DataAccessException {
 
     }
 
     @Override
-    public void updateSuggestion(Suggestion suggestion) {
+    public void deleteLocation(Location location) throws DataAccessException {
 
     }
 
     @Override
-    public void deleteSuggestion(int id) {
+    public void createSuggestion(Suggestion suggestion) throws DataAccessException {
 
     }
 
     @Override
-    public void updatePerson(Person person) {
+    public void updateSuggestion(Suggestion suggestion) throws DataAccessException {
 
     }
 
     @Override
-    public void deletePerson(int id) {
+    public void deleteSuggestion(int id) throws DataAccessException {
 
     }
 
     @Override
-    public void createLocation(Location location) {
+    public void updatePerson(Person person) throws DataAccessException {
 
     }
 
     @Override
-    public void createPerson(Person person) {
+    public void deletePerson(int id) throws DataAccessException {
+
+    }
+
+    @Override
+    public void createLocation(Location location) throws DataAccessException {
+
+    }
+
+    @Override
+    public void createPerson(Person person) throws DataAccessException {
 
     }
 }
