@@ -1,6 +1,6 @@
 package database;//STEP 1. Import required packages
 
-import api.interfaces.IConnector;
+import database.interfaces.IConnector;
 import controllers.exceptions.DataAccessException;
 import data.Location;
 import data.Person;
