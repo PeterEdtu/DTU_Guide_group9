@@ -5,6 +5,7 @@ import java.util.Date;
 public class SuggestionPerson extends Person implements ISuggestion {
 
     private int suggestionID;
+
     private Date date;
     private String author;
 
@@ -16,6 +17,14 @@ public class SuggestionPerson extends Person implements ISuggestion {
         this.date = date;
     }
 
+    public int getSuggestionID() {
+        return suggestionID;
+    }
+
+    public void setSuggestionID(int suggestionID) {
+        this.suggestionID = suggestionID;
+    }
+
     public String getAuthor() {
         return author;
     }
@@ -24,9 +33,10 @@ public class SuggestionPerson extends Person implements ISuggestion {
         this.author = author;
     }
 
-    public SuggestionPerson(Date date, String author){
+    public SuggestionPerson(int suggestionID, Date date, String author){
         super();
 
+        this.suggestionID = suggestionID;
         this.date = date;
         this.author = author;
 

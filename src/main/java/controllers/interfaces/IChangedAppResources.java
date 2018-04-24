@@ -3,8 +3,7 @@ package controllers.interfaces;
 import controllers.exceptions.DataAccessException;
 import controllers.exceptions.ItemOverwriteException;
 import controllers.exceptions.NotFoundException;
-import data.Location;
-import data.Person;
+import data.*;
 
 import java.util.ArrayList;
 
@@ -19,25 +18,25 @@ public interface IChangedAppResources {
 
     void updateLocation(Location newLoc,Location previousLocation) throws DataAccessException, ItemOverwriteException;
 
-    ArrayList<Location> getAllChangedLocations() throws DataAccessException, NotFoundException;
+    ArrayList<SuggestionLocation> getAllChangedLocations() throws DataAccessException, NotFoundException;
 
     Location getLocation(String name) throws DataAccessException, NotFoundException;
 
-    void deleteLocationChange(String name) throws DataAccessException, NotFoundException;
+    void deleteLocationChange(int id) throws DataAccessException, NotFoundException;
 
-    void approveLocation(String name) throws DataAccessException, NotFoundException;
+    void approveLocation(int id) throws DataAccessException, NotFoundException;
 
     void addPerson(Person person) throws DataAccessException;
 
     void updatePerson(Person person, Person previousPerson) throws DataAccessException, ItemOverwriteException;
 
-    ArrayList<Person> getAllChangedPeople();
+    ArrayList<SuggestionPerson> getAllChangedPeople() throws DataAccessException, NotFoundException;
 
     Person getPerson(int id) throws DataAccessException, NotFoundException;
 
-    void deletePersonChange(int id);
+    void deletePersonChange(int id) throws DataAccessException, NotFoundException;
 
-    void approvePerson(int id);
+    void approvePerson(int id) throws DataAccessException, NotFoundException;
 
 
 

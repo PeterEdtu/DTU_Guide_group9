@@ -6,6 +6,8 @@ import controllers.exceptions.ItemOverwriteException;
 import controllers.exceptions.NotFoundException;
 import data.Person;
 import data.Location;
+import data.SuggestionLocation;
+import data.SuggestionPerson;
 import database.connector.DummyConnector;
 
 import java.util.ArrayList;
@@ -19,7 +21,6 @@ public class ChangedAppResources implements IChangedAppResources {
     private ChangedAppResources() {
     }
 
-    ;
 
     public synchronized ChangedAppResources getInstance() {
         if (controller == null) {
@@ -76,7 +77,7 @@ public class ChangedAppResources implements IChangedAppResources {
     }
 
     @Override
-    public ArrayList<Location> getAllChangedLocations() throws DataAccessException, NotFoundException {
+    public ArrayList<SuggestionLocation> getAllChangedLocations() throws DataAccessException, NotFoundException {
         return null;
     }
 
@@ -86,13 +87,15 @@ public class ChangedAppResources implements IChangedAppResources {
     }
 
     @Override
-    public void deleteLocationChange(String name) throws DataAccessException, NotFoundException {
+    public void deleteLocationChange(int id) throws DataAccessException, NotFoundException {
 
     }
 
     @Override
-    public void approveLocation(String name) throws DataAccessException, NotFoundException {
-        connector.createLocation(connector.getSuggestion(1));
+    public void approveLocation(int id) throws DataAccessException, NotFoundException {
+
+    }
+
 
     @Override
     public void addPerson(Person person) throws DataAccessException {
@@ -105,7 +108,7 @@ public class ChangedAppResources implements IChangedAppResources {
     }
 
     @Override
-    public ArrayList<Person> getAllChangedPeople() {
+    public ArrayList<SuggestionPerson> getAllChangedPeople() {
         return null;
     }
 
@@ -123,4 +126,5 @@ public class ChangedAppResources implements IChangedAppResources {
     public void approvePerson(int id) {
 
     }
+
 }
