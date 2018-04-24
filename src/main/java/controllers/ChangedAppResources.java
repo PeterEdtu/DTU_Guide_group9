@@ -82,21 +82,22 @@ public class ChangedAppResources implements IChangedAppResources {
         return null;
     }
 
-
     @Override
-    public void deleteLocationChange(int id) throws DataAccessException, NotFoundException {
+    public void deleteLocationChange(String name) throws DataAccessException, NotFoundException {
 
     }
 
     @Override
-    public void approveLocation(int id) throws DataAccessException, NotFoundException {
-        connector.createLocation(connector.getSuggestion(id));
+    public void approveLocation(String name) throws DataAccessException, NotFoundException {
 
     }
 
     @Override
-    public void putPerson(Person person) throws DataAccessException {
+    public void addPerson(Person person) throws DataAccessException {
+
     }
+
+
 
     @Override
     public void updatePerson(Person person, Person previousPerson) throws DataAccessException, ItemOverwriteException {
