@@ -2,9 +2,9 @@ package api.rest;
 
 
 import org.json.JSONObject;
-import security.Auth;
-import security.AuthenticatedUser;
-import security.LoginPojo;
+import controllers.security.Auth;
+import controllers.security.AuthenticatedUser;
+import controllers.security.LoginPojo;
 
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.*;
@@ -13,7 +13,7 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import java.util.Date;
 
-@Path("/security")
+@Path("/controllers/security")
 public class Security {
 
 

@@ -1,4 +1,4 @@
-package security;
+package controllers.security;
 
 public class AuthenticatedUser {
 

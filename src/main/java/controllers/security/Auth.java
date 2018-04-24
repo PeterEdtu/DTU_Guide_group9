@@ -1,4 +1,4 @@
-package security;
+package controllers.security;
 
 import java.rmi.Naming;
 import java.security.Key;
@@ -13,9 +13,9 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
-import security.exception.InvalidCredentials;
-import security.exception.InvalidToken;
-import security.exception.NotAuthenticated;
+import controllers.security.exception.InvalidCredentials;
+import controllers.security.exception.InvalidToken;
+import controllers.security.exception.NotAuthenticated;
 
 import javax.ws.rs.core.Cookie;
 
