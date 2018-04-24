@@ -7,7 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/searchable/edits/people")
+@Path("/searchable/suggestions/people")
 public class EditedPeopleResource {
 
     @GET

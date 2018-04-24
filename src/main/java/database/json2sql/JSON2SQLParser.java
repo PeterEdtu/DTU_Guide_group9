@@ -1,4 +1,4 @@
-package json2sql;
+package database.json2sql;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

@@ -10,6 +10,20 @@ public class Person extends Searchable {
     private String role;
     private String room;
 
+    public Person(){
+
+    }
+
+    public Person(int id, String name, String mail, String desc, String picture, String role, String room) {
+        this.id = id;
+        this.name = name;
+        this.mail = mail;
+        this.desc = desc;
+        this.picture = picture;
+        this.role = role;
+        this.room = room;
+    }
+
     public int getId() {
         return id;
     }

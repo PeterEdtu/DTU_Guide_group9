@@ -14,6 +14,19 @@ public class Location extends Searchable {
 
     private double longitude;
 
+    public Location(){
+
+    }
+
+    public Location(String name, String description, int floor, String landmark, double latitude, double longitude) {
+        this.name = name;
+        this.description = description;
+        this.floor = floor;
+        this.landmark = landmark;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public String getName() {
         return name;
     }
