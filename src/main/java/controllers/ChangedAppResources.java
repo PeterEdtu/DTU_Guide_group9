@@ -6,7 +6,7 @@ import controllers.exceptions.ItemOverwriteException;
 import controllers.exceptions.NotFoundException;
 import data.Person;
 import data.Location;
-import database.DummyConnector;
+import database.connector.DummyConnector;
 
 import java.util.ArrayList;
 
@@ -16,10 +16,13 @@ public class ChangedAppResources implements IChangedAppResources {
 
     private static ChangedAppResources controller = null;
 
-    private ChangedAppResources(){};
+    private ChangedAppResources() {
+    }
 
-    public synchronized ChangedAppResources getInstance(){
-        if(controller == null){
+    ;
+
+    public synchronized ChangedAppResources getInstance() {
+        if (controller == null) {
             controller = new ChangedAppResources();
         }
 
@@ -58,7 +61,7 @@ public class ChangedAppResources implements IChangedAppResources {
             if (!(actualLocation.getLongitude() == previousLocation.getLongitude())) {
                 overwrite.setLongitude(actualLocation.getLongitude());
             }
-            if(!actualLocation.getName().equals(previousLocation.getName())){
+            if (!actualLocation.getName().equals(previousLocation.getName())) {
                 overwrite.setName(actualLocation.getName());
             }
 
@@ -66,7 +69,7 @@ public class ChangedAppResources implements IChangedAppResources {
 
             throw exception;
 
-        }else{
+        } else {
             connector.updateLocation(newLoc);
         }
 
@@ -82,20 +85,20 @@ public class ChangedAppResources implements IChangedAppResources {
         return null;
     }
 
-
     @Override
-    public void deleteLocationChange(int id) throws DataAccessException, NotFoundException {
+    public void deleteLocationChange(String name) throws DataAccessException, NotFoundException {
 
     }
 
     @Override
-    public void approveLocation(int id) throws DataAccessException, NotFoundException {
-        connector.createLocation(connector.getSuggestion(id));
+    public void approveLocation(String name) throws DataAccessException, NotFoundException {
+        connector.createLocation(connector.getLocationSuggestion(id));
 
     }
 
     @Override
-    public void putPerson(Person person) throws DataAccessException {
+    public void addPerson(Person person) throws DataAccessException {
+
     }
 
     @Override

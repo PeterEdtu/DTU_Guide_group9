@@ -6,7 +6,8 @@ import controllers.exceptions.ItemOverwriteException;
 import controllers.exceptions.NotFoundException;
 import data.Location;
 import data.Person;
-import database.DummyConnector;
+import database.connector.DummyConnector;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
