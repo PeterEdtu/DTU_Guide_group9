@@ -1,6 +1,6 @@
 package database;
 
-import api.interfaces.IConnector;
+import database.interfaces.IConnector;
 import data.Location;
 import data.Person;
 import data.Suggestion;

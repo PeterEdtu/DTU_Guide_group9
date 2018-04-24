@@ -23,14 +23,14 @@ public class SearchableResource {
         //TODO: Replace with search call.
         ArrayList<Searchable> searchables= new ArrayList<Searchable>();
         Location loc = new Location();
-        loc.name="x1.10";
+        loc.setName("x1.10") ;
         searchables.add(loc);
         Location loc1 = new Location();
-        loc1.name="x1.12";
+        loc1.setName("x1.12");
         searchables.add(loc1);
         Person pers = new Person();
-        pers.name="Arvid";
-        pers.location="x1.12";
+        pers.setName("Arvid");
+        pers.setName("x1.12");
         searchables.add(pers);
 
         return Response.ok(searchables).build();

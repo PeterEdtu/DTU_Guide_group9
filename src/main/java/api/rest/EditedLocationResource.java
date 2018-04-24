@@ -18,7 +18,7 @@ public class EditedLocationResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addNewLocation(Location location){
-        return Response.ok("location-edits-post"+location.name).build();
+        return Response.ok("location-edits-post"+location.getName()).build();
     }
 
     @Path("/{id}")
@@ -33,7 +33,7 @@ public class EditedLocationResource {
 
     public Response updateEditedLocation(@PathParam("id") int id, LocationChange changedLocation){
 
-        return Response.ok("location-edits-id-post"+changedLocation.newLocation.name+changedLocation.oldLocation.name).build();
+        return Response.ok("location-edits-id-post"+changedLocation.newLocation.getName()+changedLocation.oldLocation.getName()).build();
     }
 
     @Path("/{id}")

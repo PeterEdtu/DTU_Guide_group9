@@ -1,4 +1,4 @@
-package api.interfaces;
+package database.interfaces;
 
 import controllers.exceptions.DataAccessException;
 import data.Location;
