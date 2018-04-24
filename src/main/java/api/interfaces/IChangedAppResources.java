@@ -1,8 +1,11 @@
 package api.interfaces;
 
+import controllers.exceptions.DataAccessException;
+import controllers.exceptions.ItemOverwriteException;
+import controllers.exceptions.NotFoundException;
+import data.Location;
 import data.Person;
 
-import javax.xml.stream.Location;
 import java.util.ArrayList;
 
 public interface IChangedAppResources {
@@ -12,15 +15,15 @@ public interface IChangedAppResources {
      * @param loc The location to be added.
      * @return Location that was added including id.
      */
-    Location addLocation(Location loc);
+    Location addLocation(Location loc) throws DataAccessException;
 
-    void updateLocation(Location loc,Location previousLocation);
+    void updateLocation(Location newLoc,Location previousLocation) throws DataAccessException, ItemOverwriteException;
 
-    ArrayList<Location> getAllChangedLocations();
+    ArrayList<Location> getAllChangedLocations() throws NotFoundException;
 
-    Location getLocation(int id);
+    Location getLocation(int id) throws NotFoundException;
 
-    void deleteLocationChange(int id);
+    void deleteLocationChange(int id) throws DataAccessException, NotFoundException;
 
     void approveLocation(int id);
 
