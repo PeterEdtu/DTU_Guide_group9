@@ -1,6 +1,6 @@
 package controllers;
 
-import api.interfaces.IAppResources;
+import controllers.interfaces.IAppResources;
 import data.Searchable;
 
 import java.util.ArrayList;

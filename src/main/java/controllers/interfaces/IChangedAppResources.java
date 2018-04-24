@@ -1,4 +1,4 @@
-package api.interfaces;
+package controllers.interfaces;
 
 import controllers.exceptions.DataAccessException;
 import controllers.exceptions.ItemOverwriteException;
@@ -6,7 +6,6 @@ import controllers.exceptions.NotFoundException;
 import data.Location;
 import data.Person;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public interface IChangedAppResources {

@@ -1,6 +1,6 @@
 package controllers;
 
-import api.interfaces.IAdminControls;
+import controllers.interfaces.IAdminControls;
 
 import java.util.ArrayList;
 

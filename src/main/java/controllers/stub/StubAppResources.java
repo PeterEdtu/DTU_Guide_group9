@@ -1,6 +1,6 @@
 package controllers.stub;
 
-import api.interfaces.IAppResources;
+import controllers.interfaces.IAppResources;
 import data.Location;
 import data.Person;
 import data.Searchable;

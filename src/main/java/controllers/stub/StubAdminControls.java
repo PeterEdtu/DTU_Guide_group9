@@ -1,13 +1,13 @@
 package controllers.stub;
 
-import api.interfaces.IAdminControls;
+import controllers.interfaces.IAdminControls;
 
 import java.util.ArrayList;
 
 
 public class StubAdminControls implements IAdminControls {
 
-ArrayList<String> admins = new ArrayList<String>();
+    ArrayList<String> admins = new ArrayList<String>();
 
     private static StubAdminControls controller = null;
 
@@ -24,21 +24,26 @@ ArrayList<String> admins = new ArrayList<String>();
 
     @Override
     public boolean isAdmin(String username) {
+        if(admins.contains(username)){
+            return true;
+        }
         return false;
     }
 
     @Override
     public ArrayList<String> getAdminNames() {
-        return null;
+        return admins;
     }
 
     @Override
     public void addAdmin(String adminName) {
-
+        if(!admins.contains(adminName)){
+            admins.add(adminName);
+        }
     }
 
     @Override
     public void removeAdmin(String adminName) {
-
+        admins.remove(adminName);
     }
 }

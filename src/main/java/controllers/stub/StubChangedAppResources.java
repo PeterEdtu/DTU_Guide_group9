@@ -1,6 +1,6 @@
 package controllers.stub;
 
-import api.interfaces.IChangedAppResources;
+import controllers.interfaces.IChangedAppResources;
 import controllers.exceptions.DataAccessException;
 import controllers.exceptions.ItemOverwriteException;
 import controllers.exceptions.NotFoundException;

@@ -1,4 +1,4 @@
-package api.interfaces;
+package controllers.interfaces;
 
 import data.Searchable;
 
