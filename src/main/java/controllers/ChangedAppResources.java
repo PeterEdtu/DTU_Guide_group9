@@ -6,7 +6,7 @@ import controllers.exceptions.ItemOverwriteException;
 import controllers.exceptions.NotFoundException;
 import data.Person;
 import data.Location;
-import database.DummyConnector;
+import database.connector.DummyConnector;
 
 import java.util.ArrayList;
 
@@ -16,10 +16,13 @@ public class ChangedAppResources implements IChangedAppResources {
 
     private static ChangedAppResources controller = null;
 
-    private ChangedAppResources(){};
+    private ChangedAppResources() {
+    }
 
-    public synchronized ChangedAppResources getInstance(){
-        if(controller == null){
+    ;
+
+    public synchronized ChangedAppResources getInstance() {
+        if (controller == null) {
             controller = new ChangedAppResources();
         }
 
@@ -58,7 +61,7 @@ public class ChangedAppResources implements IChangedAppResources {
             if (!(actualLocation.getLongitude() == previousLocation.getLongitude())) {
                 overwrite.setLongitude(actualLocation.getLongitude());
             }
-            if(!actualLocation.getName().equals(previousLocation.getName())){
+            if (!actualLocation.getName().equals(previousLocation.getName())) {
                 overwrite.setName(actualLocation.getName());
             }
 
@@ -66,7 +69,7 @@ public class ChangedAppResources implements IChangedAppResources {
 
             throw exception;
 
-        }else{
+        } else {
             connector.updateLocation(newLoc);
         }
 
@@ -89,15 +92,12 @@ public class ChangedAppResources implements IChangedAppResources {
 
     @Override
     public void approveLocation(String name) throws DataAccessException, NotFoundException {
-
-    }
+        connector.createLocation(connector.getSuggestion(1));
 
     @Override
     public void addPerson(Person person) throws DataAccessException {
 
     }
-
-
 
     @Override
     public void updatePerson(Person person, Person previousPerson) throws DataAccessException, ItemOverwriteException {

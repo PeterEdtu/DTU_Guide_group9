@@ -1,6 +1,7 @@
-package database;
+package database.connector;
 
 import controllers.exceptions.DataAccessException;
+import data.ISuggestion;
 import database.interfaces.IConnector;
 import data.Location;
 import data.Person;
@@ -16,7 +17,7 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
-    public HashMap<Integer, SuggestionLocation> getSuggestions() throws DataAccessException {
+    public HashMap<Integer, ISuggestion> getSuggestions() throws DataAccessException {
         return null;
     }
 
@@ -26,17 +27,17 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
-    public SuggestionLocation getSuggestion(int id) throws DataAccessException {
+    public SuggestionLocation getLocationSuggestion(int id) throws DataAccessException {
         return null;
     }
 
     @Override
-    public HashMap<Integer, Person> getPersons() throws DataAccessException {
+    public HashMap<Integer, Person> getPeople() throws DataAccessException {
         return null;
     }
 
     @Override
-    public HashMap<Integer, Person> getPersons(String stringMatch) throws DataAccessException {
+    public HashMap<Integer, Person> getPeople(String stringMatch) throws DataAccessException {
         return null;
     }
 
@@ -46,19 +47,20 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
-    public void deleteLocation(Person person) throws DataAccessException {
+    public void deleteLocation(String locationName) throws DataAccessException {
 
     }
 
     @Override
-    public void deleteLocation(Location location) throws DataAccessException {
+    public void createLocationSuggestion(ISuggestion suggestion) throws DataAccessException {
 
     }
 
     @Override
-    public void createSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException {
+    public void updateSuggestion(ISuggestion suggestion) throws DataAccessException {
 
     }
+
 
     @Override
     public void updateSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException {
@@ -66,7 +68,7 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
-    public void deleteSuggestion(int id) throws DataAccessException {
+    public void deleteLocationSuggestion(int id) throws DataAccessException {
 
     }
 

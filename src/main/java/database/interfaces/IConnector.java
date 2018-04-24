@@ -17,21 +17,23 @@ public interface IConnector {
 
     List<String> getAdmins() throws DataAccessException;
 
-    ISuggestion getSuggestion(int id) throws DataAccessException;
+    ISuggestion getLocationSuggestion(int id) throws DataAccessException;
 
-    HashMap<Integer, Person> getPersons() throws DataAccessException;
+    HashMap<Integer, Person> getPeople() throws DataAccessException;
 
-    HashMap<Integer, Person> getPersons(String stringMatch) throws DataAccessException;
+    HashMap<Integer, Person> getPeople(String stringMatch) throws DataAccessException;
 
     void updateLocation(Location location) throws DataAccessException;
 
     void deleteLocation(String locationName) throws DataAccessException;
 
-    void createSuggestion(ISuggestion suggestion) throws DataAccessException;
+    void createLocationSuggestion(ISuggestion suggestion) throws DataAccessException;
 
     void updateSuggestion(ISuggestion suggestion) throws DataAccessException;
 
-    void deleteSuggestion(int id) throws DataAccessException;
+    void updateSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException;
+
+    void deleteLocationSuggestion(int id) throws DataAccessException;
 
     void updatePerson(Person person) throws DataAccessException;
 
