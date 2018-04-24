@@ -1,5 +1,6 @@
 package database;//STEP 1. Import required packages
 
+import data.ISuggestion;
 import database.interfaces.IConnector;
 import controllers.exceptions.DataAccessException;
 import data.Location;
@@ -62,7 +63,7 @@ public class Connector implements IConnector {
 
     //Possible redundant, needs further work/removal.
     @Override
-    public HashMap<Integer, SuggestionLocation> getSuggestions() throws DataAccessException {
+    public HashMap<Integer, ISuggestion> getSuggestions() throws DataAccessException {
         establishedConnection();
         Statement stmt = null;
         SuggestionLocation suggestionLocation = null;
@@ -220,24 +221,33 @@ public class Connector implements IConnector {
     @Override
     public void createLocation(Location location) throws DataAccessException {
         establishedConnection();
-        Statement stmt = null;
+        PreparedStatement preparedStatement = null;
 
         //Execute a query.
         try {
-            stmt = establishedConnection().createStatement();
+            String sqlCreateLocation = "INSERT INTO locations (loc_name, loc_desc, loc_floor, loc_landmark, loc_latitude, loc_longitude)" +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
+            preparedStatement = establishedConnection().prepareStatement(sqlCreateLocation);
+            preparedStatement.setString(1, location.getName());
+            preparedStatement.setString(2, location.getDescription());
+            preparedStatement.setInt(3, location.getFloor());
+            preparedStatement.setString(4, location.getLandmark());
+            preparedStatement.setDouble(5, location.getLatitude());
+            preparedStatement.setDouble(6, location.getLongitude());
+            preparedStatement.executeQuery();
         } catch (SQLException e) {
-            throw new DataAccessException("Failed to create statement. Verify connection to database: " + e.getMessage());
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
 
-        String sql;
-        sql = "INSERT INTO locations (loc_name, loc_desc, loc_floor, loc_landmark, loc_latitude, loc_longitude)" +
-                "VALUES (" + location.getName() + ", " + location.getDescription() + ", " + location.getFloor() + ", " + location.getLandmark() + ", " + location.getLatitude() + ", " + location.getLongitude() + ");";
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
 
-        try {
-            stmt.execute(sql);
-            System.out.println("SQL command executed problemfree.");
-        } catch (SQLException e) {
-            throw new DataAccessException("SQL command failed to execute: " + e.getMessage());
+            }
         }
     }
 
@@ -248,78 +258,66 @@ public class Connector implements IConnector {
     }
 
     @Override
-    public void deleteLocation(Person person) {
+    public void createSuggestion(ISuggestion suggestion) throws DataAccessException {
 
     }
 
     @Override
-    public void deleteLocation(Location location) throws DataAccessException {
+    public void updateSuggestion(ISuggestion suggestion) throws DataAccessException {
+
+    }
+
+
+    @Override
+    public void deleteLocation(String locationName) throws DataAccessException {
         establishedConnection();
-        Statement stmt = null;
+        PreparedStatement preparedStatement = null;
 
         //Execute a query.
         try {
-            stmt = establishedConnection().createStatement();
+            String sql = "DELETE FROM locations WHERE loc_name = ?";
+            preparedStatement = establishedConnection().prepareStatement(sql);
+            preparedStatement.setString(1, locationName);
+            preparedStatement.executeQuery();
         } catch (SQLException e) {
-            throw new DataAccessException("Failed to create statement. Verify connection to database: " + e.getMessage());
+            System.out.println("Failed to create statement. Verify connection to database: " + e.getMessage());
         }
-
-        String sql;
-        sql = "DELETE FROM locations WHERE loc_name = '" + location.getName() + "';";
-
-        try {
-            stmt.executeQuery(sql);
-        } catch (SQLException e) {
-            throw new DataAccessException("SQL command failed to execute: " + e.getMessage());
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+            }
         }
-
-        try {
-            establishedConnection().close();
-            stmt.close();
-        } catch (SQLException e) {
-            throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
-        }
-
     }
 
-    @Override
-    public void createSuggestion(SuggestionLocation suggestionLocation) {
-
-    }
-
-    @Override
-    public void updateSuggestion(SuggestionLocation suggestionLocation) {
-
-    }
 
     @Override
     public void deleteSuggestion(int id) {
         establishedConnection();
-        Statement stmt = null;
+        PreparedStatement preparedStatement = null;
 
         //Execute a query.
         try {
-            stmt = establishedConnection().createStatement();
+            String sqlDeleteSuggestion = "DELETE FROM suggestions WHERE suggestion_loc_id= ?";
+            preparedStatement = establishedConnection().prepareStatement(sqlDeleteSuggestion);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeQuery();
         } catch (SQLException e) {
             System.out.println("Failed to create statement. Verify connection to database: " + e.getMessage());
         }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
 
-        String sql;
-        sql = "DELETE FROM suggestion WHERE suggestion_loc_ID = '" + id + "';";
-
-        try {
-            stmt.executeQuery(sql);
-        } catch (SQLException e) {
-            System.out.println("SQL command failed to execute: " + e.getMessage());
+            }
         }
-
-        try {
-            establishedConnection().close();
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println("Failed to close connection/statement: " + e.getMessage());
-        }
-
     }
 
     @Override
@@ -335,29 +333,26 @@ public class Connector implements IConnector {
     @Override
     public void deletePerson(int id) {
         establishedConnection();
-        Statement stmt = null;
+        PreparedStatement preparedStatement = null;
 
         //Execute a query.
         try {
-            stmt = establishedConnection().createStatement();
+            String sql = "DELETE FROM people WHERE ppl_ID = ?";
+            preparedStatement = establishedConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeQuery();
         } catch (SQLException e) {
             System.out.println("Failed to create statement. Verify connection to database: " + e.getMessage());
         }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
 
-        String sql;
-        sql = "DELETE FROM people WHERE ppl_ID = '" + id + "';";
-
-        try {
-            stmt.executeQuery(sql);
-        } catch (SQLException e) {
-            System.out.println("SQL command failed to execute: " + e.getMessage());
-        }
-
-        try {
-            establishedConnection().close();
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
         }
     }
 
