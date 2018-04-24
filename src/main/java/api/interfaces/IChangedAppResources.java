@@ -6,6 +6,7 @@ import controllers.exceptions.NotFoundException;
 import data.Location;
 import data.Person;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public interface IChangedAppResources {
@@ -15,26 +16,25 @@ public interface IChangedAppResources {
      * @param loc The location to be added.
      * @return Location that was added including id.
      */
-    Location addLocation(Location loc) throws DataAccessException;
+    void addLocation(Location loc) throws DataAccessException;
 
     void updateLocation(Location newLoc,Location previousLocation) throws DataAccessException, ItemOverwriteException;
 
-    ArrayList<Location> getAllChangedLocations() throws NotFoundException;
+    ArrayList<Location> getAllChangedLocations() throws DataAccessException, NotFoundException;
 
-    Location getLocation(int id) throws NotFoundException;
+    Location getLocation(int id) throws DataAccessException, NotFoundException;
 
     void deleteLocationChange(int id) throws DataAccessException, NotFoundException;
 
-    void approveLocation(int id);
+    void approveLocation(int id) throws DataAccessException, NotFoundException;
 
+    void putPerson(Person person) throws DataAccessException;
 
-    Person putPerson(Person person);
-
-    void updatePerson(Person person, Person previousPerson);
+    void updatePerson(Person person, Person previousPerson) throws DataAccessException, ItemOverwriteException;
 
     ArrayList<Person> getAllChangedPeople();
 
-    Person getPerson(int id);
+    Person getPerson(int id) throws DataAccessException, NotFoundException;
 
     void deletePersonChange(int id);
 

@@ -1,7 +1,9 @@
 package controllers;
 
 import api.interfaces.IChangedAppResources;
+import controllers.exceptions.DataAccessException;
 import controllers.exceptions.ItemOverwriteException;
+import controllers.exceptions.NotFoundException;
 import data.Person;
 import database.Connector;
 import data.Location;
@@ -11,73 +13,83 @@ import database.DummyConnector;
 
 import java.util.ArrayList;
 
-public class ChangedAppResources implements IChangedAppResources{
+public class ChangedAppResources implements IChangedAppResources {
 
     DummyConnector connector = new DummyConnector();
 
     @Override
-    public Location addLocation(Location loc) {
+    public void addLocation(Location loc) throws DataAccessException {
+        connector.createLocation(loc);
+    }
+
+    @Override
+    public void updateLocation(Location newLoc, Location previousLocation) throws ItemOverwriteException, DataAccessException {
+        //Compare the previousLocation with the
+        //actual (instance) location before update it
+        //with the variable "newLoc" wich is the new location
+
+        Location actualLocation = connector.getLocations(previousLocation.getName()).get(previousLocation.getName());
+
+        Location overwrite = new Location();
+
+        if (!actualLocation.equals(previousLocation)) {
+
+            if (!actualLocation.getDescription().equals(previousLocation.getDescription())) {
+                overwrite.setDescription(actualLocation.getDescription());
+            }
+            if (!(actualLocation.getFloor() == previousLocation.getFloor())) {
+                overwrite.setFloor(actualLocation.getFloor());
+            }
+            if (!actualLocation.getLandmark().equals(previousLocation.getLandmark())) {
+                overwrite.setLandmark(actualLocation.getLandmark());
+            }
+            if (!(actualLocation.getLatitude() == previousLocation.getLatitude())) {
+                overwrite.setLatitude(actualLocation.getLatitude());
+            }
+            if (!(actualLocation.getLongitude() == previousLocation.getLongitude())) {
+                overwrite.setLongitude(actualLocation.getLongitude());
+            }
+            if(!actualLocation.getName().equals(previousLocation.getName())){
+                overwrite.setName(actualLocation.getName());
+            }
+
+            ItemOverwriteException exception = new ItemOverwriteException(overwrite);
+
+            throw exception;
+
+        }else{
+            connector.updateLocation(newLoc);
+        }
+
+    }
+
+    @Override
+    public ArrayList<Location> getAllChangedLocations() throws DataAccessException, NotFoundException {
         return null;
     }
 
     @Override
-    public void updateLocation(Location newLoc, Location previousLocation) { //Compare the previousLocation with the
-                                                                        //actual (instance) location before update it
-                                                                    //with the variable "newLoc" wich is the new location
-
-    Location actualLocation = connector.getLocations(previousLocation.getName()).get(previousLocation.getName());
-
-    Location overwrite = new Location();
-
-    if(actualLocation.equals(previousLocation)) {
-
-        if (!actualLocation.getDescription().equals(previousLocation.getDescription())) {
-            overwrite.setDescription(actualLocation.getDescription());
-        }
-        if (!(actualLocation.getFloor() == previousLocation.getFloor())) {
-            overwrite.setFloor(actualLocation.getFloor());
-        }
-        if (!actualLocation.getLandmark().equals(previousLocation.getLandmark())) {
-            overwrite.setLandmark(actualLocation.getLandmark());
-        }
-        if (!(actualLocation.getLatitude() == previousLocation.getLatitude())) {
-
-        }
-
-        ItemOverwriteException exception = new ItemOverwriteException(overwrite);
-
-    }
-
-
-    }
-
-    @Override
-    public ArrayList<Location> getAllChangedLocations() {
+    public Location getLocation(int id) throws DataAccessException, NotFoundException {
         return null;
     }
 
     @Override
-    public Location getLocation(int id) {
-        return null;
-    }
-
-    @Override
-    public void deleteLocationChange(int id) {
+    public void deleteLocationChange(int id) throws DataAccessException, NotFoundException {
 
     }
 
     @Override
-    public void approveLocation(int id) {
+    public void approveLocation(int id) throws DataAccessException, NotFoundException {
+        connector.createLocation(connector.getSuggestion(id));
 
     }
 
     @Override
-    public Person putPerson(Person person) {
-        return null;
+    public void putPerson(Person person) throws DataAccessException {
     }
 
     @Override
-    public void updatePerson(Person person, Person previousPerson) {
+    public void updatePerson(Person person, Person previousPerson) throws DataAccessException, ItemOverwriteException {
 
     }
 
@@ -87,7 +99,7 @@ public class ChangedAppResources implements IChangedAppResources{
     }
 
     @Override
-    public Person getPerson(int id) {
+    public Person getPerson(int id) throws DataAccessException, NotFoundException {
         return null;
     }
 
