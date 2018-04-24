@@ -5,10 +5,7 @@ import controllers.exceptions.DataAccessException;
 import controllers.exceptions.ItemOverwriteException;
 import controllers.exceptions.NotFoundException;
 import data.Person;
-import database.Connector;
 import data.Location;
-import data.Person;
-import data.Suggestion;
 import database.DummyConnector;
 
 import java.util.ArrayList;
@@ -16,6 +13,18 @@ import java.util.ArrayList;
 public class ChangedAppResources implements IChangedAppResources {
 
     DummyConnector connector = new DummyConnector();
+
+    private static ChangedAppResources controller = null;
+
+    private ChangedAppResources(){};
+
+    public synchronized ChangedAppResources getInstance(){
+        if(controller == null){
+            controller = new ChangedAppResources();
+        }
+
+        return controller;
+    }
 
     @Override
     public void addLocation(Location loc) throws DataAccessException {
@@ -69,9 +78,10 @@ public class ChangedAppResources implements IChangedAppResources {
     }
 
     @Override
-    public Location getLocation(int id) throws DataAccessException, NotFoundException {
+    public Location getLocation(String name) throws DataAccessException, NotFoundException {
         return null;
     }
+
 
     @Override
     public void deleteLocationChange(int id) throws DataAccessException, NotFoundException {

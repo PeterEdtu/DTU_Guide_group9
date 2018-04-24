@@ -4,7 +4,7 @@ import api.interfaces.IConnector;
 import controllers.exceptions.DataAccessException;
 import data.Location;
 import data.Person;
-import data.Suggestion;
+import data.SuggestionLocation;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +17,7 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
-    public HashMap<Integer, Suggestion> getSuggestions() throws DataAccessException {
+    public HashMap<Integer, SuggestionLocation> getSuggestions() throws DataAccessException {
         return null;
     }
 
@@ -27,7 +27,7 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
-    public Suggestion getSuggestion(int id) throws DataAccessException {
+    public SuggestionLocation getSuggestion(int id) throws DataAccessException {
         return null;
     }
 
@@ -57,12 +57,12 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
-    public void createSuggestion(Suggestion suggestion) throws DataAccessException {
+    public void createSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException {
 
     }
 
     @Override
-    public void updateSuggestion(Suggestion suggestion) throws DataAccessException {
+    public void updateSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException {
 
     }
 

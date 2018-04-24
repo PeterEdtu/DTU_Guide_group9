@@ -4,7 +4,7 @@ import api.interfaces.IConnector;
 import controllers.exceptions.DataAccessException;
 import data.Location;
 import data.Person;
-import data.Suggestion;
+import data.SuggestionLocation;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -62,10 +62,10 @@ public class Connector implements IConnector {
 
     //Possible redundant, needs further work/removal.
     @Override
-    public HashMap<Integer, Suggestion> getSuggestions() throws DataAccessException {
+    public HashMap<Integer, SuggestionLocation> getSuggestions() throws DataAccessException {
         establishedConnection();
         Statement stmt = null;
-        Suggestion suggestion = null;
+        SuggestionLocation suggestionLocation = null;
         //Execute a query.
         try {
             stmt = establishedConnection().createStatement();
@@ -79,14 +79,14 @@ public class Connector implements IConnector {
         try {
             ResultSet resultSet = stmt.executeQuery(sql);
             while (resultSet.next()) {
-                suggestion.setAuthor(resultSet.getString("suggestion_person_name"));
-                suggestion.setName(resultSet.getString("suggestion_loc_name"));
-                suggestion.setDescription(resultSet.getString("suggestion_loc_desc"));
-                suggestion.setFloor(resultSet.getInt("suggestion_loc_floor"));
-                suggestion.setLandmark(resultSet.getString("suggestion_loc_landmark"));
-                suggestion.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
-                suggestion.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
-                suggestion.setDate(resultSet.getDate("suggestion_date"));
+                suggestionLocation.setAuthor(resultSet.getString("suggestion_person_name"));
+                suggestionLocation.setName(resultSet.getString("suggestion_loc_name"));
+                suggestionLocation.setDescription(resultSet.getString("suggestion_loc_desc"));
+                suggestionLocation.setFloor(resultSet.getInt("suggestion_loc_floor"));
+                suggestionLocation.setLandmark(resultSet.getString("suggestion_loc_landmark"));
+                suggestionLocation.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
+                suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
+                suggestionLocation.setDate(resultSet.getDate("suggestion_date"));
             }
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute: " + e.getMessage());
@@ -130,10 +130,10 @@ public class Connector implements IConnector {
     }
 
     @Override
-    public Suggestion getSuggestion(int id) {
+    public SuggestionLocation getSuggestion(int id) {
         establishedConnection();
         Statement stmt = null;
-        Suggestion suggestion = null;
+        SuggestionLocation suggestionLocation = null;
 
         //Execute a query.
         try {
@@ -148,14 +148,14 @@ public class Connector implements IConnector {
         try {
             ResultSet resultSet = stmt.executeQuery(sql);
             while (resultSet.next()) {
-                suggestion.setAuthor(resultSet.getString("suggestion_person_name"));
-                suggestion.setName(resultSet.getString("suggestion_loc_name"));
-                suggestion.setDescription(resultSet.getString("suggestion_loc_desc"));
-                suggestion.setFloor(resultSet.getInt("suggestion_loc_floor"));
-                suggestion.setLandmark(resultSet.getString("suggestion_loc_landmark"));
-                suggestion.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
-                suggestion.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
-                suggestion.setDate(resultSet.getDate("suggestion_date"));
+                suggestionLocation.setAuthor(resultSet.getString("suggestion_person_name"));
+                suggestionLocation.setName(resultSet.getString("suggestion_loc_name"));
+                suggestionLocation.setDescription(resultSet.getString("suggestion_loc_desc"));
+                suggestionLocation.setFloor(resultSet.getInt("suggestion_loc_floor"));
+                suggestionLocation.setLandmark(resultSet.getString("suggestion_loc_landmark"));
+                suggestionLocation.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
+                suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
+                suggestionLocation.setDate(resultSet.getDate("suggestion_date"));
             }
         } catch (SQLException e) {
             System.out.println("SQL command failed to execute: " + e.getMessage());
@@ -283,12 +283,12 @@ public class Connector implements IConnector {
     }
 
     @Override
-    public void createSuggestion(Suggestion suggestion) {
+    public void createSuggestion(SuggestionLocation suggestionLocation) {
 
     }
 
     @Override
-    public void updateSuggestion(Suggestion suggestion) {
+    public void updateSuggestion(SuggestionLocation suggestionLocation) {
 
     }
 

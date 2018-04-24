@@ -22,7 +22,7 @@ public interface IChangedAppResources {
 
     ArrayList<Location> getAllChangedLocations() throws DataAccessException, NotFoundException;
 
-    Location getLocation(int id) throws DataAccessException, NotFoundException;
+    Location getLocation(String name) throws DataAccessException, NotFoundException;
 
     void deleteLocationChange(int id) throws DataAccessException, NotFoundException;
 

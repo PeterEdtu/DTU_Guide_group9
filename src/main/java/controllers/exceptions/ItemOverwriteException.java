@@ -2,13 +2,13 @@ package controllers.exceptions;
 
 import data.Location;
 import data.Person;
-import data.Suggestion;
+import data.SuggestionLocation;
 
 public class ItemOverwriteException extends Exception {
 
     private Location overwriteLoc;
     private Person overwritePer;
-    private Suggestion overwriteSug;
+    private SuggestionLocation overwriteSug;
 
     public Location getOverwriteLoc() {
         return overwriteLoc;
@@ -26,11 +26,11 @@ public class ItemOverwriteException extends Exception {
         this.overwritePer = overwritePer;
     }
 
-    public Suggestion getOverwriteSug() {
+    public SuggestionLocation getOverwriteSug() {
         return overwriteSug;
     }
 
-    public void setOverwriteSug(Suggestion overwriteSug) {
+    public void setOverwriteSug(SuggestionLocation overwriteSug) {
         this.overwriteSug = overwriteSug;
     }
 
@@ -44,7 +44,7 @@ public class ItemOverwriteException extends Exception {
         this.overwritePer = overwritePer;
     }
 
-    public ItemOverwriteException(Suggestion overwriteSug){
+    public ItemOverwriteException(SuggestionLocation overwriteSug){
         this.overwriteSug = overwriteSug;
     }
 }

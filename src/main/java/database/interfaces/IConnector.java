@@ -1,9 +1,10 @@
 package api.interfaces;
 
 import controllers.exceptions.DataAccessException;
+import data.ISuggestion;
 import data.Location;
 import data.Person;
-import data.Suggestion;
+import data.SuggestionLocation;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,11 +13,11 @@ public interface IConnector {
 
     HashMap<String, Location> getLocations(String stringMatch) throws DataAccessException;
 
-    HashMap<Integer, Suggestion> getSuggestions()throws DataAccessException;
+    HashMap<Integer, ISuggestion> getSuggestions()throws DataAccessException;
 
     List<String> getAdmins() throws DataAccessException;
 
-    Suggestion getSuggestion(int id) throws DataAccessException;
+    ISuggestion getSuggestion(int id) throws DataAccessException;
 
     HashMap<Integer, Person> getPersons() throws DataAccessException;
 
@@ -24,13 +25,11 @@ public interface IConnector {
 
     void updateLocation(Location location) throws DataAccessException;
 
-    void deleteLocation(Person person) throws DataAccessException;
+    void deleteLocation(String locationName) throws DataAccessException;
 
-    void deleteLocation(Location location) throws DataAccessException;
+    void createSuggestion(ISuggestion suggestion) throws DataAccessException;
 
-    void createSuggestion(Suggestion suggestion) throws DataAccessException;
-
-    void updateSuggestion(Suggestion suggestion) throws DataAccessException;
+    void updateSuggestion(ISuggestion suggestion) throws DataAccessException;
 
     void deleteSuggestion(int id) throws DataAccessException;
 

@@ -2,7 +2,9 @@ package data;
 
 import java.util.Date;
 
-public class Suggestion extends Location {
+public class SuggestionLocation extends Location implements ISuggestion {
+
+    private int suggestionID;
 
     private Date date;
     private String author;
@@ -23,13 +25,23 @@ public class Suggestion extends Location {
         this.author = author;
     }
 
-    public Suggestion(Date date, String author){
+    public int getSuggestionID() {
+        return suggestionID;
+    }
+
+    public void setSuggestionID(int id) {
+        this.suggestionID = suggestionID;
+    }
+
+    public SuggestionLocation(int suggestionID, Date date, String author){
         super();
 
+        this.suggestionID = suggestionID;
         this.date = date;
         this.author = author;
 
 
     }
+
 }
 
