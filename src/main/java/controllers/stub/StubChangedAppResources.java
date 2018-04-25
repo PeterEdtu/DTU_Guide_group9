@@ -16,14 +16,15 @@ import java.util.HashMap;
 
 public class StubChangedAppResources implements IChangedAppResources {
 
-    ArrayList<SuggestionPerson> people;
-    HashMap<String, SuggestionLocation> location;
+    int id=0;
+    HashMap<Integer,SuggestionPerson> people;
+    HashMap<Integer, SuggestionLocation> location;
 
 
     private static StubChangedAppResources controller = null;
 
     private StubChangedAppResources(){
-        people = new ArrayList<>();
+        people = new HashMap<>();
         location = new HashMap<>();
     }
 
@@ -37,7 +38,8 @@ public class StubChangedAppResources implements IChangedAppResources {
 
     @Override
     public void addLocation(SuggestionLocation loc) throws DataAccessException {
-        location.put(loc.getName(),loc);
+
+        location.put(id++,loc);
     }
 
     @Override
@@ -46,7 +48,7 @@ public class StubChangedAppResources implements IChangedAppResources {
             throw new ItemOverwriteException();
         }
 
-        location.put(newLoc.getName(),newLoc);
+        location.put(newLoc.getSuggestionID(),newLoc);
 
     }
 
@@ -74,18 +76,18 @@ public class StubChangedAppResources implements IChangedAppResources {
     @Override
     public void addPerson(SuggestionPerson person) throws DataAccessException {
 
-        people.add(person);
+        people.put(id++,person);
     }
 
     @Override
     public void updatePerson(SuggestionPerson person, SuggestionPerson previousPerson) throws DataAccessException, ItemOverwriteException {
-        people.remove(person.getId());
-        people.add(person);
+
+        people.put(person.getSuggestionID(),person);
     }
 
     @Override
     public ArrayList<SuggestionPerson> getAllChangedPeople() {
-        return people;
+        return (ArrayList)people.values();
     }
 
     @Override
