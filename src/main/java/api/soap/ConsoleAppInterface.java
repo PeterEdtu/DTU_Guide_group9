@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public interface ConsoleAppInterface {
 
     @WebMethod
-    void addAdmin(String name);
+    boolean addAdmin(String name);
     @WebMethod
-    void removeAdmin(String name);
+    boolean removeAdmin(String name);
     @WebMethod
     ArrayList<String> getAdminList();
 }

@@ -8,13 +8,14 @@ import java.util.ArrayList;
 public class ConsoleAppEndpoint implements ConsoleAppInterface {
 
     @Override
-    public void addAdmin(String name) {
-
+    public boolean addAdmin(String name) {
+        System.out.println("It worked!");
+        return true;
     }
 
     @Override
-    public void removeAdmin(String name) {
-
+    public boolean removeAdmin(String name) {
+        return true;
     }
 
     @Override
