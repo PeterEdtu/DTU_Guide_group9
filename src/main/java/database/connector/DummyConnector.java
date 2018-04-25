@@ -20,8 +20,18 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
-    public List<String> getAdmins() throws DataAccessException {
+    public ArrayList<String> getAdmins() throws DataAccessException {
         return null;
+    }
+
+    @Override
+    public void createAdmin(String adminName) throws DataAccessException {
+
+    }
+
+    @Override
+    public void deleteAdmin(String adminName) throws DataAccessException {
+
     }
 
     @Override

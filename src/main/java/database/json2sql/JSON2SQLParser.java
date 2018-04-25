@@ -18,7 +18,7 @@ public class JSON2SQLParser {
         persons.putAll(objPersons);
 
         for (Map.Entry<String, HashMap> entryPersons : persons.entrySet()) {
-            String pplName = (String) entryPersons.getKey();
+//Unneeded            String pplName = (String) entryPersons.getKey();
             String pplRawName = (String) entryPersons.getValue().get("name");
             String pplMail = (String) entryPersons.getValue().get("email");
             String pplDesc = (String) entryPersons.getValue().get("description");
@@ -26,7 +26,7 @@ public class JSON2SQLParser {
             String pplRole = (String) entryPersons.getValue().get("role");
             String pplRoomName = (String) entryPersons.getValue().get("roomName");
 
-            System.out.println("(\"" + pplName + "\", \"" + pplRawName + "\", \"" + pplMail + "\", \"" + pplDesc + "\", \"" + pplPictureURL + "\", \"" + pplRole + "\", \"" + pplRoomName + "\"),");
+            System.out.println("(\"" + pplRawName + "\", \"" + pplMail + "\", \"" + pplDesc + "\", \"" + pplPictureURL + "\", \"" + pplRole + "\", \"" + pplRoomName + "\"),");
         }
 
         JSONObject objLocations = (JSONObject) ((JSONObject) new JSONParser().parse(new FileReader("src/main/resources/json_backup/dist_locations.json"))).get("Locations");
