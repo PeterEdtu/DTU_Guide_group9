@@ -6,6 +6,8 @@ import controllers.exceptions.ItemOverwriteException;
 import controllers.exceptions.NotFoundException;
 import data.Location;
 import data.Person;
+import data.SuggestionLocation;
+import data.SuggestionPerson;
 import database.connector.DummyConnector;
 
 
@@ -14,8 +16,8 @@ import java.util.HashMap;
 
 public class StubChangedAppResources implements IChangedAppResources {
 
-    ArrayList<Person> people;
-    HashMap<String, Location> location;
+    ArrayList<SuggestionPerson> people;
+    HashMap<String, SuggestionLocation> location;
 
 
     private static StubChangedAppResources controller = null;
@@ -34,12 +36,12 @@ public class StubChangedAppResources implements IChangedAppResources {
     }
 
     @Override
-    public void addLocation(Location loc) throws DataAccessException {
+    public void addLocation(SuggestionLocation loc) throws DataAccessException {
         location.put(loc.getName(),loc);
     }
 
     @Override
-    public void updateLocation(Location newLoc, Location previousLocation) throws ItemOverwriteException, DataAccessException {
+    public void updateLocation(SuggestionLocation newLoc, SuggestionLocation previousLocation) throws ItemOverwriteException, DataAccessException {
         if(previousLocation==null){
             throw new ItemOverwriteException();
         }
@@ -49,45 +51,45 @@ public class StubChangedAppResources implements IChangedAppResources {
     }
 
     @Override
-    public ArrayList<Location> getAllChangedLocations() throws DataAccessException, NotFoundException {
+    public ArrayList<SuggestionLocation> getAllChangedLocations() throws DataAccessException, NotFoundException {
         return (ArrayList)location.values();
     }
 
     @Override
-    public Location getLocation(String name) throws DataAccessException, NotFoundException {
-        return location.get(name);
+    public SuggestionLocation getLocation(int id) throws DataAccessException, NotFoundException {
+        return location.get(id);
     }
 
 
     @Override
-    public void deleteLocationChange(String name) throws DataAccessException, NotFoundException {
-        location.remove(name);
+    public void deleteLocationChange(int id) throws DataAccessException, NotFoundException {
+        location.remove(id);
     }
 
     @Override
-    public void approveLocation(String name) throws DataAccessException, NotFoundException {
-        location.remove(name);
+    public void approveLocation(int id) throws DataAccessException, NotFoundException {
+        location.remove(id);
     }
 
     @Override
-    public void addPerson(Person person) throws DataAccessException {
+    public void addPerson(SuggestionPerson person) throws DataAccessException {
 
         people.add(person);
     }
 
     @Override
-    public void updatePerson(Person person, Person previousPerson) throws DataAccessException, ItemOverwriteException {
+    public void updatePerson(SuggestionPerson person, SuggestionPerson previousPerson) throws DataAccessException, ItemOverwriteException {
         people.remove(person.getId());
         people.add(person);
     }
 
     @Override
-    public ArrayList<Person> getAllChangedPeople() {
+    public ArrayList<SuggestionPerson> getAllChangedPeople() {
         return people;
     }
 
     @Override
-    public Person getPerson(int id) throws DataAccessException, NotFoundException {
+    public SuggestionPerson getPerson(int id) throws DataAccessException, NotFoundException {
         return people.get(id);
     }
 
