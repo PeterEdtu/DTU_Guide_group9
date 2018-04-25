@@ -1,13 +1,14 @@
-package database.connector;//STEP 1. Import required packages
+package database.connector;
 
-import data.ISuggestion;
-import database.interfaces.IConnector;
 import controllers.exceptions.DataAccessException;
 import data.Location;
 import data.Person;
 import data.SuggestionLocation;
+import data.SuggestionPerson;
+import database.interfaces.IConnector;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,327 +22,6 @@ public class Connector implements IConnector {
     static final String USER = "root";
     static final String PASS = "Mads";
 
-    // Find a way to add information to Hashmap
-    @Override
-    public HashMap<String, Location> getLocations(String stringMatch) {
-        establishedConnection();
-        String sqlGetLocations = "SELECT * FROM locations WHERE loc_name LIKE ?";
-        try {
-            PreparedStatement preparedStatement = establishedConnection().prepareStatement(sqlGetLocations);
-            preparedStatement.setString(1, stringMatch);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-//                getLocations(stringMatch).put(resultSet.getString("ppl_ID"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-        return getLocations(stringMatch);
-    }
-
-    //Needs further work.
-    @Override
-    public HashMap<Integer, ISuggestion> getSuggestions() throws DataAccessException {
-        establishedConnection();
-        String sql = "SELECT * FROM suggestions;";
-        try {
-            PreparedStatement preparedStatement = establishedConnection().prepareStatement(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return getSuggestions();
-
-    }
-
-    @Override
-    public List<String> getAdmins() throws DataAccessException {
-        establishedConnection();
-        Statement stmt = null;
-
-        //Execute query.
-        try {
-            stmt = establishedConnection().createStatement();
-        } catch (SQLException e) {
-            System.out.println("Failed to create statement. Verify connection to database: " + e.getMessage());
-        }
-
-        String sql;
-        sql = "SELECT * FROM people_admins;";
-
-        try {
-            ResultSet resultSet = stmt.executeQuery(sql);
-            while (resultSet.next()) {
-                getAdmins().add(resultSet.getString("admin_name"));
-            }
-        } catch (SQLException e) {
-            throw new DataAccessException("SQL command failed to execute: " + e.getMessage());
-        }
-
-        return getAdmins();
-    }
-
-    @Override
-    public SuggestionLocation getLocationSuggestion(int id) {
-        establishedConnection();
-        PreparedStatement preparedStatement = null;
-
-        String sqlGetLocationSuggestion = "SELECT * FROM suggestion_locations WHERE ";
-
-
-        return getLocationSuggestion(id);
-    }
-
-    @Override
-    public HashMap<Integer, Person> getPeople() throws DataAccessException {
-        return null;
-    }
-
-
-    @Override
-    public HashMap<Integer, Person> getPeople(String stringMatch) throws DataAccessException {
-        establishedConnection();
-        PreparedStatement preparedStatement = null;
-        Person person = null;
-        String sqlGetPeople = "SELECT * FROM people WHERE ppl_raw_name = ?;";
-
-        try {
-            ResultSet resultSet = preparedStatement.executeQuery(sqlGetPeople);
-
-            while (resultSet.next()) {
-
-                person.setName(resultSet.getString(""));
-                person.setDesc(resultSet.getString(""));
-                person.setMail(resultSet.getString(""));
-                person.setPicture(resultSet.getString(""));
-                person.setRole(resultSet.getString(""));
-
-            }
-        } catch (SQLException e) {
-            throw new DataAccessException("SQL command failed to execute: " + e.getMessage());
-        }
-        //Close connection and statement.
-        finally {
-            try {
-                preparedStatement.close();
-                establishedConnection().close();
-            } catch (SQLException e) {
-                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
-
-            }
-        }
-        return getPeople(stringMatch);
-
-    }
-
-
-    @Override
-    public void createLocation(Location location) throws DataAccessException {
-        establishedConnection();
-        PreparedStatement preparedStatement = null;
-        String sqlCreateLocation = "INSERT INTO locations (loc_name, loc_desc, loc_floor, loc_landmark, loc_latitude, loc_longitude) VALUES (?, ?, ?, ?, ?, ?)";
-        //Execute a query.
-        try {
-
-            preparedStatement = establishedConnection().prepareStatement(sqlCreateLocation);
-            preparedStatement.setString(1, location.getName());
-            preparedStatement.setString(2, location.getDescription());
-            preparedStatement.setInt(3, location.getFloor());
-            preparedStatement.setString(4, location.getLandmark());
-            preparedStatement.setDouble(5, location.getLatitude());
-            preparedStatement.setDouble(6, location.getLongitude());
-            preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
-        }
-
-        //Close connection and statement.
-        finally {
-            try {
-                preparedStatement.close();
-                establishedConnection().close();
-            } catch (SQLException e) {
-                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
-
-            }
-        }
-    }
-
-
-    @Override
-    public void updateLocation(Location location) {
-
-    }
-
-    /*TODO: Needs further work later on.
-        @Override
-        public void createLocationSuggestion(ISuggestion suggestion) throws DataAccessException {
-            establishedConnection();
-            PreparedStatement preparedStatement = null;
-
-            //Execute a query.
-            try {
-                String sqlCreateLocation = "INSERT INTO suggestion_locations (suggestion_loc_person_name, suggestion_loc_name, suggestion_loc_desc, suggestion_loc_floor, suggestion_loc_landmark, suggestion_loc_latitude, suggestion_loc_longitude, suggestion_loc_date)" +
-                        "VALUES (?, ?, ?, ?, ?, ?)";
-                preparedStatement = establishedConnection().prepareStatement(sqlCreateLocation);
-                preparedStatement.setString(1, suggestion.);
-                preparedStatement.setString(2, suggestion.getDescription());
-                preparedStatement.setInt(3, location.getFloor());
-                preparedStatement.setString(4, location.getLandmark());
-                preparedStatement.setDouble(5, location.getLatitude());
-                preparedStatement.setDouble(6, location.getLongitude());
-                preparedStatement.executeQuery();
-            } catch (SQLException e) {
-                throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
-            }
-
-            //Close connection and statement.
-            finally {
-                try {
-                    preparedStatement.close();
-                    establishedConnection().close();
-                } catch (SQLException e) {
-                    throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
-
-                }
-            }
-        }
-        }
-    */
-    @Override
-    public void updateSuggestion(ISuggestion suggestion) throws DataAccessException {
-
-    }
-
-    @Override
-    public void updateSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException {
-
-    }
-
-
-    @Override
-    public void deleteLocation(String locationName) throws DataAccessException {
-        establishedConnection();
-        PreparedStatement preparedStatement = null;
-
-        //Execute a query.
-        try {
-            String sql = "DELETE FROM locations WHERE loc_name = ?";
-            preparedStatement = establishedConnection().prepareStatement(sql);
-            preparedStatement.setString(1, locationName);
-            preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            throw new DataAccessException("Failed to create statement. Verify connection to database: " + e.getMessage());
-        }
-        //Close connection and statement.
-        finally {
-            try {
-                preparedStatement.close();
-                establishedConnection().close();
-            } catch (SQLException e) {
-                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
-            }
-        }
-    }
-
-    @Override
-    public void createLocationSuggestion(ISuggestion suggestion) throws DataAccessException {
-
-    }
-
-
-    @Override
-    public void deleteLocationSuggestion(int suggestionID) throws DataAccessException {
-        establishedConnection();
-        PreparedStatement preparedStatement = null;
-        String sqlDeleteSuggestion = "DELETE FROM suggestions WHERE suggestion_loc_id= ?";
-
-        //Execute a query.
-        try {
-            preparedStatement = establishedConnection().prepareStatement(sqlDeleteSuggestion);
-            preparedStatement.setInt(1, suggestionID);
-            preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            throw new DataAccessException("Failed to create statement. Verify connection to database: " + e.getMessage());
-        }
-        //Close connection and statement.
-        finally {
-            try {
-                preparedStatement.close();
-                establishedConnection().close();
-            } catch (SQLException e) {
-                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
-
-            }
-        }
-    }
-
-    @Override
-    public void createPerson(Person person) throws DataAccessException {
-        establishedConnection();
-        PreparedStatement preparedStatement = null;
-        String createPersonSQL = "INSERT INTO people (ppl_raw_name, ppl_mail, ppl_desc, ppl_picture, ppl_role, ppl_room) VALUES (?, ?, ?, ?, ?, ?)";
-
-        try {
-            preparedStatement = establishedConnection().prepareStatement(createPersonSQL);
-
-            preparedStatement.setString(1, person.getName());
-            preparedStatement.setString(2, person.getMail());
-            preparedStatement.setString(3, person.getDesc());
-            preparedStatement.setString(4, person.getPicture());
-            preparedStatement.setString(5, person.getRole());
-            preparedStatement.setString(6, person.getRoom());
-            preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            throw new DataAccessException("Failed to create statement. Verify connection to database: " + e.getMessage());
-        }
-        //Close connection and statement.
-        finally {
-            try {
-                preparedStatement.close();
-                establishedConnection().close();
-            } catch (SQLException e) {
-                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
-            }
-        }
-    }
-
-    @Override
-    public void updatePerson(Person person) {
-
-    }
-
-    @Override
-    public void deletePerson(int personID) {
-        establishedConnection();
-        PreparedStatement preparedStatement = null;
-        String sql = "DELETE FROM people WHERE ppl_ID = ?";
-
-        //Execute a query.
-        try {
-            preparedStatement = establishedConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, personID);
-            preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            System.out.println("Failed to create statement. Verify connection to database: " + e.getMessage());
-        }
-        //Close connection and statement.
-        finally {
-            try {
-                preparedStatement.close();
-                establishedConnection().close();
-            } catch (SQLException e) {
-                System.out.println("Failed to close connection/statement: " + e.getMessage());
-
-            }
-        }
-    }
-
-
     private Connection establishedConnection() {
         Connection conn = null;
         System.out.println("Connecting to database...");
@@ -353,5 +33,331 @@ public class Connector implements IConnector {
             e.printStackTrace();
         }
         return conn;
+    }
+
+    /**
+     * @param stringMatch Input to search for, in the 'locations' table.
+     * @return Returns getLocations hashmap.
+     * @throws DataAccessException
+     */
+    @Override
+    public HashMap<String, Location> getLocations(String stringMatch) throws DataAccessException {
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        Location location = null;
+        String sqlGetLocations = "SELECT * FROM locations WHERE loc_name LIKE ?";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlGetLocations);
+            preparedStatement.setString(1, stringMatch);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                location.setName(resultSet.getString("loc_name"));
+                location.setDescription(resultSet.getString("loc_desc"));
+                location.setFloor(resultSet.getInt("loc_floor"));
+                location.setLandmark(resultSet.getString("loc_landmark"));
+                location.setLatitude(resultSet.getDouble("loc_latitude"));
+                location.setLongitude(resultSet.getDouble("loc_longitude"));
+
+                getLocations(stringMatch).put(location.getName(), location);
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+        return getLocations(stringMatch);
+    }
+
+    /**
+     * @param stringMatch Input to search for, in the 'people' table.
+     * @return Returns getPeople hashmap.
+     * @throws DataAccessException
+     */
+    @Override
+    public HashMap<Integer, Person> getPeople(String stringMatch) throws DataAccessException {
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        Person person = null;
+        String sqlGetPeople = "SELECT * FROM people WHERE ppl_name LIKE ?";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlGetPeople);
+            preparedStatement.setString(1, stringMatch);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                person.setId(resultSet.getInt("ppl_ID"));
+                person.setName(resultSet.getString("ppl_name"));
+                person.setMail(resultSet.getString("ppl_mail"));
+                person.setDescription(resultSet.getString("ppl_desc"));
+                person.setPicture(resultSet.getString("ppl_picture"));
+                person.setRole(resultSet.getString("ppl_role"));
+                person.setRoom(resultSet.getString("ppl_room"));
+
+                getPeople(stringMatch).put(person.getId(), person);
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+        return getPeople(stringMatch);
+    }
+
+    /**
+     * @return Returns a list of all admins in the system.
+     * @throws DataAccessException
+     */
+    @Override
+    public ArrayList<String> getAdmins() throws DataAccessException {
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        String sqlGetAdmins = "SELECT * FROM people_admins";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlGetAdmins);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                getAdmins().add("admin_name");
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+        return getAdmins();
+    }
+
+    @Override
+    public void createAdmin(String adminName) throws DataAccessException {
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        String sqlCreateAdmin = "INSERT INTO people_admins (admin_name) VALUES (?)";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlCreateAdmin);
+            preparedStatement.setString(1, adminName);
+            preparedStatement.executeQuery();
+            System.out.println("Added a new admin to admin-table. New admin name: " + adminName);
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public void deleteAdmin(String adminName) throws DataAccessException {
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        String sqlDeleteAdmin = "DELETE FROM people_admins WHERE admin_name = ?";
+        
+        try{
+            preparedStatement = establishedConnection().prepareStatement(sqlDeleteAdmin);
+            preparedStatement.setString(1, adminName);
+            preparedStatement.executeQuery();
+        }
+
+        catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * @return Returns an arraylist of all location suggestions from the database.
+     * @throws DataAccessException
+     */
+    @Override
+    public ArrayList<SuggestionLocation> getLocationSuggestions() throws DataAccessException {
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        SuggestionLocation suggestionLocation = null;
+        String sqlGetLocationSuggestions = "SELECT * FROM suggestion_locations";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlGetLocationSuggestions);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                suggestionLocation.setSuggestionID(resultSet.getInt("suggestion_loc_ID"));
+                suggestionLocation.setAuthor(resultSet.getString("suggestion_loc_author"));
+                suggestionLocation.setName(resultSet.getString("suggestion_loc_name"));
+                suggestionLocation.setDescription(resultSet.getString("suggestion_loc_desc"));
+                suggestionLocation.setFloor(resultSet.getInt("suggestion_loc_floor"));
+                suggestionLocation.setLandmark(resultSet.getString("suggestion_loc_landmark"));
+                suggestionLocation.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
+                suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
+                suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
+
+                getLocationSuggestions().add(suggestionLocation);
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+        return getLocationSuggestions();
+    }
+
+    /**
+     * @return Return an arraylist of all people suggestions from the database.
+     * @throws DataAccessException
+     */
+    @Override
+    public ArrayList<SuggestionPerson> getPeopleSuggestions() throws DataAccessException {
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        SuggestionPerson suggestionPerson = null;
+        String sqlGetPeopleSuggestions = "SELECT * FROM suggestion_people";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlGetPeopleSuggestions);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                suggestionPerson.setSuggestionID(resultSet.getInt("suggestion_ppl_ID"));
+                suggestionPerson.setAuthor(resultSet.getString("suggestion_ppl_author"));
+                suggestionPerson.setName(resultSet.getString("suggestion_ppl_name"));
+                suggestionPerson.setMail(resultSet.getString("suggestion_ppl_mail"));
+                suggestionPerson.setDescription(resultSet.getString("suggestion_ppl_desc"));
+                suggestionPerson.setPicture(resultSet.getString("suggestion_ppl_picture"));
+                suggestionPerson.setRole(resultSet.getString("suggestion_ppl_role"));
+                suggestionPerson.setRoom(resultSet.getString("suggestion_ppl_room"));
+                suggestionPerson.setDate(resultSet.getDate("suggestion_ppl_date"));
+
+                getPeopleSuggestions().add(suggestionPerson);
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+        return getPeopleSuggestions();
+    }
+
+    @Override
+    public SuggestionLocation getLocationSuggestion(int id) throws DataAccessException {
+        return null;
+    }
+
+    @Override
+    public SuggestionPerson getPeopleSuggestion(int id) throws DataAccessException {
+        return null;
+    }
+
+    @Override
+    public void updateLocation(Location location) throws DataAccessException {
+
+    }
+
+    @Override
+    public void deleteLocation(String locationName) throws DataAccessException {
+
+    }
+
+    @Override
+    public void createLocationSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException {
+
+    }
+
+    @Override
+    public void updateLocationSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException {
+
+    }
+
+    @Override
+    public void deleteLocationSuggestion(int id) throws DataAccessException {
+
+    }
+
+    @Override
+    public void createLocation(Location location) throws DataAccessException {
+
+    }
+
+    @Override
+    public void updatePerson(Person person) throws DataAccessException {
+
+    }
+
+    @Override
+    public void deletePerson(int id) throws DataAccessException {
+
+    }
+
+    @Override
+    public void createPeopleSuggestion(SuggestionPerson suggestionPerson) throws DataAccessException {
+
+    }
+
+    @Override
+    public void updatePeopleSuggestion(SuggestionPerson suggestionPerson) throws DataAccessException {
+
+    }
+
+    @Override
+    public void deletePeopleSuggestion(int id) throws DataAccessException {
+
+    }
+
+    @Override
+    public void createPerson(Person person) throws DataAccessException {
+
     }
 }
