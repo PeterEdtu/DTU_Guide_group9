@@ -26,7 +26,7 @@ public class DummyConnector implements IConnector {
 
     @Override
     public void createAdmin(String adminName) throws DataAccessException {
-        
+
     }
 
     @Override

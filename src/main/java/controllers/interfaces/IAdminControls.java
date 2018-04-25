@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 public interface IAdminControls {
 
-    boolean isAdmin(String username) throws DataAccessException, NotFoundException;
+    boolean isAdmin(String username) throws DataAccessException;
 
-    ArrayList<String> getAdminNames() throws DataAccessException, NotFoundException;
+    ArrayList<String> getAdminNames() throws DataAccessException;
 
     void addAdmin(String adminName) throws  DataAccessException;
 
-    void removeAdmin(String adminName) throws DataAccessException, NotFoundException;
+    void removeAdmin(String adminName) throws DataAccessException;
 
 
 }
