@@ -30,20 +30,16 @@ public class ChangedAppResources implements IChangedAppResources {
         return controller;
     }
 
-    @Override
-    public void addLocation(Location loc) throws DataAccessException {
-        connector.createLocation(loc);
-    }
 
     @Override
-    public void updateLocation(Location newLoc, Location previousLocation) throws ItemOverwriteException, DataAccessException {
+    public void updateLocation(SuggestionLocation newLoc, SuggestionLocation previousLocation) throws ItemOverwriteException, DataAccessException {
         //Compare the previousLocation with the
         //actual (instance) location before update it
         //with the variable "newLoc" wich is the new location
 
         Location actualLocation = connector.getLocations(previousLocation.getName()).get(previousLocation.getName());
 
-        Location overwrite = new Location();
+        SuggestionLocation overwrite = (SuggestionLocation) new Location();
 
         if (!actualLocation.equals(previousLocation)) {
 
@@ -77,14 +73,21 @@ public class ChangedAppResources implements IChangedAppResources {
     }
 
     @Override
+    public void addLocation(SuggestionLocation location) throws DataAccessException {
+
+    }
+    
+
+    @Override
     public ArrayList<SuggestionLocation> getAllChangedLocations() throws DataAccessException, NotFoundException {
         return null;
     }
 
     @Override
-    public Location getLocation(String name) throws DataAccessException, NotFoundException {
+    public SuggestionLocation getLocation(int id) throws DataAccessException, NotFoundException {
         return null;
     }
+
 
     @Override
     public void deleteLocationChange(int id) throws DataAccessException, NotFoundException {
@@ -103,33 +106,34 @@ public class ChangedAppResources implements IChangedAppResources {
     }
 
     @Override
-    public void addPerson(Person person) throws DataAccessException {
+    public void addPerson(SuggestionPerson person) throws DataAccessException {
 
     }
 
     @Override
-    public void updatePerson(Person person, Person previousPerson) throws DataAccessException, ItemOverwriteException {
+    public void updatePerson(SuggestionPerson person, SuggestionPerson previousPerson) throws DataAccessException, ItemOverwriteException {
 
     }
 
     @Override
-    public ArrayList<SuggestionPerson> getAllChangedPeople() {
+    public ArrayList<SuggestionPerson> getAllChangedPeople() throws DataAccessException, NotFoundException {
         return null;
     }
 
     @Override
-    public Person getPerson(int id) throws DataAccessException, NotFoundException {
+    public SuggestionLocation getPerson(int id) throws DataAccessException, NotFoundException {
         return null;
     }
 
     @Override
-    public void deletePersonChange(int id) {
+    public void deletePersonChange(int id) throws DataAccessException, NotFoundException {
 
     }
 
     @Override
-    public void approvePerson(int id) {
+    public void approvePerson(int id) throws DataAccessException, NotFoundException {
 
     }
+
 
 }
