@@ -167,7 +167,7 @@ public class Connector implements IConnector {
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlCreateAdmin);
             preparedStatement.setString(1, adminName);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             System.out.println("Added a new admin to admin-table. New admin name: " + adminName);
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
@@ -196,7 +196,7 @@ public class Connector implements IConnector {
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlDeleteAdmin);
             preparedStatement.setString(1, adminName);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
@@ -382,18 +382,77 @@ public class Connector implements IConnector {
         return suggestionPerson;
     }
 
+    /**
+     * @param location Input inserted, to be changed.
+     * @throws DataAccessException Exception thrown in case a SQL command fails.
+     */
     @Override
     public void updateLocation(Location location) throws DataAccessException {
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        String sqlUpdateLocation = "UPDATE locations SET loc_desc = ?, loc_floor = ?, loc_landmark = ?, loc_latitude = ?, loc_longitude = ? WHERE loc_name =?";
 
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlUpdateLocation);
+            preparedStatement.setString(1, location.getDescription());
+            preparedStatement.setInt(2, location.getFloor());
+            preparedStatement.setString(3, location.getLandmark());
+            preparedStatement.setDouble(4, location.getLatitude());
+            preparedStatement.setDouble(5, location.getLongitude());
+            preparedStatement.setString(6, location.getName());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
     }
 
+    /**
+     * @param locationName Input to search for in the database, and remove.
+     * @throws DataAccessException Exception thrown in case a SQL command fails.
+     */
     @Override
     public void deleteLocation(String locationName) throws DataAccessException {
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        String sqlDeleteLocation = "DELETE * FROM locations WHERE loc_name = ?";
 
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlDeleteLocation);
+            preparedStatement.setString(1, locationName);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
     }
 
+    /**
+     * @param suggestionLocation Input inserted to be created in the database.
+     * @throws DataAccessException Exception thrown in case a SQL command fails.
+     */
     @Override
     public void createLocationSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException {
+        establishedConnection();
+
+
 
     }
 
