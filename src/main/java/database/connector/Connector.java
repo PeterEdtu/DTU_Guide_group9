@@ -16,11 +16,11 @@ public class Connector implements IConnector {
 
     //JDBC driver name, and database URL:
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/distdb";
+    private static final String DB_URL = "jdbc:mysql://localhost/distdb";
 
     // Database credentials:
-    static final String USER = "root";
-    static final String PASS = "Mads";
+    private static final String USER = "root";
+    private static final String PASS = "Mads";
 
     private Connection establishedConnection() {
         Connection conn = null;
@@ -38,7 +38,7 @@ public class Connector implements IConnector {
     /**
      * @param stringMatch Input to search for, in the 'locations' table.
      * @return Returns getLocations hashmap.
-     * @throws DataAccessException
+     * @throws DataAccessException Exception thrown in case a SQL command fails
      */
     @Override
     public HashMap<String, Location> getLocations(String stringMatch) throws DataAccessException {
@@ -72,7 +72,7 @@ public class Connector implements IConnector {
                 preparedStatement.close();
                 establishedConnection().close();
             } catch (SQLException e) {
-                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
         return getLocations(stringMatch);
@@ -116,7 +116,7 @@ public class Connector implements IConnector {
                 preparedStatement.close();
                 establishedConnection().close();
             } catch (SQLException e) {
-                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
         return getPeople(stringMatch);
@@ -124,7 +124,7 @@ public class Connector implements IConnector {
 
     /**
      * @return Returns a list of all admins in the system.
-     * @throws DataAccessException
+     * @throws DataAccessException Exception thrown in case a SQL command fails.
      */
     @Override
     public ArrayList<String> getAdmins() throws DataAccessException {
@@ -148,12 +148,16 @@ public class Connector implements IConnector {
                 preparedStatement.close();
                 establishedConnection().close();
             } catch (SQLException e) {
-                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
         return getAdmins();
     }
 
+    /**
+     * @param adminName Input to add to the admin table in database.
+     * @throws DataAccessException Exception thrown in case a SQL command fails.
+     */
     @Override
     public void createAdmin(String adminName) throws DataAccessException {
         establishedConnection();
@@ -174,24 +178,26 @@ public class Connector implements IConnector {
                 preparedStatement.close();
                 establishedConnection().close();
             } catch (SQLException e) {
-                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
     }
 
+    /**
+     * @param adminName Input to delete from admin table in database.
+     * @throws DataAccessException Exception thrown in case a SQL command fails.
+     */
     @Override
     public void deleteAdmin(String adminName) throws DataAccessException {
         establishedConnection();
         PreparedStatement preparedStatement = null;
         String sqlDeleteAdmin = "DELETE FROM people_admins WHERE admin_name = ?";
-        
-        try{
+
+        try {
             preparedStatement = establishedConnection().prepareStatement(sqlDeleteAdmin);
             preparedStatement.setString(1, adminName);
             preparedStatement.executeQuery();
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
         //Close connection and statement.
@@ -200,14 +206,14 @@ public class Connector implements IConnector {
                 preparedStatement.close();
                 establishedConnection().close();
             } catch (SQLException e) {
-                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
     }
 
     /**
      * @return Returns an arraylist of all location suggestions from the database.
-     * @throws DataAccessException
+     * @throws DataAccessException Exception thrown in case a SQL command fails.
      */
     @Override
     public ArrayList<SuggestionLocation> getLocationSuggestions() throws DataAccessException {
@@ -242,7 +248,7 @@ public class Connector implements IConnector {
                 preparedStatement.close();
                 establishedConnection().close();
             } catch (SQLException e) {
-                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
         return getLocationSuggestions();
@@ -250,7 +256,7 @@ public class Connector implements IConnector {
 
     /**
      * @return Return an arraylist of all people suggestions from the database.
-     * @throws DataAccessException
+     * @throws DataAccessException Exception thrown in case a SQL command fails.
      */
     @Override
     public ArrayList<SuggestionPerson> getPeopleSuggestions() throws DataAccessException {
@@ -285,20 +291,95 @@ public class Connector implements IConnector {
                 preparedStatement.close();
                 establishedConnection().close();
             } catch (SQLException e) {
-                throw new DataAccessException("Failed to close connection/statement: " + e.getMessage());
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
         return getPeopleSuggestions();
     }
 
+    /**
+     * @param id Integer input to search for in the location suggestion table in the database
+     * @return Return a suggestionLocation with a specific ID.
+     * @throws DataAccessException Exception thrown in case a SQL command fails.
+     */
     @Override
     public SuggestionLocation getLocationSuggestion(int id) throws DataAccessException {
-        return null;
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        SuggestionLocation suggestionLocation = null;
+        String sqlGetLocationSuggestion = "SELECT * FROM suggestion_locations WHERE suggestion_loc_ID = ?";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlGetLocationSuggestion);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                suggestionLocation.setSuggestionID(resultSet.getInt("suggestion_loc_ID"));
+                suggestionLocation.setAuthor(resultSet.getString("suggestion_loc_author"));
+                suggestionLocation.setName(resultSet.getString("suggestion_loc_name"));
+                suggestionLocation.setDescription(resultSet.getString("suggestion_loc_desc"));
+                suggestionLocation.setFloor(resultSet.getInt("suggestion_loc_floor"));
+                suggestionLocation.setLandmark(resultSet.getString("suggestion_loc_landmark"));
+                suggestionLocation.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
+                suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
+                suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+        return suggestionLocation;
     }
 
+    /**
+     * @param id Integer input to search for in the suggestion_people table in the database.
+     * @return Returns a SuggestionPerson object with a specific id.
+     * @throws DataAccessException Exception thrown in case a SQL command fails.
+     */
     @Override
     public SuggestionPerson getPeopleSuggestion(int id) throws DataAccessException {
-        return null;
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        SuggestionPerson suggestionPerson = null;
+        String sqlGetPeopleSuggestion = "SELECT * FROM suggestion_people WHERE suggestion_ppl_ID = ?";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlGetPeopleSuggestion);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                suggestionPerson.setSuggestionID(resultSet.getInt("suggestion_ppl_ID"));
+                suggestionPerson.setAuthor(resultSet.getString("suggestion_ppl_author"));
+                suggestionPerson.setName(resultSet.getString("suggestion_ppl_name"));
+                suggestionPerson.setMail(resultSet.getString("suggestion_ppl_mail"));
+                suggestionPerson.setDescription(resultSet.getString("suggestion_ppl_desc"));
+                suggestionPerson.setPicture(resultSet.getString("suggestion_ppl_picture"));
+                suggestionPerson.setRole(resultSet.getString("suggestion_ppl_role"));
+                suggestionPerson.setRoom(resultSet.getString("suggestion_ppl_room"));
+                suggestionPerson.setDate(resultSet.getDate("suggestion_ppl_date"));
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+        return suggestionPerson;
     }
 
     @Override
