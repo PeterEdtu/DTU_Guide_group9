@@ -16,6 +16,10 @@ public interface IConnector {
 
     ArrayList<String> getAdmins() throws DataAccessException;
 
+    void createAdmin(String adminName) throws DataAccessException;
+
+    void deleteAdmin(String adminName) throws DataAccessException;
+
 
     ArrayList<SuggestionLocation> getLocationSuggestions() throws DataAccessException;
 
