@@ -14,13 +14,12 @@ public interface IConnector {
     HashMap<Integer, Person> getPeople(String stringMatch) throws DataAccessException;
 
 
-    List<String> getAdmins() throws DataAccessException;
+    ArrayList<String> getAdmins() throws DataAccessException;
 
 
-    ArrayList<SuggestionLocation> getLocationSuggestions();
+    ArrayList<SuggestionLocation> getLocationSuggestions() throws DataAccessException;
 
-    ArrayList<SuggestionPerson> getPeopleSuggestions();
-
+    ArrayList<SuggestionPerson> getPeopleSuggestions() throws DataAccessException;
 
 
     SuggestionLocation getLocationSuggestion(int id) throws DataAccessException;
@@ -41,7 +40,6 @@ public interface IConnector {
     void createLocation(Location location) throws DataAccessException;
 
 
-
     void updatePerson(Person person) throws DataAccessException;
 
     void deletePerson(int id) throws DataAccessException;
@@ -55,6 +53,5 @@ public interface IConnector {
     void createPerson(Person person) throws DataAccessException;
 
 
-
-    }
+}
 
