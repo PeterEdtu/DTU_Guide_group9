@@ -14,25 +14,25 @@ public interface IChangedAppResources {
      * @param loc The location to be added.
      * @return Location that was added including id.
      */
-    void addLocation(Location loc) throws DataAccessException;
+    void addLocation(SuggestionLocation location) throws DataAccessException;
 
-    void updateLocation(Location newLoc,Location previousLocation) throws DataAccessException, ItemOverwriteException;
+    void updateLocation(SuggestionLocation newLoc,SuggestionLocation previousLocation) throws DataAccessException, ItemOverwriteException;
 
     ArrayList<SuggestionLocation> getAllChangedLocations() throws DataAccessException, NotFoundException;
 
-    Location getLocation(String name) throws DataAccessException, NotFoundException;
+    SuggestionLocation getLocation(int id) throws DataAccessException, NotFoundException;
 
     void deleteLocationChange(int id) throws DataAccessException, NotFoundException;
 
     void approveLocation(int id) throws DataAccessException, NotFoundException;
 
-    void addPerson(Person person) throws DataAccessException;
+    void addPerson(SuggestionPerson person) throws DataAccessException;
 
-    void updatePerson(Person person, Person previousPerson) throws DataAccessException, ItemOverwriteException;
+    void updatePerson(SuggestionPerson person, SuggestionPerson previousPerson) throws DataAccessException, ItemOverwriteException;
 
     ArrayList<SuggestionPerson> getAllChangedPeople() throws DataAccessException, NotFoundException;
 
-    Person getPerson(int id) throws DataAccessException, NotFoundException;
+    SuggestionPerson getPerson(int id) throws DataAccessException, NotFoundException;
 
     void deletePersonChange(int id) throws DataAccessException, NotFoundException;
 

@@ -5,7 +5,7 @@ public class Person extends Searchable {
     private int id;
     private String name;
     private String mail;
-    private String desc;
+    private String description;
     private String picture;
     private String role;
     private String room;
@@ -14,11 +14,11 @@ public class Person extends Searchable {
 
     }
 
-    public Person(int id, String name, String mail, String desc, String picture, String role, String room) {
+    public Person(int id, String name, String mail, String description, String picture, String role, String room) {
         this.id = id;
         this.name = name;
         this.mail = mail;
-        this.desc = desc;
+        this.description = description;
         this.picture = picture;
         this.role = role;
         this.room = room;
@@ -48,12 +48,12 @@ public class Person extends Searchable {
         this.mail = mail;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String desc) {
+        this.description = desc;
     }
 
     public String getPicture() {

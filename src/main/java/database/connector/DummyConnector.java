@@ -1,12 +1,10 @@
 package database.connector;
 
 import controllers.exceptions.DataAccessException;
-import data.ISuggestion;
+import data.*;
 import database.interfaces.IConnector;
-import data.Location;
-import data.Person;
-import data.SuggestionLocation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,7 +15,7 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
-    public HashMap<Integer, ISuggestion> getSuggestions() throws DataAccessException {
+    public HashMap<Integer, Person> getPeople(String stringMatch) throws DataAccessException {
         return null;
     }
 
@@ -27,17 +25,22 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
+    public ArrayList<SuggestionLocation> getLocationSuggestions() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<SuggestionPerson> getPeopleSuggestions() {
+        return null;
+    }
+
+    @Override
     public SuggestionLocation getLocationSuggestion(int id) throws DataAccessException {
         return null;
     }
 
     @Override
-    public HashMap<Integer, Person> getPeople() throws DataAccessException {
-        return null;
-    }
-
-    @Override
-    public HashMap<Integer, Person> getPeople(String stringMatch) throws DataAccessException {
+    public SuggestionPerson getPeopleSuggestion(int id) throws DataAccessException {
         return null;
     }
 
@@ -52,23 +55,22 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
-    public void createLocationSuggestion(ISuggestion suggestion) throws DataAccessException {
+    public void createLocationSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException {
 
     }
 
     @Override
-    public void updateSuggestion(ISuggestion suggestion) throws DataAccessException {
-
-    }
-
-
-    @Override
-    public void updateSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException {
+    public void updateLocationSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException {
 
     }
 
     @Override
     public void deleteLocationSuggestion(int id) throws DataAccessException {
+
+    }
+
+    @Override
+    public void createLocation(Location location) throws DataAccessException {
 
     }
 
@@ -83,7 +85,17 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
-    public void createLocation(Location location) throws DataAccessException {
+    public void createPeopleSuggestion(SuggestionPerson suggestionPerson) throws DataAccessException {
+
+    }
+
+    @Override
+    public void updatePeopleSuggestion(SuggestionPerson suggestionPerson) throws DataAccessException {
+
+    }
+
+    @Override
+    public void deletePeopleSuggestion(int id) throws DataAccessException {
 
     }
 
