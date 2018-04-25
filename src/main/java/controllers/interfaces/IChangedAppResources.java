@@ -32,7 +32,7 @@ public interface IChangedAppResources {
 
     ArrayList<SuggestionPerson> getAllChangedPeople() throws DataAccessException, NotFoundException;
 
-    SuggestionLocation getPerson(int id) throws DataAccessException, NotFoundException;
+    SuggestionPerson getPerson(int id) throws DataAccessException, NotFoundException;
 
     void deletePersonChange(int id) throws DataAccessException, NotFoundException;
 

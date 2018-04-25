@@ -1,5 +1,7 @@
 package data;
 
+import java.util.ArrayList;
+
 public class Location extends Searchable {
 
     private String name;
@@ -14,17 +16,28 @@ public class Location extends Searchable {
 
     private double longitude;
 
+    private ArrayList<String> tags;
+
     public Location(){
 
     }
 
-    public Location(String name, String description, int floor, String landmark, double latitude, double longitude) {
+    public Location(String name, String description, int floor, String landmark, double latitude, double longitude, ArrayList<String> tags) {
         this.name = name;
         this.description = description;
         this.floor = floor;
         this.landmark = landmark;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.tags = tags;
+    }
+
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
     }
 
     public String getName() {
