@@ -1,6 +1,7 @@
 package controllers.security;
 
 import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,7 +41,9 @@ public class Auth {
 
         try {
             loggedInUser = ba.hentBruger(username, password);
-        }catch (Exception e){
+        }catch (RemoteException e){
+            System.err.println("Error message: "+e.getMessage());
+            e.printStackTrace();
             throw new InvalidCredentials();
         }
 
