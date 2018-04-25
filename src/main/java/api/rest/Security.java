@@ -47,7 +47,7 @@ public class Security {
             String jwt = Auth.authenticate(loginInfo.username, loginInfo.password);
 
             NewCookie sampleCookie = new NewCookie("sessionToken", "");
-            NewCookie sessionCookie =new NewCookie("sessionToken", jwt, "/REST", sampleCookie.getDomain(), sampleCookie.getVersion(), null, sampleCookie.getMaxAge(), null, false, true);
+            NewCookie sessionCookie =new NewCookie("sessionToken", jwt, "/REST", sampleCookie.getDomain(), sampleCookie.getVersion(), null, sampleCookie.getMaxAge(), null, false, false);
 
             return Response.ok("OK - Session Started").cookie(sessionCookie).build();
 
