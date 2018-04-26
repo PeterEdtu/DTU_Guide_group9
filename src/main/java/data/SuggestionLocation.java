@@ -9,6 +9,10 @@ public class SuggestionLocation extends Location implements ISuggestion {
     private Date date;
     private String author;
 
+    public SuggestionLocation(){
+        super();
+    }
+
     public Date getDate() {
         return date;
     }

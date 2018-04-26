@@ -4,7 +4,7 @@ package api.rest;
 import org.json.JSONObject;
 import controllers.security.Auth;
 import controllers.security.AuthenticatedUser;
-import controllers.security.LoginPojo;
+import api.rest.pojos.LoginPojo;
 
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.*;
@@ -42,14 +42,16 @@ public class Security {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(LoginPojo loginInfo) {
 
+
         try {
-            String jwt = Auth.authenticate(loginInfo.username, loginInfo.password);
+            String jwt = Auth.authenticate(loginInfo.getUsername(), loginInfo.getPassword());
 
             NewCookie sampleCookie = new NewCookie("sessionToken", "");
             NewCookie sessionCookie =new NewCookie("sessionToken", jwt, "/REST", sampleCookie.getDomain(), sampleCookie.getVersion(), null, sampleCookie.getMaxAge(), null, false, false);
             String jsonString = new JSONObject()
                     .put("validSession","true")
                     .toString();
+            System.err.println("Jsonstring is: " +jsonString);
 
             return Response.ok(jsonString).cookie(sessionCookie).build();
 

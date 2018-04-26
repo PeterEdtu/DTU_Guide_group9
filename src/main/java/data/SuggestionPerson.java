@@ -9,6 +9,10 @@ public class SuggestionPerson extends Person implements ISuggestion {
     private Date date;
     private String author;
 
+    public SuggestionPerson(){
+
+    }
+
     public Date getDate() {
         return date;
     }

@@ -35,7 +35,6 @@
           <element id="library" level="project" name="Maven: junit:junit:4.10" />
           <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.1" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.40" />
-          <element id="library" level="project" name="Maven: com.owlike:genson:1.4" />
         </element>
       </element>
       <element id="directory" name="META-INF">
