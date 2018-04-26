@@ -8,7 +8,7 @@ import java.io.IOException;
 
 @Provider
 public class HttpFilter implements ContainerResponseFilter {
-    
+
     @Override
     public void filter(final ContainerRequestContext requestContext,
                        final ContainerResponseContext cres) throws IOException {

@@ -13,9 +13,8 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import java.util.Date;
 
-@Path("/controllers/security")
+@Path("/security")
 public class Security {
-
 
     @Path("session")
     @GET
@@ -48,8 +47,11 @@ public class Security {
 
             NewCookie sampleCookie = new NewCookie("sessionToken", "");
             NewCookie sessionCookie =new NewCookie("sessionToken", jwt, "/REST", sampleCookie.getDomain(), sampleCookie.getVersion(), null, sampleCookie.getMaxAge(), null, false, false);
+            String jsonString = new JSONObject()
+                    .put("validSession","true")
+                    .toString();
 
-            return Response.ok("OK - Session Started").cookie(sessionCookie).build();
+            return Response.ok(jsonString).cookie(sessionCookie).build();
 
         } catch (Exception e) {
             return Response.status(401).build();
