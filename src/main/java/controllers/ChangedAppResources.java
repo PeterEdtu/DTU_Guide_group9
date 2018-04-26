@@ -45,10 +45,6 @@ public class ChangedAppResources implements IChangedAppResources {
 
         if (!actualLocation.equals(previousLocation)) {
 
-            if (!actualLocation.getName().equals(previousLocation.getName())) {
-                overwrite.setName(actualLocation.getName());
-            }
-
             if (!actualLocation.getDescription().equals(previousLocation.getDescription())) {
                 overwrite.setDescription(actualLocation.getDescription());
             }
@@ -77,7 +73,11 @@ public class ChangedAppResources implements IChangedAppResources {
             throw exception;
 
         } else {
-            connector.updateLocation(newLoc);
+
+            if(previousLocation.getName().equals(newLoc.getName()))
+                connector.updateLocation(newLoc);
+            else
+                throw new DataAccessException("The name of the location "+previousLocation.getName()+" cannot be changed");
         }
 
     }
