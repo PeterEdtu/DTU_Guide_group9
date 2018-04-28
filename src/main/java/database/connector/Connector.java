@@ -1,15 +1,13 @@
 package database.connector;
 
 import controllers.exceptions.DataAccessException;
-import data.Location;
-import data.Person;
-import data.SuggestionLocation;
-import data.SuggestionPerson;
+import data.*;
 import database.interfaces.IConnector;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Connector implements IConnector {
 
@@ -153,6 +151,39 @@ public class Connector implements IConnector {
             }
         }
         return getAdmins();
+    }
+
+    @Override
+    public ArrayList<Tag> getTags() throws DataAccessException {
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        Tag tagTemp = null;
+
+        String sqlGetTags = "SELECT * FROM tags";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlGetTags);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                tagTemp.setId(resultSet.getInt("tag_ID"));
+                tagTemp.setTagText(resultSet.getString("tag_text"));
+
+                getTags().add(tagTemp);
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+        return getTags();
     }
 
     /**
@@ -527,6 +558,7 @@ public class Connector implements IConnector {
      * @param id Inserted suggestion id input to be deleted from the database.
      * @throws DataAccessException Exception thrown in case a SQL command fails.
      */
+    @SuppressWarnings("Duplicates")
     @Override
     public void deleteLocationSuggestion(int id) throws DataAccessException {
         establishedConnection();
@@ -628,6 +660,7 @@ public class Connector implements IConnector {
      * @param id Inserted id to be deleted from the database.
      * @throws DataAccessException Exception thrown in case a SQL command fails.
      */
+    @SuppressWarnings("Duplicates")
     @Override
     public void deletePerson(int id) throws DataAccessException {
         establishedConnection();
@@ -766,11 +799,11 @@ public class Connector implements IConnector {
     public void createPerson(Person person) throws DataAccessException {
         establishedConnection();
         PreparedStatement preparedStatement = null;
-        String sqlCreatePeopleSuggestion = "INSERT INTO people (ppl_raw_name, ppl_mail, ppl_desc, ppl_picture, ppl_role," +
+        String sqlCreatePerson = "INSERT INTO people (ppl_raw_name, ppl_mail, ppl_desc, ppl_picture, ppl_role," +
                 " ppl_room) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
-            preparedStatement = establishedConnection().prepareStatement(sqlCreatePeopleSuggestion);
+            preparedStatement = establishedConnection().prepareStatement(sqlCreatePerson);
             preparedStatement.setString(1, person.getName());
             preparedStatement.setString(2, person.getMail());
             preparedStatement.setString(3, person.getDescription());
@@ -791,5 +824,58 @@ public class Connector implements IConnector {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
+    }
+
+    @Override
+    public void createTag(Tag tag) throws DataAccessException {
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        String sqlCreateTag = "INSERT INTO tags (tag_ID, tag_text) VALUES (?, ?)";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlCreateTag);
+            preparedStatement.setInt(1, tag.getId());
+            preparedStatement.setString(2, tag.getTagText());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
+    @Override
+    public void deleteTag(int id) throws DataAccessException {
+        establishedConnection();
+        PreparedStatement preparedStatement = null;
+        String sqlDeleteTag = "DELETE FROM tags WHERE tag_ID = ?";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlDeleteTag);
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+
     }
 }
