@@ -13,6 +13,22 @@ public class SuggestionLocation extends Location implements ISuggestion {
         super();
     }
 
+    public SuggestionLocation(int suggestionID, Date date, String author){
+        super();
+
+        this.suggestionID = suggestionID;
+        this.date = date;
+        this.author = author;
+    }
+
+    public SuggestionLocation(Location loc, int suggestionID, Date date, String author){
+        super(loc);
+
+        this.suggestionID = suggestionID;
+        this.date = date;
+        this.author = author;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -34,18 +50,10 @@ public class SuggestionLocation extends Location implements ISuggestion {
     }
 
     public void setSuggestionID(int id) {
-        this.suggestionID = suggestionID;
+        this.suggestionID = id;
     }
 
-    public SuggestionLocation(int suggestionID, Date date, String author){
-        super();
 
-        this.suggestionID = suggestionID;
-        this.date = date;
-        this.author = author;
-
-
-    }
 
     public Location toLocation(){
         return this;

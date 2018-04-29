@@ -1,14 +1,15 @@
 package api.rest.pojos;
 
 import data.Person;
+import data.SuggestionPerson;
 
 public class PersonChange {
 
-    PersonChange(){
+    public PersonChange(){
 
     }
     Person newPerson;
-    Person oldPerson;
+    SuggestionPerson oldPerson;
 
     public Person getNewPerson() {
         return newPerson;
@@ -18,11 +19,11 @@ public class PersonChange {
         this.newPerson = newPerson;
     }
 
-    public Person getOldPerson() {
+    public SuggestionPerson getOldPerson() {
         return oldPerson;
     }
 
-    public void setOldPerson(Person oldPerson) {
+    public void setOldPerson(SuggestionPerson oldPerson) {
         this.oldPerson = oldPerson;
     }
 }

@@ -24,6 +24,18 @@ public class Person extends Searchable {
         this.room = room;
     }
 
+    public Person(Person pers){
+        this(pers.id,
+                pers.name,
+                pers.mail,
+                pers.description,
+                pers.picture,
+                pers.role,
+                pers.room
+
+        );
+    }
+
     public int getId() {
         return id;
     }

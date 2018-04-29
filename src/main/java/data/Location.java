@@ -31,6 +31,15 @@ public class Location extends Searchable {
         this.longitude = longitude;
         this.tags = tags;
     }
+    public Location(Location loc){
+        this(loc.getName(),
+                loc.getDescription(),
+                loc.getFloor(),
+                loc.getLandmark(),
+                loc.getLatitude(),
+                loc.getLongitude(),
+                loc.getTags());
+    }
 
     public ArrayList<String> getTags() {
         return tags;

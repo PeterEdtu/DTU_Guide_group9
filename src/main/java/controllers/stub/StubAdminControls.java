@@ -12,6 +12,7 @@ public class StubAdminControls implements IAdminControls {
     private static StubAdminControls controller = null;
 
     private StubAdminControls(){
+        admins.add("s144265");
     }
 
     public static synchronized StubAdminControls getInstance(){

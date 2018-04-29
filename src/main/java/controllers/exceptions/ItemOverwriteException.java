@@ -1,10 +1,13 @@
 package controllers.exceptions;
 
+import api.HTTPException;
 import data.Location;
 import data.Person;
 import data.SuggestionLocation;
 
-public class ItemOverwriteException extends Exception {
+import javax.ws.rs.core.Response;
+
+public class ItemOverwriteException extends HTTPException {
 
     private Location overwriteLoc;
     private Person overwritePer;
@@ -46,5 +49,10 @@ public class ItemOverwriteException extends Exception {
 
     public ItemOverwriteException(SuggestionLocation overwriteSug){
         this.overwriteSug = overwriteSug;
+    }
+
+    @Override
+    public Response getHttpResponse() {
+        return Response.status(409).build();
     }
 }

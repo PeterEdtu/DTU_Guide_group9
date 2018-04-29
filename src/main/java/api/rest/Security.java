@@ -25,7 +25,7 @@ public class Security {
             jsonString = new JSONObject()
                     .put("validSession","true")
                     .put("username",user.getUsername())
-                    .put("role","admin")
+                    .put("role",user.isAdmin())
                     .toString();
 
             return Response.ok(jsonString).build();

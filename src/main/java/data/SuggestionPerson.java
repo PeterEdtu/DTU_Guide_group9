@@ -12,6 +12,15 @@ public class SuggestionPerson extends Person implements ISuggestion {
     public SuggestionPerson(){
 
     }
+    public SuggestionPerson(Person p,int suggestionID, Date date, String author){
+        super(p);
+
+        this.suggestionID = suggestionID;
+        this.date = date;
+        this.author = author;
+
+
+    }
 
     public Date getDate() {
         return date;

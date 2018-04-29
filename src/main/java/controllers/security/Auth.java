@@ -9,6 +9,9 @@ import java.util.Date;
 
 import brugerautorisation.data.Bruger;
 import brugerautorisation.transport.rmi.Brugeradmin;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import controllers.security.exception.PermissionToLow;
+import controllers.stub.StubAdminControls;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -26,12 +29,15 @@ public class Auth {
     private final static Key jwtKey = MacProvider.generateKey();
     private static Brugeradmin ba;
 
+    private static StubAdminControls adminInfo;
+
     static{
         try {
             ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
         }catch (Exception e){
             e.printStackTrace();
         }
+        adminInfo=StubAdminControls.getInstance();
     }
 
 
@@ -50,6 +56,16 @@ public class Auth {
         String jwtJSON = generateJWT(loggedInUser);
 
         return jwtJSON;
+    }
+
+
+    public static AuthenticatedUser authorizeAdmin(Cookie cookie) throws NotAuthenticated, InvalidToken, PermissionToLow {
+        AuthenticatedUser user = authorize(cookie);
+        if(!user.isAdmin()){
+            throw new PermissionToLow();
+        }
+        return user;
+
     }
 
     public static AuthenticatedUser authorize(Cookie cookie) throws InvalidToken, NotAuthenticated {
@@ -75,7 +91,7 @@ public class Auth {
 
         Claims body =myjwt.getBody();
 
-        return new AuthenticatedUser(body.getSubject());
+        return new AuthenticatedUser(body.getSubject(),(Boolean)body.remove("isAdmin"));
     }
 
 
@@ -89,11 +105,13 @@ public class Auth {
 
         int jwtID = (int)(Math.random()*64000);
 
+        boolean isAdmin = adminInfo.isAdmin(loggedInUser.brugernavn);
 
         String compactJws = Jwts.builder()
                 .setHeaderParam("id", jwtID)
                 .setSubject(loggedInUser.brugernavn)
                 .claim("email", loggedInUser.email)
+                .claim("isAdmin",isAdmin)
                 .setIssuedAt(currentDate).setExpiration(expDate)
                 .signWith(SignatureAlgorithm.HS512, jwtKey).compact();
         return compactJws;

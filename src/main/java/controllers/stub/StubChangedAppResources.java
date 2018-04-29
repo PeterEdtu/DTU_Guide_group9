@@ -38,7 +38,7 @@ public class StubChangedAppResources implements IChangedAppResources {
 
     @Override
     public void addLocation(SuggestionLocation loc) throws DataAccessException {
-
+        loc.setSuggestionID(id);
         location.put(id++,loc);
     }
 
@@ -54,7 +54,7 @@ public class StubChangedAppResources implements IChangedAppResources {
 
     @Override
     public ArrayList<SuggestionLocation> getAllChangedLocations() throws DataAccessException, NotFoundException {
-        return (ArrayList)location.values();
+        return new ArrayList<SuggestionLocation>(location.values());
     }
 
     @Override
@@ -75,7 +75,7 @@ public class StubChangedAppResources implements IChangedAppResources {
 
     @Override
     public void addPerson(SuggestionPerson person) throws DataAccessException {
-
+        person.setSuggestionID(id);
         people.put(id++,person);
     }
 
@@ -87,7 +87,8 @@ public class StubChangedAppResources implements IChangedAppResources {
 
     @Override
     public ArrayList<SuggestionPerson> getAllChangedPeople() {
-        return (ArrayList)people.values();
+
+        return new ArrayList<SuggestionPerson>(people.values());
     }
 
     @Override
