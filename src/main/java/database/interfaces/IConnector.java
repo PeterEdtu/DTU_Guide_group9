@@ -1,11 +1,14 @@
 package database.interfaces;
 
 import controllers.exceptions.DataAccessException;
-import data.*;
+import data.Location;
+import data.Person;
+import data.SuggestionLocation;
+import data.SuggestionPerson;
+import data.Tag;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public interface IConnector {
 
@@ -16,6 +19,10 @@ public interface IConnector {
 
     ArrayList<String> getAdmins() throws DataAccessException;
 
+    ArrayList<Tag> getTags() throws DataAccessException;
+
+
+
     void createAdmin(String adminName) throws DataAccessException;
 
     void deleteAdmin(String adminName) throws DataAccessException;
@@ -25,10 +32,11 @@ public interface IConnector {
 
     ArrayList<SuggestionPerson> getPeopleSuggestions() throws DataAccessException;
 
-
     SuggestionLocation getLocationSuggestion(int id) throws DataAccessException;
 
     SuggestionPerson getPeopleSuggestion(int id) throws DataAccessException;
+
+
 
 
     void updateLocation(Location location) throws DataAccessException;
@@ -43,7 +51,6 @@ public interface IConnector {
 
     void createLocation(Location location) throws DataAccessException;
 
-
     void updatePerson(Person person) throws DataAccessException;
 
     void deletePerson(int id) throws DataAccessException;
@@ -56,6 +63,7 @@ public interface IConnector {
 
     void createPerson(Person person) throws DataAccessException;
 
+    void createTag(Tag tag) throws DataAccessException;
 
+    void deleteTag(int id) throws DataAccessException;
 }
-
