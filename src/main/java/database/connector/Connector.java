@@ -34,6 +34,8 @@ public class Connector implements IConnector {
         return conn;
     }
 
+    //tagslocations
+
     /**
      * @param stringMatch Input to search for, in the 'locations' table.
      * @return Returns getLocations hashmap.
@@ -44,7 +46,7 @@ public class Connector implements IConnector {
         establishedConnection();
         PreparedStatement preparedStatement = null;
         Location location = null;
-        String sqlGetLocations = "SELECT * FROM locations WHERE loc_name LIKE ?";
+        String sqlGetLocations = "SELECT * FROM locations WHERE loc_name LIKE %?%";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlGetLocations);
@@ -62,6 +64,8 @@ public class Connector implements IConnector {
 
                 getLocations(stringMatch).put(location.getName(), location);
             }
+
+
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
@@ -87,7 +91,9 @@ public class Connector implements IConnector {
         establishedConnection();
         PreparedStatement preparedStatement = null;
         Person person = null;
-        String sqlGetPeople = "SELECT * FROM people WHERE ppl_name LIKE ?";
+        Location location = null;
+
+        String sqlGetPeople = "SELECT * FROM people_locations WHERE ppl_raw_name LIKE ?";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlGetPeople);
@@ -103,6 +109,16 @@ public class Connector implements IConnector {
                 person.setPicture(resultSet.getString("ppl_picture"));
                 person.setRole(resultSet.getString("ppl_role"));
                 person.setRoom(resultSet.getString("ppl_room"));
+
+
+                location.setName(resultSet.getString("loc_name"));
+                location.setDescription(resultSet.getString("loc_desc"));
+                location.setFloor(resultSet.getInt("loc_floor"));
+                location.setLandmark(resultSet.getString("loc_landmark"));
+                location.setLatitude(resultSet.getDouble("loc_latitude"));
+                location.setLongitude(resultSet.getDouble("loc_longitude"));
+
+                person.setLocation(location);
 
                 getPeople(stringMatch).put(person.getId(), person);
             }
