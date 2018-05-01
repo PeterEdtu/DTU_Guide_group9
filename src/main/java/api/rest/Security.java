@@ -65,7 +65,7 @@ public class Security {
     public Response logout(@CookieParam("sessionToken") Cookie cookie) {
 
         if (cookie != null) {
-            NewCookie newCookie = new NewCookie("sessionToken", "", "/REST", cookie.getDomain(), cookie.getVersion(), null, 0, new Date(0), false, true);
+            NewCookie newCookie = new NewCookie("sessionToken", "", "/REST", cookie.getDomain(), cookie.getVersion(), null, 0, new Date(0), false, false);
 
             return Response.ok("OK").cookie(newCookie).build();
         }

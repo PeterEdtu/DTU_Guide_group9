@@ -14,9 +14,14 @@ public class StubAppResources implements IAppResources {
     private ArrayList<Searchable> list= new ArrayList<Searchable>();
 
     private StubAppResources(){
-        Location loc1 = new Location("x1.80", "Auditorium", 0, null, 10, 10,null);
-        Location loc2 = new Location("x1.81", "Wierd room", 0, null, 12, 10,null);
-        Location loc3 = new Location("m1.0", "Auditorium", 2, null, 12, 5,null);
+        ArrayList<String> tagList = new ArrayList<String>();
+        tagList.add("Projekter");
+        tagList.add("Vand");
+        tagList.add("Stol");
+
+        Location loc1 = new Location("x1.80", "Auditorium", 0, "NONE", 10.9, 10.9, tagList);
+        Location loc2 = new Location("x1.81", "Wierd room", 0, "NONE", 12.9, 10.9,null);
+        Location loc3 = new Location("m1.0", "Auditorium", 2, "NONE", 12.9, 5.9,null);
 
         list.add(loc1);
         list.add(loc2);
