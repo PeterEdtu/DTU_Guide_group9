@@ -19,7 +19,7 @@ public class Person extends Searchable {
         this.location = location;
     }
 
-    public Person(){
+    public Person() {
 
     }
 
@@ -33,7 +33,7 @@ public class Person extends Searchable {
         this.room = room;
     }
 
-    public Person(Person pers){
+    public Person(Person pers) {
         this(pers.id,
                 pers.name,
                 pers.mail,
@@ -43,6 +43,20 @@ public class Person extends Searchable {
                 pers.room
 
         );
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", mail='" + mail + '\'' +
+                ", description='" + description + '\'' +
+                ", picture='" + picture + '\'' +
+                ", role='" + role + '\'' +
+                ", room='" + room + '\'' +
+                ", location=" + location +
+                '}';
     }
 
     public int getId() {
