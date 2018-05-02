@@ -25,6 +25,11 @@ public class DummyConnector implements IConnector {
     }
 
     @Override
+    public ArrayList<Tag> getTags() throws DataAccessException {
+        return null;
+    }
+
+    @Override
     public void createAdmin(String adminName) throws DataAccessException {
 
     }
@@ -111,6 +116,16 @@ public class DummyConnector implements IConnector {
 
     @Override
     public void createPerson(Person person) throws DataAccessException {
+
+    }
+
+    @Override
+    public void createTag(Tag tag) throws DataAccessException {
+
+    }
+
+    @Override
+    public void deleteTag(int id) throws DataAccessException {
 
     }
 }

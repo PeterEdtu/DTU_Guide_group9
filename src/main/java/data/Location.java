@@ -41,6 +41,10 @@ public class Location extends Searchable {
                 loc.getTags());
     }
 
+    public String toString(){
+        return name + " " + description + " " + floor + " " + landmark + " " + latitude + " " + longitude + " " + tags;
+    }
+
     public ArrayList<String> getTags() {
         return tags;
     }

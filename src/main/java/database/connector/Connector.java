@@ -46,11 +46,12 @@ public class Connector implements IConnector {
         establishedConnection();
         PreparedStatement preparedStatement = null;
         Location location = null;
-        String sqlGetLocations = "SELECT * FROM locations WHERE loc_name LIKE %?%";
+
+        String sqlGetLocations = "SELECT * FROM locations WHERE loc_name LIKE ?";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlGetLocations);
-            preparedStatement.setString(1, stringMatch);
+            preparedStatement.setString(1, "'%" + stringMatch + "%'");
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -97,7 +98,7 @@ public class Connector implements IConnector {
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlGetPeople);
-            preparedStatement.setString(1, stringMatch);
+            preparedStatement.setString(1, "'%" + stringMatch + "%'");
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -214,7 +215,7 @@ public class Connector implements IConnector {
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlCreateAdmin);
-            preparedStatement.setString(1, adminName);
+            preparedStatement.setString(1, "\"" + adminName + "\"");
             preparedStatement.executeUpdate();
             System.out.println("Added a new admin to admin-table. New admin name: " + adminName);
         } catch (SQLException e) {
@@ -243,7 +244,7 @@ public class Connector implements IConnector {
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlDeleteAdmin);
-            preparedStatement.setString(1, adminName);
+            preparedStatement.setString(1, "'%" + adminName + "%'");
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
@@ -359,6 +360,7 @@ public class Connector implements IConnector {
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlGetLocationSuggestion);
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -442,12 +444,12 @@ public class Connector implements IConnector {
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlUpdateLocation);
-            preparedStatement.setString(1, location.getDescription());
+            preparedStatement.setString(1, "\"" + location.getDescription() + "\"");
             preparedStatement.setInt(2, location.getFloor());
-            preparedStatement.setString(3, location.getLandmark());
+            preparedStatement.setString(3, "\"" + location.getLandmark() + "\"");
             preparedStatement.setDouble(4, location.getLatitude());
             preparedStatement.setDouble(5, location.getLongitude());
-            preparedStatement.setString(6, location.getName());
+            preparedStatement.setString(6, "\"" + location.getName() + "\"");
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -476,7 +478,7 @@ public class Connector implements IConnector {
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlDeleteLocation);
-            preparedStatement.setString(1, locationName);
+            preparedStatement.setString(1, "\"" + locationName + "\"");
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
@@ -507,11 +509,11 @@ public class Connector implements IConnector {
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlCreateLocationSuggestion);
-            preparedStatement.setString(1, suggestionLocation.getAuthor());
-            preparedStatement.setString(2, suggestionLocation.getName());
-            preparedStatement.setString(3, suggestionLocation.getDescription());
+            preparedStatement.setString(1, "\"" + suggestionLocation.getAuthor() + "\"");
+            preparedStatement.setString(2, "\"" + suggestionLocation.getName() + "\"");
+            preparedStatement.setString(3, "\"" + suggestionLocation.getDescription() + "\"");
             preparedStatement.setInt(4, suggestionLocation.getFloor());
-            preparedStatement.setString(5, suggestionLocation.getLandmark());
+            preparedStatement.setString(5, "\"" + suggestionLocation.getLandmark() + "\"");
             preparedStatement.setDouble(6, suggestionLocation.getLatitude());
             preparedStatement.setDouble(7, suggestionLocation.getLongitude());
             preparedStatement.setDate(8, (Date) suggestionLocation.getDate());
