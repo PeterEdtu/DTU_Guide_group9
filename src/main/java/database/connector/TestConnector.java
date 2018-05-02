@@ -12,7 +12,7 @@ public class TestConnector {
 
     private static boolean testGetLocations() {
         try {
-            System.out.println(connector.getLocations("m"));
+            System.out.println(connector.getLocations("X"));
             return true;
         } catch (DataAccessException e) {
             e.printStackTrace();

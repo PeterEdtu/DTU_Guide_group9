@@ -14,7 +14,7 @@ public class Connector implements IConnector {
     //JDBC driver name, and database URL:
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String DB_URL = "jdbc:mysql://localhost/distdb";
+    private static final String DB_URL = "jdbc:mysql://localhost/distdb?useSSL=false";
 
     // Database credentials:
     private static final String USER = "root";
@@ -43,19 +43,20 @@ public class Connector implements IConnector {
      */
     @Override
     public HashMap<String, Location> getLocations(String stringMatch) throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        Location location = null;
+        Location location;
+        HashMap<String, Location> tempHashmap = new HashMap<String, Location>();
 
-        String sqlGetLocations = "SELECT * FROM locations WHERE loc_name LIKE ?";
+        String sqlGetLocations = "SELECT * FROM locations WHERE loc_name LIKE ?;";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlGetLocations);
-            preparedStatement.setString(1, "'%" + stringMatch + "%'");
+            preparedStatement.setString(1, "%" + stringMatch + "%");
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                location = new Location();
                 location.setName(resultSet.getString("loc_name"));
                 location.setDescription(resultSet.getString("loc_desc"));
                 location.setFloor(resultSet.getInt("loc_floor"));
@@ -63,10 +64,8 @@ public class Connector implements IConnector {
                 location.setLatitude(resultSet.getDouble("loc_latitude"));
                 location.setLongitude(resultSet.getDouble("loc_longitude"));
 
-                getLocations(stringMatch).put(location.getName(), location);
+                tempHashmap.put(location.getName(), location);
             }
-
-
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
@@ -79,7 +78,7 @@ public class Connector implements IConnector {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
-        return getLocations(stringMatch);
+        return tempHashmap;
     }
 
     /**
