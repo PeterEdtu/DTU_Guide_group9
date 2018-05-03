@@ -1,17 +1,15 @@
 package api.rest;
 
-import api.rest.listmanipulators.ArrayListManipulator;
+import api.rest.utility.ArrayListManipulator;
 import controllers.stub.StubAppResources;
 import data.Location;
 import data.Person;
 import data.Searchable;
-import org.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 @Path("/searchable")

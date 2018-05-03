@@ -1,12 +1,14 @@
 package api.rest;
 
 import api.HTTPException;
+import api.rest.utility.ArrayListManipulator;
 import api.rest.pojos.LocationChange;
 import controllers.exceptions.NotFoundException;
 import controllers.security.Auth;
 import controllers.security.AuthenticatedUser;
 import controllers.stub.StubChangedAppResources;
 import data.Location;
+import data.Searchable;
 import data.SuggestionLocation;
 
 import javax.ws.rs.*;
@@ -15,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 @Path("/searchable/suggestions/locations")
 public class EditedLocationResource {
@@ -26,11 +29,19 @@ public class EditedLocationResource {
     }
 
     @GET
-    public Response getEditedLocations(@CookieParam("sessionToken") Cookie cookie){
+    public Response getEditedLocations(@CookieParam("sessionToken") Cookie cookie,
+                                       @QueryParam("searchString") String searchMatch,
+                                       @QueryParam("sort") String sortItem,
+                                       @QueryParam("page") Integer page ,
+                                       @QueryParam("limit") Integer limit){
         try {
             Auth.authorize(cookie);
+
             ArrayList<SuggestionLocation> suggLoc = suggestedResources.getAllChangedLocations();
-            return Response.ok(suggLoc).build();
+            List<Searchable> searchables = new ArrayList<Searchable>();
+            searchables.addAll(suggLoc);
+            ArrayListManipulator.searchInNames(searchables,searchMatch);
+            return ArrayListManipulator.getPageResponse(searchables,page,limit,sortItem);
         }catch (NotFoundException e) {
             return Response.status(204).build();
         }catch (HTTPException e) {

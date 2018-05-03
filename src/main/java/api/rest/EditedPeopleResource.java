@@ -1,14 +1,13 @@
 package api.rest;
 
 import api.HTTPException;
-import api.rest.listmanipulators.ArrayListManipulator;
+import api.rest.utility.ArrayListManipulator;
 import api.rest.pojos.PersonChange;
-import controllers.exceptions.NotFoundException;
 import controllers.security.Auth;
 import controllers.security.AuthenticatedUser;
 import controllers.stub.StubChangedAppResources;
 import data.Person;
-import data.SuggestionLocation;
+import data.Searchable;
 import data.SuggestionPerson;
 
 import javax.ws.rs.*;
@@ -17,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 @Path("/searchable/suggestions/people")
 public class EditedPeopleResource {
@@ -36,10 +36,12 @@ public class EditedPeopleResource {
         try {
             Auth.authorize(cookie);
             ArrayList<SuggestionPerson> suggPeop = suggestedResources.getAllChangedPeople();
-            ArrayListManipulator.searchInNames(suggPeop,searchMatch);
+            List<Searchable> searchables = new ArrayList<Searchable>();
+            searchables.addAll(suggPeop);
+            ArrayListManipulator.searchInNames(searchables,searchMatch);
 
 
-            return Response.ok(suggPeop).build();
+            return ArrayListManipulator.getPageResponse(searchables,page,limit,sortItem);
         }catch (HTTPException e) {
             e.printStackTrace();
             return e.getHttpResponse();

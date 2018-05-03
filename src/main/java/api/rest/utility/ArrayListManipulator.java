@@ -1,4 +1,4 @@
-package api.rest.listmanipulators;
+package api.rest.utility;
 
 import data.Searchable;
 import org.json.JSONObject;
@@ -15,6 +15,13 @@ public class ArrayListManipulator {
 
     public static Response getPageResponse(List<Searchable> searchables, Integer page, Integer limit, String sortItem){
         int totalItems= searchables.size();
+        if(limit==null){
+            limit=Integer.MAX_VALUE;
+        }
+        if(page==null){
+            page=1;
+        }
+
         if(sortItem!=null) {
             if (sortItem.equals("name")) {
                 searchables.sort(Comparator.comparing(o -> o.getSearchName()));
