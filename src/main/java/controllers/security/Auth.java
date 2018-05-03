@@ -53,9 +53,7 @@ public class Auth {
             throw new InvalidCredentials();
         }
 
-        String jwtJSON = generateJWT(loggedInUser);
-
-        return jwtJSON;
+        return generateJWT(loggedInUser);
     }
 
 
@@ -79,11 +77,9 @@ public class Auth {
 
     private static AuthenticatedUser authorize(String jwt) throws InvalidToken {
 
-        Key sesionkey= jwtKey;
-
         Jws<Claims> myjwt;
         try {
-            myjwt = Jwts.parser().setSigningKey(sesionkey).parseClaimsJws(jwt);
+            myjwt = Jwts.parser().setSigningKey(jwtKey).parseClaimsJws(jwt);
         }
         catch(Exception e) {
             throw new InvalidToken();
@@ -107,7 +103,7 @@ public class Auth {
 
         boolean isAdmin = adminInfo.isAdmin(loggedInUser.brugernavn);
 
-        String compactJws = Jwts.builder()
+        return Jwts.builder()
                 .setHeaderParam("id", jwtID)
                 .setSubject(loggedInUser.brugernavn)
                 .claim("email", loggedInUser.email)
@@ -115,7 +111,6 @@ public class Auth {
                 .claim("exp",expDate)
                 .setIssuedAt(currentDate).setExpiration(expDate)
                 .signWith(SignatureAlgorithm.HS512, jwtKey).compact();
-        return compactJws;
     }
 
     private static long  timeToMidnight() {

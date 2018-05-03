@@ -37,7 +37,7 @@ public class ItemOverwriteException extends HTTPException {
         this.overwriteSug = overwriteSug;
     }
 
-    public ItemOverwriteException(){};
+    public ItemOverwriteException(){}
 
     public ItemOverwriteException(Location overwriteLoc){
         this.overwriteLoc = overwriteLoc;

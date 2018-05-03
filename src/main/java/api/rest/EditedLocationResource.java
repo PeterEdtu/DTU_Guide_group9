@@ -22,7 +22,7 @@ import java.util.List;
 @Path("/searchable/suggestions/locations")
 public class EditedLocationResource {
 
-    static StubChangedAppResources suggestedResources;
+    private static StubChangedAppResources suggestedResources;
 
     static {
         suggestedResources= StubChangedAppResources.getInstance();

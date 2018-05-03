@@ -41,8 +41,8 @@ public class Person extends Searchable {
                 pers.picture,
                 pers.role,
                 pers.room
-
         );
+        this.location=pers.location;
     }
 
     @Override

@@ -21,7 +21,7 @@ import java.util.List;
 @Path("/searchable/suggestions/people")
 public class EditedPeopleResource {
 
-    static StubChangedAppResources suggestedResources;
+    private static StubChangedAppResources suggestedResources;
 
     static {
         suggestedResources= StubChangedAppResources.getInstance();

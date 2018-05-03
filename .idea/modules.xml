@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/DTU_Guide_group9.iml" filepath="$PROJECT_DIR$/.idea/DTU_Guide_group9.iml" />
+      <module fileurl="file://$PROJECT_DIR$/distServerside.iml" filepath="$PROJECT_DIR$/distServerside.iml" />
     </modules>
   </component>
 </project>
