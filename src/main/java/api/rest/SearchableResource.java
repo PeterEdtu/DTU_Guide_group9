@@ -1,5 +1,6 @@
 package api.rest;
 
+import api.rest.listmanipulators.ArrayListManipulator;
 import controllers.stub.StubAppResources;
 import data.Location;
 import data.Person;
@@ -40,30 +41,8 @@ public class SearchableResource {
         if(type!=null&&!type.isEmpty()){
             searchables = getFilteredList(searchables, type);
         }
-        int totalItems= searchables.size();
 
-        if(sortItem!=null) {
-            if (sortItem.equals("name")) {
-                searchables.sort(Comparator.comparing(o -> o.getSearchName()));
-            }
-        }
-
-        if(page!=null&&limit!=null&&page>0&&limit>0){
-            try {
-                searchables = searchables.subList((page - 1) * limit, Math.min(limit * page,searchables.size()));
-            }catch (RuntimeException e){
-                return Response.status(416).build();
-            }
-        }
-        String jsonOut = new JSONObject()
-                .put("numPages",(int) Math.ceil(totalItems/(double)limit))
-                .put("totalItems",totalItems)
-                .put("itemsPerPage",limit)
-                .put("pageNumber",page)
-                .put("data",searchables)
-                .toString();
-
-        return Response.ok(jsonOut).build();
+        return ArrayListManipulator.getPageResponse(searchables,page,limit,sortItem);
     }
 
 

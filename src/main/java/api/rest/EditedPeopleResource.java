@@ -1,6 +1,7 @@
 package api.rest;
 
 import api.HTTPException;
+import api.rest.listmanipulators.ArrayListManipulator;
 import api.rest.pojos.PersonChange;
 import controllers.exceptions.NotFoundException;
 import controllers.security.Auth;
@@ -27,10 +28,17 @@ public class EditedPeopleResource {
     }
 
     @GET
-    public Response getEditedPeoples(@CookieParam("sessionToken") Cookie cookie){
+    public Response getEditedPeoples(@CookieParam("sessionToken") Cookie cookie,
+                                     @QueryParam("searchString") String searchMatch,
+                                     @QueryParam("sort") String sortItem,
+                                     @QueryParam("page") Integer page ,
+                                     @QueryParam("limit") Integer limit){
         try {
             Auth.authorize(cookie);
             ArrayList<SuggestionPerson> suggPeop = suggestedResources.getAllChangedPeople();
+            ArrayListManipulator.searchInNames(suggPeop,searchMatch);
+
+
             return Response.ok(suggPeop).build();
         }catch (HTTPException e) {
             e.printStackTrace();
