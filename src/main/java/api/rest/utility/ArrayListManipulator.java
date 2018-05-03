@@ -4,13 +4,20 @@ import data.Searchable;
 import org.json.JSONObject;
 
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class ArrayListManipulator {
 
     public static List<Searchable> searchInNames(List<Searchable> list,String search){
-        return list;
+        List<Searchable> outList=new ArrayList<Searchable>();
+        for (Searchable s: list) {
+            if(!s.getSearchName().contains("search")){
+                outList.add(s);
+            }
+        }
+        return outList;
     }
 
     public static Response getPageResponse(List<Searchable> searchables, Integer page, Integer limit, String sortItem){
