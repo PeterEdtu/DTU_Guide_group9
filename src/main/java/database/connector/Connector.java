@@ -23,10 +23,10 @@ public class Connector implements IConnector {
 
     private Connection establishedConnection() {
         Connection conn = null;
-        System.out.println("Connecting to database...");
+        //     System.out.println("Connecting to database...");
         try {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            System.out.println("Connected successfully!");
+            //          System.out.println("Connected successfully!");
         } catch (SQLException e) {
             System.out.println("Connection to database failed: " + e.getMessage() + "\n");
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class Connector implements IConnector {
     /**
      * @param stringMatch Input to search for, in the 'people' table.
      * @return Returns getPeople hashmap.
-     * @throws DataAccessException
+     * @throws DataAccessException Exception thrown in case a SQL command fails.
      */
     @Override
     public HashMap<Integer, Person> getPeople(String stringMatch) throws DataAccessException {
@@ -225,6 +225,8 @@ public class Connector implements IConnector {
             preparedStatement.setString(1, adminName);
             preparedStatement.executeUpdate();
             System.out.println("Added a new admin to admin table. New admin name: " + adminName);
+            preparedStatement.close();
+
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
@@ -319,9 +321,9 @@ public class Connector implements IConnector {
      */
     @Override
     public ArrayList<SuggestionPerson> getPeopleSuggestions() throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        SuggestionPerson suggestionPerson = null;
+        SuggestionPerson suggestionPerson;
+        ArrayList<SuggestionPerson> tempArrayList = new ArrayList<>();
         String sqlGetPeopleSuggestions = "SELECT * FROM suggestion_people";
 
         try {
@@ -329,6 +331,8 @@ public class Connector implements IConnector {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                suggestionPerson = new SuggestionPerson();
+
                 suggestionPerson.setSuggestionID(resultSet.getInt("suggestion_ppl_ID"));
                 suggestionPerson.setAuthor(resultSet.getString("suggestion_ppl_author"));
                 suggestionPerson.setName(resultSet.getString("suggestion_ppl_name"));
@@ -339,7 +343,7 @@ public class Connector implements IConnector {
                 suggestionPerson.setRoom(resultSet.getString("suggestion_ppl_room"));
                 suggestionPerson.setDate(resultSet.getDate("suggestion_ppl_date"));
 
-                getPeopleSuggestions().add(suggestionPerson);
+                tempArrayList.add(suggestionPerson);
             }
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
@@ -353,7 +357,7 @@ public class Connector implements IConnector {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
-        return getPeopleSuggestions();
+        return tempArrayList;
     }
 
     /**
@@ -363,9 +367,8 @@ public class Connector implements IConnector {
      */
     @Override
     public SuggestionLocation getLocationSuggestion(int id) throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        SuggestionLocation suggestionLocation = null;
+        SuggestionLocation suggestionLocation;
         String sqlGetLocationSuggestion = "SELECT * FROM suggestion_locations WHERE suggestion_loc_ID = ?";
 
         try {
@@ -374,6 +377,7 @@ public class Connector implements IConnector {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                suggestionLocation = new SuggestionLocation();
                 suggestionLocation.setSuggestionID(resultSet.getInt("suggestion_loc_ID"));
                 suggestionLocation.setAuthor(resultSet.getString("suggestion_loc_author"));
                 suggestionLocation.setName(resultSet.getString("suggestion_loc_name"));
@@ -383,6 +387,8 @@ public class Connector implements IConnector {
                 suggestionLocation.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
                 suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
                 suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
+                return suggestionLocation;
+
             }
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
@@ -396,7 +402,7 @@ public class Connector implements IConnector {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
-        return suggestionLocation;
+        return null;
     }
 
     /**
