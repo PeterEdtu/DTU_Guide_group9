@@ -1,10 +1,11 @@
 package api.rest;
 
 
+import api.HTTPException;
 import org.json.JSONObject;
-import security.Auth;
-import security.AuthenticatedUser;
-import security.LoginPojo;
+import controllers.security.Auth;
+import controllers.security.AuthenticatedUser;
+import api.rest.pojos.LoginPojo;
 
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.*;
@@ -16,7 +17,6 @@ import java.util.Date;
 @Path("/security")
 public class Security {
 
-
     @Path("session")
     @GET
     public Response getSession(@CookieParam("sessionToken") Cookie cookie) {
@@ -26,6 +26,8 @@ public class Security {
             jsonString = new JSONObject()
                     .put("validSession","true")
                     .put("username",user.getUsername())
+                    .put("isAdmin",user.isAdmin())
+                    .put("exp",user.getExpDate())
                     .toString();
 
             return Response.ok(jsonString).build();
@@ -42,16 +44,25 @@ public class Security {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(LoginPojo loginInfo) {
 
+
         try {
-            String jwt = Auth.authenticate(loginInfo.username, loginInfo.password);
+            String jwt = Auth.authenticate(loginInfo.getUsername(), loginInfo.getPassword());
 
             NewCookie sampleCookie = new NewCookie("sessionToken", "");
-            NewCookie sessionCookie =new NewCookie("sessionToken", jwt, "/REST", sampleCookie.getDomain(), sampleCookie.getVersion(), null, sampleCookie.getMaxAge(), null, false, true);
+            NewCookie sessionCookie =new NewCookie("sessionToken", jwt, "/REST", sampleCookie.getDomain(), sampleCookie.getVersion(), null, sampleCookie.getMaxAge(), null, false, false);
+            AuthenticatedUser au=Auth.authorize(sessionCookie);
+            String jsonString = new JSONObject()
+                    .put("validSession","true")
+                    .put("username",au.getUsername())
+                    .put("isAdmin",au.isAdmin())
+                    .put("exp",au.getExpDate())
+                    .toString();
+            System.err.println("Jsonstring is: " +jsonString);
 
-            return Response.ok("OK - Session Started").cookie(sessionCookie).build();
+            return Response.ok(jsonString).cookie(sessionCookie).build();
 
-        } catch (Exception e) {
-            return Response.status(401).build();
+        } catch (HTTPException e) {
+            return e.getHttpResponse();
         }
     }
 
@@ -60,7 +71,7 @@ public class Security {
     public Response logout(@CookieParam("sessionToken") Cookie cookie) {
 
         if (cookie != null) {
-            NewCookie newCookie = new NewCookie("sessionToken", "", "/REST", cookie.getDomain(), cookie.getVersion(), null, 0, new Date(0), false, true);
+            NewCookie newCookie = new NewCookie("sessionToken", "", "/REST", cookie.getDomain(), cookie.getVersion(), null, 0, new Date(0), false, false);
 
             return Response.ok("OK").cookie(newCookie).build();
         }
