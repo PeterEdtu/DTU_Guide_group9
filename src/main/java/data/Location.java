@@ -18,7 +18,7 @@ public class Location extends Searchable {
 
     private ArrayList<String> tags;
 
-    public Location(){
+    public Location() {
 
     }
 
@@ -36,7 +36,8 @@ public class Location extends Searchable {
         this.longitude = longitude;
         this.tags = tags;
     }
-    public Location(Location loc){
+
+    public Location(Location loc) {
         this(loc.getName(),
                 loc.getDescription(),
                 loc.getFloor(),
@@ -44,6 +45,21 @@ public class Location extends Searchable {
                 loc.getLatitude(),
                 loc.getLongitude(),
                 loc.getTags());
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", floor=" + floor +
+                ", landmark='" + landmark + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", tags=" + tags +
+                '}';
     }
 
     public ArrayList<String> getTags() {

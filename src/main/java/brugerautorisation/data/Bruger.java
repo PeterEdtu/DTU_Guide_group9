@@ -13,7 +13,7 @@ public class Bruger implements Serializable
     public long sidstAktiv;
     public String campusnetId; // campusnet database-ID
     public String studeretning = "ukendt";
-    public String fornavn = "test";
+    public String fornavn = "TestConnector";
     public String efternavn = "testesen";
     public String adgangskode;
     public HashMap<String,Object> ekstraFelter = new HashMap<String,Object>();

@@ -14,12 +14,12 @@ public class Connector implements IConnector {
     //JDBC driver name, and database URL:
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String DB_URL = "jdbc:mysql://localhost/distdb";
+    private static final String DB_URL = "jdbc:mysql://localhost/distdb?useSSL=false";
 
     // Database credentials:
     private static final String USER = "root";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String PASS = "Mads";
+    private static final String PASS = "MySQLPass!1";
 
     private Connection establishedConnection() {
         Connection conn = null;
@@ -34,7 +34,6 @@ public class Connector implements IConnector {
         return conn;
     }
 
-    //tagslocations
 
     /**
      * @param stringMatch Input to search for, in the 'locations' table.
@@ -43,18 +42,20 @@ public class Connector implements IConnector {
      */
     @Override
     public HashMap<String, Location> getLocations(String stringMatch) throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        Location location = null;
-        String sqlGetLocations = "SELECT * FROM locations WHERE loc_name LIKE %?%";
+        Location location;
+        HashMap<String, Location> tempHashmap = new HashMap<>();
+
+        String sqlGetLocations = "SELECT * FROM locations WHERE loc_name LIKE ?;";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlGetLocations);
-            preparedStatement.setString(1, stringMatch);
+            preparedStatement.setString(1, "%" + stringMatch + "%");
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                location = new Location();
                 location.setName(resultSet.getString("loc_name"));
                 location.setDescription(resultSet.getString("loc_desc"));
                 location.setFloor(resultSet.getInt("loc_floor"));
@@ -62,10 +63,8 @@ public class Connector implements IConnector {
                 location.setLatitude(resultSet.getDouble("loc_latitude"));
                 location.setLongitude(resultSet.getDouble("loc_longitude"));
 
-                getLocations(stringMatch).put(location.getName(), location);
+                tempHashmap.put(location.getName(), location);
             }
-
-
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
@@ -78,7 +77,7 @@ public class Connector implements IConnector {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
-        return getLocations(stringMatch);
+        return tempHashmap;
     }
 
     /**
@@ -88,27 +87,30 @@ public class Connector implements IConnector {
      */
     @Override
     public HashMap<Integer, Person> getPeople(String stringMatch) throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        Person person = null;
-        Location location = null;
+        Person person;
+        Location location;
+        HashMap<Integer, Person> tempHashmap = new HashMap<>();
 
-        String sqlGetPeople = "SELECT * FROM people_locations WHERE ppl_raw_name LIKE ?";
+
+        String sqlGetPeople = "SELECT * FROM people_locations WHERE ppl_raw_name LIKE ?;";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlGetPeople);
-            preparedStatement.setString(1, stringMatch);
+            preparedStatement.setString(1, "%" + stringMatch + "%");
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                person = new Person();
+                location = new Location();
+
                 person.setId(resultSet.getInt("ppl_ID"));
-                person.setName(resultSet.getString("ppl_name"));
+                person.setName(resultSet.getString("ppl_raw_name"));
                 person.setMail(resultSet.getString("ppl_mail"));
                 person.setDescription(resultSet.getString("ppl_desc"));
                 person.setPicture(resultSet.getString("ppl_picture"));
                 person.setRole(resultSet.getString("ppl_role"));
-                person.setRoom(resultSet.getString("ppl_room"));
 
 
                 location.setName(resultSet.getString("loc_name"));
@@ -120,7 +122,7 @@ public class Connector implements IConnector {
 
                 person.setLocation(location);
 
-                getPeople(stringMatch).put(person.getId(), person);
+                tempHashmap.put(person.getId(), person);
             }
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
@@ -134,7 +136,7 @@ public class Connector implements IConnector {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
-        return getPeople(stringMatch);
+        return tempHashmap;
     }
 
     /**
@@ -143,16 +145,17 @@ public class Connector implements IConnector {
      */
     @Override
     public ArrayList<String> getAdmins() throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        String sqlGetAdmins = "SELECT * FROM people_admins";
+        String sqlGetAdmins = "SELECT * FROM people_admins;";
+        ArrayList<String> tempArrayList = new ArrayList<>();
+
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlGetAdmins);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                getAdmins().add("admin_name");
+                tempArrayList.add(resultSet.getString("admin_name"));
             }
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
@@ -166,26 +169,32 @@ public class Connector implements IConnector {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
-        return getAdmins();
+        return tempArrayList;
     }
 
+    /**
+     * @return Returns an array list of all tags in the system.
+     * @throws DataAccessException Exception thrown in case a SQL command fails.
+     */
     @Override
     public ArrayList<Tag> getTags() throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        Tag tagTemp = null;
+        Tag tagTemp;
+        ArrayList<Tag> tempArrayList = new ArrayList<>();
 
-        String sqlGetTags = "SELECT * FROM tags";
+        String sqlGetTags = "SELECT * FROM tags;";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlGetTags);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                tagTemp = new Tag();
+
                 tagTemp.setId(resultSet.getInt("tag_ID"));
                 tagTemp.setTagText(resultSet.getString("tag_text"));
 
-                getTags().add(tagTemp);
+                tempArrayList.add(tagTemp);
             }
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
@@ -199,7 +208,7 @@ public class Connector implements IConnector {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
-        return getTags();
+        return tempArrayList;
     }
 
     /**
@@ -208,15 +217,14 @@ public class Connector implements IConnector {
      */
     @Override
     public void createAdmin(String adminName) throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        String sqlCreateAdmin = "INSERT INTO people_admins (admin_name) VALUES (?)";
+        String sqlCreateAdmin = "INSERT INTO people_admins (admin_name) VALUES (?);";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlCreateAdmin);
             preparedStatement.setString(1, adminName);
             preparedStatement.executeUpdate();
-            System.out.println("Added a new admin to admin-table. New admin name: " + adminName);
+            System.out.println("Added a new admin to admin table. New admin name: " + adminName);
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
@@ -237,14 +245,14 @@ public class Connector implements IConnector {
      */
     @Override
     public void deleteAdmin(String adminName) throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        String sqlDeleteAdmin = "DELETE FROM people_admins WHERE admin_name = ?";
+        String sqlDeleteAdmin = "DELETE FROM people_admins WHERE admin_name = ?;";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlDeleteAdmin);
             preparedStatement.setString(1, adminName);
             preparedStatement.executeUpdate();
+            System.out.println("Deleted an admin from admin table. Removed admin name: " + adminName);
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
@@ -265,9 +273,10 @@ public class Connector implements IConnector {
      */
     @Override
     public ArrayList<SuggestionLocation> getLocationSuggestions() throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        SuggestionLocation suggestionLocation = null;
+        SuggestionLocation suggestionLocation;
+        ArrayList<SuggestionLocation> tempArrayList = new ArrayList<>();
+
         String sqlGetLocationSuggestions = "SELECT * FROM suggestion_locations";
 
         try {
@@ -275,6 +284,8 @@ public class Connector implements IConnector {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                suggestionLocation = new SuggestionLocation();
+
                 suggestionLocation.setSuggestionID(resultSet.getInt("suggestion_loc_ID"));
                 suggestionLocation.setAuthor(resultSet.getString("suggestion_loc_author"));
                 suggestionLocation.setName(resultSet.getString("suggestion_loc_name"));
@@ -285,7 +296,7 @@ public class Connector implements IConnector {
                 suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
                 suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
 
-                getLocationSuggestions().add(suggestionLocation);
+                tempArrayList.add(suggestionLocation);
             }
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
@@ -299,7 +310,7 @@ public class Connector implements IConnector {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
-        return getLocationSuggestions();
+        return tempArrayList;
     }
 
     /**
@@ -359,6 +370,7 @@ public class Connector implements IConnector {
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlGetLocationSuggestion);
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -442,12 +454,12 @@ public class Connector implements IConnector {
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlUpdateLocation);
-            preparedStatement.setString(1, location.getDescription());
+            preparedStatement.setString(1, "\"" + location.getDescription() + "\"");
             preparedStatement.setInt(2, location.getFloor());
-            preparedStatement.setString(3, location.getLandmark());
+            preparedStatement.setString(3, "\"" + location.getLandmark() + "\"");
             preparedStatement.setDouble(4, location.getLatitude());
             preparedStatement.setDouble(5, location.getLongitude());
-            preparedStatement.setString(6, location.getName());
+            preparedStatement.setString(6, "\"" + location.getName() + "\"");
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -476,7 +488,7 @@ public class Connector implements IConnector {
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlDeleteLocation);
-            preparedStatement.setString(1, locationName);
+            preparedStatement.setString(1, "\"" + locationName + "\"");
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
@@ -507,11 +519,11 @@ public class Connector implements IConnector {
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlCreateLocationSuggestion);
-            preparedStatement.setString(1, suggestionLocation.getAuthor());
-            preparedStatement.setString(2, suggestionLocation.getName());
-            preparedStatement.setString(3, suggestionLocation.getDescription());
+            preparedStatement.setString(1, "\"" + suggestionLocation.getAuthor() + "\"");
+            preparedStatement.setString(2, "\"" + suggestionLocation.getName() + "\"");
+            preparedStatement.setString(3, "\"" + suggestionLocation.getDescription() + "\"");
             preparedStatement.setInt(4, suggestionLocation.getFloor());
-            preparedStatement.setString(5, suggestionLocation.getLandmark());
+            preparedStatement.setString(5, "\"" + suggestionLocation.getLandmark() + "\"");
             preparedStatement.setDouble(6, suggestionLocation.getLatitude());
             preparedStatement.setDouble(7, suggestionLocation.getLongitude());
             preparedStatement.setDate(8, (Date) suggestionLocation.getDate());
