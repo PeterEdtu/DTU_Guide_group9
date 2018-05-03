@@ -25,4 +25,9 @@ public class Tag extends Searchable {
     public void setTagText(String tagText) {
         this.tagText = tagText;
     }
+
+    @Override
+    public String getSearchName() {
+        return tagText;
+    }
 }

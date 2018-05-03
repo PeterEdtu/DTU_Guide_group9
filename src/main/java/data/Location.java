@@ -22,6 +22,11 @@ public class Location extends Searchable {
 
     }
 
+    @Override
+    public String getSearchName() {
+        return name;
+    }
+
     public Location(String name, String description, int floor, String landmark, double latitude, double longitude, ArrayList<String> tags) {
         this.name = name;
         this.description = description;

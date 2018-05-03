@@ -1,6 +1,7 @@
 package api.rest;
 
 
+import api.HTTPException;
 import org.json.JSONObject;
 import controllers.security.Auth;
 import controllers.security.AuthenticatedUser;
@@ -25,7 +26,8 @@ public class Security {
             jsonString = new JSONObject()
                     .put("validSession","true")
                     .put("username",user.getUsername())
-                    .put("role",user.isAdmin())
+                    .put("isAdmin",user.isAdmin())
+                    .put("exp",user.getExpDate())
                     .toString();
 
             return Response.ok(jsonString).build();
@@ -48,15 +50,19 @@ public class Security {
 
             NewCookie sampleCookie = new NewCookie("sessionToken", "");
             NewCookie sessionCookie =new NewCookie("sessionToken", jwt, "/REST", sampleCookie.getDomain(), sampleCookie.getVersion(), null, sampleCookie.getMaxAge(), null, false, false);
+            AuthenticatedUser au=Auth.authorize(sessionCookie);
             String jsonString = new JSONObject()
                     .put("validSession","true")
+                    .put("username",au.getUsername())
+                    .put("isAdmin",au.isAdmin())
+                    .put("exp",au.getExpDate())
                     .toString();
             System.err.println("Jsonstring is: " +jsonString);
 
             return Response.ok(jsonString).cookie(sessionCookie).build();
 
-        } catch (Exception e) {
-            return Response.status(401).build();
+        } catch (HTTPException e) {
+            return e.getHttpResponse();
         }
     }
 

@@ -100,4 +100,10 @@ public class Person extends Searchable {
     public void setRoom(String room) {
         this.room = room;
     }
+
+    @Override
+    public String getSearchName() {
+        return name;
+    }
+
 }

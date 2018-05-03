@@ -13,6 +13,6 @@ public class AppConfig extends Application {
 
     static{
         soapEndpoint = new ConsoleAppEndpoint();
-        Endpoint.publish("http://localhost:9901/SOAP", soapEndpoint);
+        Endpoint.publish("http://0.0.0.0:9901/SOAP", soapEndpoint);
     }
 }

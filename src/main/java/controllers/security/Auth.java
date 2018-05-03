@@ -91,7 +91,7 @@ public class Auth {
 
         Claims body =myjwt.getBody();
 
-        return new AuthenticatedUser(body.getSubject(),(Boolean)body.remove("isAdmin"));
+        return new AuthenticatedUser(body.getSubject(),(Boolean)body.remove("isAdmin"),(int)body.remove("exp"));
     }
 
 
@@ -112,6 +112,7 @@ public class Auth {
                 .setSubject(loggedInUser.brugernavn)
                 .claim("email", loggedInUser.email)
                 .claim("isAdmin",isAdmin)
+                .claim("exp",expDate)
                 .setIssuedAt(currentDate).setExpiration(expDate)
                 .signWith(SignatureAlgorithm.HS512, jwtKey).compact();
         return compactJws;
