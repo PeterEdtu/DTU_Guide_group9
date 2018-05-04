@@ -17,6 +17,7 @@ public class TestConnector {
         testDeleteAdmin();
         testGetLocationSuggestions();
         testGetPeopleSuggestions();
+        testGetPeopleSuggestionID();
         System.out.println(countTest);
     }
 
@@ -98,6 +99,16 @@ public class TestConnector {
     private static boolean testGetPeopleSuggestions() {
         try {
             System.out.println(connector.getPeopleSuggestions());
+            return true;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static boolean testGetPeopleSuggestionID() {
+        try {
+            System.out.println(connector.getLocationSuggestion(1));
             return true;
         } catch (DataAccessException e) {
             e.printStackTrace();

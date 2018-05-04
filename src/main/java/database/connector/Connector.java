@@ -19,7 +19,7 @@ public class Connector implements IConnector {
     // Database credentials:
     private static final String USER = "root";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String PASS = "MySQLPass!1";
+    private static final String PASS = "Mads";
 
     private Connection establishedConnection() {
         Connection conn = null;
@@ -376,8 +376,8 @@ public class Connector implements IConnector {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                suggestionLocation = new SuggestionLocation();
+            suggestionLocation = new SuggestionLocation();
+            if (resultSet.next()) {
                 suggestionLocation.setSuggestionID(resultSet.getInt("suggestion_loc_ID"));
                 suggestionLocation.setAuthor(resultSet.getString("suggestion_loc_author"));
                 suggestionLocation.setName(resultSet.getString("suggestion_loc_name"));
@@ -387,8 +387,6 @@ public class Connector implements IConnector {
                 suggestionLocation.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
                 suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
                 suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
-                return suggestionLocation;
-
             }
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
@@ -402,7 +400,7 @@ public class Connector implements IConnector {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
-        return null;
+        return suggestionLocation;
     }
 
     /**
