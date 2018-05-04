@@ -2,11 +2,12 @@ package database.tests;
 
 
 import controllers.exceptions.DataAccessException;
+import data.Location;
 import database.connector.Connector;
 
 public class TestConnector {
     private static Connector connector = new Connector();
-    public static int countTest = 0;
+
 
     public static void main(String[] args) {
         testGetLocations();
@@ -18,14 +19,14 @@ public class TestConnector {
         testGetLocationSuggestions();
         testGetPeopleSuggestions();
         testGetPeopleSuggestionID();
-        System.out.println(countTest);
+        testUpdateLocation();
+
     }
 
 
     private static boolean testGetLocations() {
         try {
             System.out.println(connector.getLocations("X"));
-            countTest++;
             return true;
         } catch (DataAccessException e) {
             e.printStackTrace();
@@ -115,5 +116,26 @@ public class TestConnector {
             return false;
         }
     }
+
+    private static boolean testUpdateLocation() {
+        try {
+            Location tempLoc = new Location();
+            tempLoc.setName("X1.54");
+            tempLoc.setDescription("testdesc");
+            tempLoc.setFloor(1);
+            tempLoc.setLandmark("testlandmark");
+            tempLoc.setLatitude(12.24563);
+            tempLoc.setLongitude(12.2125);
+
+            connector.updateLocation(tempLoc);
+            System.out.println("Updated location: " + tempLoc.getName());
+
+            return true;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 }
