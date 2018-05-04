@@ -9,6 +9,7 @@ import java.util.Date;
 
 import brugerautorisation.data.Bruger;
 import brugerautorisation.transport.rmi.Brugeradmin;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import controllers.security.exception.PermissionToLow;
 import controllers.stub.StubAdminControls;
@@ -47,12 +48,15 @@ public class Auth {
 
         try {
             loggedInUser = ba.hentBruger(username, password);
-        }catch (RemoteException e){
+        }catch(RemoteException e){
+            e.printStackTrace();
+            throw new RuntimeException("Unable to connect to BrugerAutorisation");
+        }
+        catch (Exception e){
             System.err.println("Error message: "+e.getMessage());
             e.printStackTrace();
             throw new InvalidCredentials();
         }
-
         return generateJWT(loggedInUser);
     }
 

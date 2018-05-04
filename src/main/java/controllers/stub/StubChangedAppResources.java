@@ -12,6 +12,7 @@ import database.connector.DummyConnector;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class StubChangedAppResources implements IChangedAppResources {
@@ -26,7 +27,17 @@ public class StubChangedAppResources implements IChangedAppResources {
     private StubChangedAppResources(){
         people = new HashMap<>();
         location = new HashMap<>();
+        Location[] locArr= new Location[4];
+        locArr[0]= new Location("a1.44","This is a room",1,"NONE",72.2,30.4,null);
+        locArr[1]= new Location("r1.24","This is a room",2,"NONE",72.2,30.4,null);
+        locArr[2]= new Location("u1.11","This is a room",1,"NONE",72.2,30.4,null);
+        locArr[3]= new Location("v1.20","This is a room",1,"NONE",72.2,30.4,null);
+
+        for(id=0; id<4;id++){
+            location.put(id,new SuggestionLocation(locArr[id],id,Calendar.getInstance().getTime(),"s144265"));
+        }
     }
+
 
     public static synchronized StubChangedAppResources getInstance(){
         if(controller == null){

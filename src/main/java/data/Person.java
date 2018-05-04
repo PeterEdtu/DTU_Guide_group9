@@ -116,7 +116,7 @@ public class Person extends Searchable {
     }
 
     @Override
-    public String getSearchName() {
+    public String searchName() {
         return name;
     }
 

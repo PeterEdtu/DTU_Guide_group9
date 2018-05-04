@@ -40,7 +40,7 @@ public class EditedLocationResource {
             ArrayList<SuggestionLocation> suggLoc = suggestedResources.getAllChangedLocations();
             List<Searchable> searchables = new ArrayList<Searchable>();
             searchables.addAll(suggLoc);
-            ArrayListManipulator.searchInNames(searchables,searchMatch);
+            searchables=ArrayListManipulator.searchInNames(searchables,searchMatch);
             return ArrayListManipulator.getPageResponse(searchables,page,limit,sortItem);
         }catch (NotFoundException e) {
             return Response.status(204).build();
