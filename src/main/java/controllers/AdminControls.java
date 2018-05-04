@@ -19,7 +19,7 @@ public class AdminControls implements IAdminControls {
     }
 
 
-    public synchronized AdminControls getInstance() {
+    public static synchronized AdminControls getInstance() {
         if (controller == null) {
             controller = new AdminControls();
         }

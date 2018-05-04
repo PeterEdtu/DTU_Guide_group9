@@ -22,7 +22,7 @@ public class ChangedAppResources implements IChangedAppResources {
     }
 
 
-    public synchronized ChangedAppResources getInstance() {
+    public static synchronized ChangedAppResources getInstance() {
         if (controller == null) {
             controller = new ChangedAppResources();
         }

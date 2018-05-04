@@ -21,7 +21,7 @@ public class AppResources implements IAppResources {
     }
 
 
-    public synchronized AppResources getInstance() {
+    public static synchronized AppResources getInstance() {
         if (controller == null) {
             controller = new AppResources();
         }
