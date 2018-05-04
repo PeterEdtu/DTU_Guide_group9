@@ -53,7 +53,15 @@ public class SuggestionLocation extends Location implements ISuggestion {
         this.suggestionID = id;
     }
 
-
+    @Override
+    public String toString() {
+        return "SuggestionLocation{" +
+                super.toString()+
+                "suggestionID=" + suggestionID +
+                ", date=" + date +
+                ", author='" + author + '\'' +
+                '}';
+    }
 
     public Location toLocation(){
         return this;

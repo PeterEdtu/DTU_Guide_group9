@@ -9,10 +9,11 @@ public class SuggestionPerson extends Person implements ISuggestion {
     private Date date;
     private String author;
 
-    public SuggestionPerson(){
+    public SuggestionPerson() {
 
     }
-    public SuggestionPerson(Person p,int suggestionID, Date date, String author){
+
+    public SuggestionPerson(Person p, int suggestionID, Date date, String author) {
         super(p);
 
         this.suggestionID = suggestionID;
@@ -46,17 +47,25 @@ public class SuggestionPerson extends Person implements ISuggestion {
         this.author = author;
     }
 
-    public SuggestionPerson(int suggestionID, Date date, String author){
+    public SuggestionPerson(int suggestionID, Date date, String author) {
         super();
 
         this.suggestionID = suggestionID;
         this.date = date;
         this.author = author;
-
-
     }
 
-    public Person toPerson(){
+    @Override
+    public String toString() {
+        return "SuggestionPerson{" +
+                super.toString() +
+                "suggestionID=" + suggestionID +
+                ", date=" + date +
+                ", author='" + author + '\'' +
+                '}';
+    }
+
+    public Person toPerson() {
         return this;
     }
 }
