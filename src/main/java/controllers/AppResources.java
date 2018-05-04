@@ -17,7 +17,10 @@ public class AppResources implements IAppResources {
 
     private static AppResources controller = null;
 
+    static char[] charsBackList;
+
     private AppResources() {
+        charsBackList = new char[]{'{', '}','#','@','$','(',')','[',']'};
     }
 
 

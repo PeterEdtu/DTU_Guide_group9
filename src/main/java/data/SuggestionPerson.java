@@ -56,6 +56,16 @@ public class SuggestionPerson extends Person implements ISuggestion {
 
     }
 
+    @Override
+    public String toString() {
+        return "SuggestionPerson{" +
+                super.toString()+
+                "suggestionID=" + suggestionID +
+                ", date=" + date +
+                ", author='" + author + '\'' +
+                '}';
+    }
+
     public Person toPerson(){
         return this;
     }
