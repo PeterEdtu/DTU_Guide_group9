@@ -41,7 +41,7 @@ public class ChangedAppResourcesTest {
             location.setLatitude(122.332);
             location.setLongitude(33.55);
             location.setFloor(0);
-            location.setName("No U Location");
+            location.setName("No U");
 
             controls.addLocation(location);
 
@@ -58,11 +58,13 @@ public class ChangedAppResourcesTest {
             person.setId(999);
             person.setMail("no_u@gmail.com");
             person.setName("M No U");
-            person.setRoom("No U Location");
+            person.setRoom("No U");
 
             controls.addPerson(person);
 
-            System.out.println(controls.getAllChangedPeople());
+            System.out.println(controls.getAllChangedLocations());
+
+            //controls.approvePerson(3);
 
             System.out.println(controls.getAllChangedPeople());
 

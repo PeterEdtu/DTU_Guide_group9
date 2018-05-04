@@ -16,6 +16,15 @@ public class AppResourcesTest {
 
             System.out.println(controls.search("adwkdwakdwdlkawdklawd"));
 
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+        try{
+
+            System.out.println(controls.search("V2.01"));
+
             System.out.println(controls.search("Sune"));
 
             System.out.println(controls.search("M"));
@@ -23,6 +32,13 @@ public class AppResourcesTest {
             System.out.println(controls.search(" "));
 
             System.out.println(controls.search("(test)"));
+
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+        try{
 
             System.out.println(controls.search("}"));
         } catch (DataAccessException e) {

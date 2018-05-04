@@ -1,20 +1,18 @@
 package controllers;
 
-import controllers.interfaces.IChangedAppResources;
 import controllers.exceptions.DataAccessException;
 import controllers.exceptions.ItemOverwriteException;
 import controllers.exceptions.NotFoundException;
-import data.Person;
-import data.Location;
+import controllers.interfaces.IChangedAppResources;
 import data.SuggestionLocation;
 import data.SuggestionPerson;
-import database.connector.DummyConnector;
+import database.connector.Connector;
 
 import java.util.ArrayList;
 
 public class ChangedAppResources implements IChangedAppResources {
 
-    DummyConnector connector = new DummyConnector();
+    Connector connector = new Connector();
 
     private static ChangedAppResources controller = null;
 
@@ -131,7 +129,11 @@ public class ChangedAppResources implements IChangedAppResources {
         if(suggestionLocation == null){
             throw new NotFoundException("Suggestion ID "+id+" cannot be found");
         }else{
-            connector.createLocation(suggestionLocation.toLocation());
+            if(connector.getLocations(suggestionLocation.getName()) == null)
+                connector.createLocation(suggestionLocation.toLocation());
+            else connector.updateLocation(suggestionLocation.toLocation());
+
+            connector.deleteLocationSuggestion(id);
         }
     }
 
