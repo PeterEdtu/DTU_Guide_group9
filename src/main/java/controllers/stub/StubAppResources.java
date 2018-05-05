@@ -1,11 +1,13 @@
 package controllers.stub;
 
+import api.rest.utility.ArrayListManipulator;
 import controllers.interfaces.IAppResources;
 import data.Location;
 import data.Person;
 import data.Searchable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StubAppResources implements IAppResources {
 
@@ -35,6 +37,7 @@ public class StubAppResources implements IAppResources {
         list.add(pers2);
         list.add(pers3);
 
+
     }
 
     public static synchronized StubAppResources getInstance(){
@@ -47,6 +50,14 @@ public class StubAppResources implements IAppResources {
 
     @Override
     public ArrayList<Searchable> search(String searchText) {
-        return list;
+        List<Searchable> searchables;
+        if(searchText!=null) {
+            searchables = ArrayListManipulator.searchInNames(list, searchText);
+        }
+        else{
+            searchables=list;
+        }
+
+        return (ArrayList<Searchable>) searchables;
     }
 }
