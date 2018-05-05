@@ -10,6 +10,8 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+@SuppressWarnings("SqlNoDataSourceInspection")
 public class Connector implements IConnector {
 
     //JDBC driver name, and database URL:
@@ -20,7 +22,7 @@ public class Connector implements IConnector {
     // Database credentials:
     private static final String USER = "root";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String PASS = "Mads";
+    private static final String PASS = "MySQLPass!1";
 
     private Connection establishedConnection() {
         Connection conn = null;
@@ -76,6 +78,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Retrieved information from locations!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -114,7 +117,6 @@ public class Connector implements IConnector {
                 person.setDescription(resultSet.getString("ppl_desc"));
                 person.setPicture(resultSet.getString("ppl_picture"));
                 person.setRole(resultSet.getString("ppl_role"));
-                person.setRoom(resultSet.getString("ppl_room"));
 
 
                 location.setName(resultSet.getString("loc_name"));
@@ -137,11 +139,13 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Retrieved information from people_locations!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
         }
         return tempHashmap;
+
     }
 
     /**
@@ -170,6 +174,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Retrieved information from people_admins!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -238,6 +243,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Retrieved information from tags");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -258,7 +264,6 @@ public class Connector implements IConnector {
             preparedStatement = establishedConnection().prepareStatement(sqlCreateAdmin);
             preparedStatement.setString(1, adminName);
             preparedStatement.executeUpdate();
-            System.out.println("Added a new admin to admin table. New admin name: " + adminName);
             preparedStatement.close();
 
         } catch (SQLException e) {
@@ -269,6 +274,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Inserted " + adminName + " into people_admins table");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -297,6 +303,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Deleted " + adminName + " from people_admins table");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -312,6 +319,7 @@ public class Connector implements IConnector {
         PreparedStatement preparedStatement = null;
         SuggestionLocation suggestionLocation;
         ArrayList<SuggestionLocation> tempArrayList = new ArrayList<>();
+
 
         String sqlGetLocationSuggestions = "SELECT * FROM suggestion_locations;";
 
@@ -332,6 +340,8 @@ public class Connector implements IConnector {
                 suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
                 suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
 
+                suggestionLocation.setTags(getTagsFromLocation(suggestionLocation.getName()));
+
                 tempArrayList.add(suggestionLocation);
             }
         } catch (SQLException e) {
@@ -342,6 +352,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Retrieved information from suggestion_locations!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -388,6 +399,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Retrieved information from suggestion_people!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -422,6 +434,9 @@ public class Connector implements IConnector {
                 suggestionLocation.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
                 suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
                 suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
+
+
+                System.out.println("Retrieved information about " + suggestionLocation.getName() + " from suggestion_locations!");
             }
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
@@ -467,6 +482,8 @@ public class Connector implements IConnector {
                 suggestionPerson.setRole(resultSet.getString("suggestion_ppl_role"));
                 suggestionPerson.setRoom(resultSet.getString("suggestion_ppl_room"));
                 suggestionPerson.setDate(resultSet.getDate("suggestion_ppl_date"));
+
+                System.out.println("Retrieved information about " + suggestionPerson.getName() + " from suggestion_locations!");
 
             }
         } catch (SQLException e) {
@@ -551,7 +568,6 @@ public class Connector implements IConnector {
             //updateTagsForLocation(location.getName(), location.getTags());
 
             preparedStatement.executeUpdate();
-            System.out.println("Updated location data for: " + location.getName());
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
@@ -560,6 +576,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Updated location data for: " + location.getName());
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -588,6 +605,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Deleted location, " + locationName + ", from locations");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -623,7 +641,7 @@ public class Connector implements IConnector {
 
             preparedStatement.setDate(8, sqlDate);
 
-            //updateTagsForLocation(suggestionLocation.getName(), suggestionLocation.getTags());
+            updateTagsForLocation(suggestionLocation.getName(), suggestionLocation.getTags());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -634,6 +652,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Created " + suggestionLocation.getName() + " into suggestion_locations!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -645,6 +664,7 @@ public class Connector implements IConnector {
      * @throws DataAccessException Exception thrown in case a SQL command fails.
      */
     @Override
+    @SuppressWarnings("Duplicates")
     public void updateLocationSuggestion(SuggestionLocation suggestionLocation) throws DataAccessException {
         PreparedStatement preparedStatement = null;
         String sqlUpdateLocationSuggestion = "UPDATE suggestion_locations SET suggestion_loc_author = ?, suggestion_loc_name = ?, " +
@@ -660,8 +680,15 @@ public class Connector implements IConnector {
             preparedStatement.setString(5, suggestionLocation.getLandmark());
             preparedStatement.setDouble(6, suggestionLocation.getLatitude());
             preparedStatement.setDouble(7, suggestionLocation.getLongitude());
-            preparedStatement.setDate(8, (Date) suggestionLocation.getDate());
             preparedStatement.setInt(9, suggestionLocation.getSuggestionID());
+
+
+            java.util.Date ourDate = suggestionLocation.getDate();
+            LocalDate local = ourDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            Date sqlDate = Date.valueOf(local);
+
+            preparedStatement.setDate(8, sqlDate);
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -672,6 +699,8 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Updated " + suggestionLocation.getName() + " in suggestion_locations!");
+
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -700,6 +729,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Deleted " + id + " from suggestion_locations!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -734,6 +764,8 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Created " + location.getName() + " in locations!");
+
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -745,6 +777,7 @@ public class Connector implements IConnector {
      * @param person Inserted object to be updated in the people table, in the database.
      * @throws DataAccessException Exception thrown in case a SQL command fails.
      */
+    @SuppressWarnings("Duplicates")
     @Override
     public void updatePerson(Person person) throws DataAccessException {
         PreparedStatement preparedStatement = null;
@@ -770,6 +803,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Updated " + person.getName() + " in people!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -799,6 +833,8 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Deleted " + id + " from people!");
+
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -844,6 +880,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Created " + suggestionPerson.getName() + " in suggestion_locations!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -871,8 +908,16 @@ public class Connector implements IConnector {
             preparedStatement.setString(5, suggestionPerson.getPicture());
             preparedStatement.setString(6, suggestionPerson.getRole());
             preparedStatement.setString(7, suggestionPerson.getRoom());
-            preparedStatement.setDate(8, (Date) suggestionPerson.getDate());
+
             preparedStatement.setInt(9, suggestionPerson.getSuggestionID());
+
+
+            java.util.Date ourDate = suggestionPerson.getDate();
+            LocalDate local = ourDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            Date sqlDate = Date.valueOf(local);
+
+            preparedStatement.setDate(8, sqlDate);
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -893,6 +938,7 @@ public class Connector implements IConnector {
      * @param id Inserted id to be removed from the suggestion_people table in the database.
      * @throws DataAccessException Exception thrown in case a SQL command fails.
      */
+    @SuppressWarnings("Duplicates")
     @Override
     public void deletePeopleSuggestion(int id) throws DataAccessException {
         establishedConnection();
@@ -911,6 +957,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Deleted people suggestion: " + id + ", from suggestion_people!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -946,6 +993,8 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Inserted a person, " + person.getName() + ", in people!");
+
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -975,6 +1024,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Inserted tag, " + tag.getTagText() + ", into tags!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -1001,6 +1051,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
+                System.out.println("Deleted tag id: " + id + " from tags!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }

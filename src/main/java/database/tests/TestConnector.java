@@ -5,8 +5,10 @@ import controllers.exceptions.DataAccessException;
 import data.Location;
 import data.Person;
 import data.SuggestionLocation;
+import data.Tag;
 import database.connector.Connector;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class TestConnector {
@@ -24,9 +26,13 @@ public class TestConnector {
         testGetPeopleSuggestions();
         testGetPeopleSuggestionID();
         testUpdateLocation();
-        //testDeleteLocation();
+        testDeleteLocation();
         testCreatePerson();
         testCreateLocationSuggestion();
+        testDeleteLocationSuggestion();
+        testDeleteTag();
+        testCreateTag();
+        testUpdateLocationSuggestion();
     }
 
 
@@ -141,7 +147,7 @@ public class TestConnector {
         }
     }
 
-  /*  private static boolean testDeleteLocation() {
+    private static boolean testDeleteLocation() {
         try {
             connector.deleteLocation("V2.01");
             return true;
@@ -149,7 +155,7 @@ public class TestConnector {
             e.printStackTrace();
             return false;
         }
-    }*/
+    }
 
     private static boolean testCreatePerson() {
         try {
@@ -163,7 +169,6 @@ public class TestConnector {
             person.setRoom("Testroom");
 
             connector.createPerson(person);
-            System.out.println("Created person: " + person.getName());
             return true;
         } catch (DataAccessException e) {
             e.printStackTrace();
@@ -187,7 +192,7 @@ public class TestConnector {
             suggestionLocation.setLongitude(12.2125);
             suggestionLocation.setDate(date);
 
-            connector.updateLocation(suggestionLocation);
+            connector.createLocationSuggestion(suggestionLocation);
             return true;
         } catch (DataAccessException e) {
             e.printStackTrace();
@@ -195,5 +200,62 @@ public class TestConnector {
         }
     }
 
+    private static boolean testDeleteLocationSuggestion() {
+        try {
+            connector.deleteLocationSuggestion(1);
+            return true;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static boolean testDeleteTag() {
+        try {
+            connector.deleteTag(4);
+            return true;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static boolean testCreateTag() {
+        try {
+            Tag tag = new Tag();
+
+            tag.setId(4);
+            tag.setTagText("CAE");
+            connector.createTag(tag);
+            return true;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    private static boolean testUpdateLocationSuggestion() {
+        try {
+            Date date = new Date();
+
+            SuggestionLocation suggestionLocation = new SuggestionLocation();
+            suggestionLocation.setAuthor("testlocauthor");
+            suggestionLocation.setName("testlocname");
+            suggestionLocation.setDescription("testdesc");
+            suggestionLocation.setFloor(1);
+            suggestionLocation.setLandmark("testlandmark");
+            suggestionLocation.setLatitude(12.24563);
+            suggestionLocation.setLongitude(12.2125);
+            suggestionLocation.setDate(date);
+
+
+            connector.updateLocationSuggestion(suggestionLocation);
+            return true;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
