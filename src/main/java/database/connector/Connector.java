@@ -320,6 +320,7 @@ public class Connector implements IConnector {
         SuggestionLocation suggestionLocation;
         ArrayList<SuggestionLocation> tempArrayList = new ArrayList<>();
 
+
         String sqlGetLocationSuggestions = "SELECT * FROM suggestion_locations;";
 
         try {
@@ -338,6 +339,8 @@ public class Connector implements IConnector {
                 suggestionLocation.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
                 suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
                 suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
+
+                suggestionLocation.setTags(getTagsFromLocation(suggestionLocation.getName()));
 
                 tempArrayList.add(suggestionLocation);
             }
@@ -431,6 +434,7 @@ public class Connector implements IConnector {
                 suggestionLocation.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
                 suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
                 suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
+
 
                 System.out.println("Retrieved information about " + suggestionLocation.getName() + " from suggestion_locations!");
             }

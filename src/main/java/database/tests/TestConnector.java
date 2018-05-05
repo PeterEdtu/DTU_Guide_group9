@@ -8,6 +8,7 @@ import data.SuggestionLocation;
 import data.Tag;
 import database.connector.Connector;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class TestConnector {
@@ -168,7 +169,6 @@ public class TestConnector {
             person.setRoom("Testroom");
 
             connector.createPerson(person);
-            System.out.println("Created person: " + person.getName());
             return true;
         } catch (DataAccessException e) {
             e.printStackTrace();
@@ -238,6 +238,7 @@ public class TestConnector {
     private static boolean testUpdateLocationSuggestion() {
         try {
             Date date = new Date();
+
             SuggestionLocation suggestionLocation = new SuggestionLocation();
             suggestionLocation.setAuthor("testlocauthor");
             suggestionLocation.setName("testlocname");
@@ -247,6 +248,7 @@ public class TestConnector {
             suggestionLocation.setLatitude(12.24563);
             suggestionLocation.setLongitude(12.2125);
             suggestionLocation.setDate(date);
+
 
             connector.updateLocationSuggestion(suggestionLocation);
             return true;
