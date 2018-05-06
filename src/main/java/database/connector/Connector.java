@@ -17,12 +17,16 @@ public class Connector implements IConnector {
     //JDBC driver name, and database URL:
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String DB_URL = "jdbc:mysql://localhost/distdb?useSSL=false";
+    //private static final String DB_URL = "jdbc:mysql://localhost/distdb?useSSL=false";
+    private static final String DB_URL = "jdbc:mysql://arvid-langsoe.dk:3306/distdb?useSSL=false";
+
 
     // Database credentials:
-    private static final String USER = "root";
+    //private static final String USER = "root";
+    private static final String USER = "remoteDist";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String PASS = "MySQLPass!1";
+    //private static final String PASS = "MySQLPass!1";
+    private static final String PASS = "qwerty";
 
     private Connection establishedConnection() {
         Connection conn = null;
@@ -211,6 +215,35 @@ public class Connector implements IConnector {
         return tempArrayList;
     }
 
+    private ArrayList<String> getTagsFromSuggestionLocation(int id) throws DataAccessException {
+        PreparedStatement preparedStatement = null;
+        ArrayList<String> tempArrayList = new ArrayList<>();
+
+        String sqlGetSuggestionTags = "SELECT * FROM tagssuggestionlocations WHERE suggestion_loc_ID = ?;";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlGetSuggestionTags);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                tempArrayList.add(resultSet.getString("tag_text"));
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+        return tempArrayList;
+    }
+
     /**
      * @return Returns an array list of all tags in the system.
      * @throws DataAccessException Exception thrown in case a SQL command fails.
@@ -340,7 +373,7 @@ public class Connector implements IConnector {
                 suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
                 suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
 
-                suggestionLocation.setTags(getTagsFromLocation(suggestionLocation.getName()));
+                suggestionLocation.setTags(getTagsFromSuggestionLocation(suggestionLocation.getSuggestionID()));
 
                 tempArrayList.add(suggestionLocation);
             }
@@ -434,6 +467,8 @@ public class Connector implements IConnector {
                 suggestionLocation.setLatitude(resultSet.getDouble("suggestion_loc_latitude"));
                 suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
                 suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
+
+                suggestionLocation.setTags(getTagsFromSuggestionLocation(suggestionLocation.getSuggestionID()));
 
 
                 System.out.println("Retrieved information about " + suggestionLocation.getName() + " from suggestion_locations!");
@@ -576,7 +611,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
-                System.out.println("Updated location data for: " + location.getName());
+                System.out.println("Updated location data for: " + location.getName() + ("!"));
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -605,7 +640,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
-                System.out.println("Deleted location, " + locationName + ", from locations");
+                System.out.println("Deleted location, " + locationName + ", from locations!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -729,7 +764,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
-                System.out.println("Deleted " + id + " from suggestion_locations!");
+                System.out.println("Deleted location id: " + id + ", from suggestion_locations!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }

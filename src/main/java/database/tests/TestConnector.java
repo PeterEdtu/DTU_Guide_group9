@@ -8,7 +8,6 @@ import data.SuggestionLocation;
 import data.Tag;
 import database.connector.Connector;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class TestConnector {
@@ -16,8 +15,13 @@ public class TestConnector {
 
 
     public static void main(String[] args) {
+    /*
+    Retrieves all information in the locations-table and people-table.
+    Huge performance drop! Use only for stress-testing/verification.
+
         testGetLocations();
         testGetPeople();
+    */
         testGetAdmins();
         testGetTags();
         testCreateAdmin();
@@ -33,6 +37,7 @@ public class TestConnector {
         testDeleteTag();
         testCreateTag();
         testUpdateLocationSuggestion();
+
     }
 
 
@@ -257,5 +262,6 @@ public class TestConnector {
             return false;
         }
     }
+
 
 }
