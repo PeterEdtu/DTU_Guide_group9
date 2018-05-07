@@ -32,10 +32,13 @@ public class Connector implements IConnector {
         Connection conn = null;
         //     System.out.println("Connecting to database...");
         try {
+            Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             //          System.out.println("Connected successfully!");
         } catch (SQLException e) {
             System.out.println("Connection to database failed: " + e.getMessage() + "\n");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return conn;
