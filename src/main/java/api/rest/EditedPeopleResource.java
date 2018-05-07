@@ -21,7 +21,7 @@ import java.util.List;
 @Path("/searchable/suggestions/people")
 public class EditedPeopleResource {
 
-    static StubChangedAppResources suggestedResources;
+    private static StubChangedAppResources suggestedResources;
 
     static {
         suggestedResources= StubChangedAppResources.getInstance();
@@ -38,7 +38,7 @@ public class EditedPeopleResource {
             ArrayList<SuggestionPerson> suggPeop = suggestedResources.getAllChangedPeople();
             List<Searchable> searchables = new ArrayList<Searchable>();
             searchables.addAll(suggPeop);
-            ArrayListManipulator.searchInNames(searchables,searchMatch);
+            searchables= ArrayListManipulator.searchInNames(searchables,searchMatch);
 
 
             return ArrayListManipulator.getPageResponse(searchables,page,limit,sortItem);

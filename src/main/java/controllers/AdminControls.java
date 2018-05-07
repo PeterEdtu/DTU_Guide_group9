@@ -3,6 +3,7 @@ package controllers;
 import controllers.exceptions.DataAccessException;
 import controllers.exceptions.NotFoundException;
 import controllers.interfaces.IAdminControls;
+import database.connector.Connector;
 import database.connector.DummyConnector;
 
 import java.util.ArrayList;
@@ -11,7 +12,9 @@ import java.util.List;
 
 public class AdminControls implements IAdminControls {
 
-    DummyConnector connector = new DummyConnector();
+ //   DummyConnector connector = new DummyConnector();
+
+    Connector connector = new Connector();
 
     private static AdminControls controller = null;
 
@@ -19,7 +22,7 @@ public class AdminControls implements IAdminControls {
     }
 
 
-    public synchronized AdminControls getInstance() {
+    public static synchronized AdminControls getInstance() {
         if (controller == null) {
             controller = new AdminControls();
         }

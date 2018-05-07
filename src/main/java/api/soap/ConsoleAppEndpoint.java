@@ -3,7 +3,6 @@ package api.soap;
 import controllers.stub.StubAdminControls;
 
 import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 
 
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 @WebService(endpointInterface = "api.soap.ConsoleAppInterface")
 public class ConsoleAppEndpoint implements ConsoleAppInterface {
 
-    StubAdminControls adminControl=StubAdminControls.getInstance();
+    private StubAdminControls adminControl=StubAdminControls.getInstance();
 
     public ConsoleAppEndpoint(){
         System.out.println("Starting soap interface");
@@ -31,7 +30,6 @@ public class ConsoleAppEndpoint implements ConsoleAppInterface {
 
     @Override
     public ArrayList<String> getAdminList() {
-        ArrayList<String> list = adminControl.getAdminNames();
-        return list;
+        return adminControl.getAdminNames();
     }
 }

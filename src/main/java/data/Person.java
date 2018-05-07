@@ -41,8 +41,8 @@ public class Person extends Searchable {
                 pers.picture,
                 pers.role,
                 pers.room
-
         );
+        this.location=pers.location;
     }
 
     @Override
@@ -116,7 +116,7 @@ public class Person extends Searchable {
     }
 
     @Override
-    public String getSearchName() {
+    public String searchName() {
         return name;
     }
 

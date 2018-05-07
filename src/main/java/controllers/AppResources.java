@@ -6,22 +6,25 @@ import controllers.interfaces.IAppResources;
 import data.Location;
 import data.Person;
 import data.Searchable;
-import database.connector.DummyConnector;
+import database.connector.Connector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AppResources implements IAppResources {
 
-    DummyConnector connector = new DummyConnector();
+    Connector connector = new Connector();
 
     private static AppResources controller = null;
 
+    static char[] charsBackList;
+
     private AppResources() {
+        charsBackList = new char[]{'{', '}','#','@','$','(',')','[',']'};
     }
 
 
-    public synchronized AppResources getInstance() {
+    public static synchronized AppResources getInstance() {
         if (controller == null) {
             controller = new AppResources();
         }
@@ -41,7 +44,7 @@ public class AppResources implements IAppResources {
             throw new DataAccessException("Null pointer at Searchable List");
         }else if(locations.isEmpty() && persons.isEmpty()){
             //TODO
-            throw new DataAccessException("Null pointer at Searchable List");
+            throw new NotFoundException("Null pointer at Searchable List");
         }else{
             result.addAll(locations.values());
             result.addAll(persons.values());

@@ -23,7 +23,7 @@ public class Location extends Searchable {
     }
 
     @Override
-    public String getSearchName() {
+    public String searchName() {
         return name;
     }
 

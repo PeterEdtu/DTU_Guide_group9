@@ -9,7 +9,7 @@ import javax.xml.ws.Endpoint;
 
 @ApplicationPath("/REST")
 public class AppConfig extends Application {
-    static ConsoleAppInterface soapEndpoint;
+    private static ConsoleAppInterface soapEndpoint;
 
     static{
         soapEndpoint = new ConsoleAppEndpoint();

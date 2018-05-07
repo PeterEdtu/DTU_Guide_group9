@@ -44,7 +44,7 @@ public class Tag extends Searchable {
     }
 
     @Override
-    public String getSearchName() {
+    public String searchName() {
         return tagText;
     }
 }

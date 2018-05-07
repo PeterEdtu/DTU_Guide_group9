@@ -4,11 +4,11 @@ import javax.ws.rs.core.Response;
 
 public abstract class HTTPException extends Exception{
 
-    public HTTPException(){
+    protected HTTPException(){
 
     }
 
-    public HTTPException(String message){
+    protected HTTPException(String message){
         super(message);
     }
 

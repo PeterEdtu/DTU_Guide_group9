@@ -36,9 +36,13 @@ public class SearchableResource {
             page=1;
         }
 
+
+
         if(type!=null&&!type.isEmpty()){
             searchables = getFilteredList(searchables, type);
         }
+
+
 
         return ArrayListManipulator.getPageResponse(searchables,page,limit,sortItem);
     }

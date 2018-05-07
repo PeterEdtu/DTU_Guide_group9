@@ -25,10 +25,7 @@ public class StubAdminControls implements IAdminControls {
 
     @Override
     public boolean isAdmin(String username) {
-        if(admins.contains(username)){
-            return true;
-        }
-        return false;
+        return admins.contains(username);
     }
 
     @Override

@@ -13,7 +13,7 @@ public class ArrayListManipulator {
     public static List<Searchable> searchInNames(List<Searchable> list,String search){
         List<Searchable> outList=new ArrayList<Searchable>();
         for (Searchable s: list) {
-            if(!s.getSearchName().contains("search")){
+            if(s.searchName().contains(search)){
                 outList.add(s);
             }
         }
@@ -31,7 +31,7 @@ public class ArrayListManipulator {
 
         if(sortItem!=null) {
             if (sortItem.equals("name")) {
-                searchables.sort(Comparator.comparing(o -> o.getSearchName()));
+                searchables.sort(Comparator.comparing(o -> o.searchName()));
             }
         }
 

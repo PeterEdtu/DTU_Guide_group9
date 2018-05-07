@@ -9,6 +9,7 @@ import java.util.Date;
 
 import brugerautorisation.data.Bruger;
 import brugerautorisation.transport.rmi.Brugeradmin;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import controllers.security.exception.PermissionToLow;
 import controllers.stub.StubAdminControls;
@@ -47,15 +48,16 @@ public class Auth {
 
         try {
             loggedInUser = ba.hentBruger(username, password);
-        }catch (RemoteException e){
+        }catch(RemoteException e){
+            e.printStackTrace();
+            throw new RuntimeException("Unable to connect to BrugerAutorisation");
+        }
+        catch (Exception e){
             System.err.println("Error message: "+e.getMessage());
             e.printStackTrace();
             throw new InvalidCredentials();
         }
-
-        String jwtJSON = generateJWT(loggedInUser);
-
-        return jwtJSON;
+        return generateJWT(loggedInUser);
     }
 
 
@@ -79,11 +81,9 @@ public class Auth {
 
     private static AuthenticatedUser authorize(String jwt) throws InvalidToken {
 
-        Key sesionkey= jwtKey;
-
         Jws<Claims> myjwt;
         try {
-            myjwt = Jwts.parser().setSigningKey(sesionkey).parseClaimsJws(jwt);
+            myjwt = Jwts.parser().setSigningKey(jwtKey).parseClaimsJws(jwt);
         }
         catch(Exception e) {
             throw new InvalidToken();
@@ -107,7 +107,7 @@ public class Auth {
 
         boolean isAdmin = adminInfo.isAdmin(loggedInUser.brugernavn);
 
-        String compactJws = Jwts.builder()
+        return Jwts.builder()
                 .setHeaderParam("id", jwtID)
                 .setSubject(loggedInUser.brugernavn)
                 .claim("email", loggedInUser.email)
@@ -115,7 +115,6 @@ public class Auth {
                 .claim("exp",expDate)
                 .setIssuedAt(currentDate).setExpiration(expDate)
                 .signWith(SignatureAlgorithm.HS512, jwtKey).compact();
-        return compactJws;
     }
 
     private static long  timeToMidnight() {

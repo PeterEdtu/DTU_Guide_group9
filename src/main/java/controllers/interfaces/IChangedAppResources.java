@@ -11,7 +11,7 @@ public interface IChangedAppResources {
 
     /**
      *
-     * @param loc The location to be added.
+     * @param location The location to be added.
      * @return Location that was added including id.
      */
     void addLocation(SuggestionLocation location) throws DataAccessException;
