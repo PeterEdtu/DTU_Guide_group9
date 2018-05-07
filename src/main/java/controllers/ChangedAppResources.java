@@ -82,12 +82,17 @@ public class ChangedAppResources implements IChangedAppResources {
 
     @Override
     public void addLocation(SuggestionLocation location) throws DataAccessException {
+        if(connector.getLocationSuggestion(location.getSuggestionID()) != null)
+            connector.deleteLocationSuggestion(location.getSuggestionID());
+
         connector.createLocationSuggestion(location);
+
     }
 
 
     @Override
     public ArrayList<SuggestionLocation> getAllChangedLocations() throws DataAccessException, NotFoundException {
+
         ArrayList<SuggestionLocation> suggestions = connector.getLocationSuggestions();
 
         if(suggestions == null){
@@ -131,7 +136,11 @@ public class ChangedAppResources implements IChangedAppResources {
         }else{
             if(connector.getLocations(suggestionLocation.getName()) == null)
                 connector.createLocation(suggestionLocation.toLocation());
-            else connector.updateLocation(suggestionLocation.toLocation());
+            else {
+                connector.deleteLocation(suggestionLocation.getName());
+                connector.createLocation(suggestionLocation.toLocation());
+
+            }
 
             connector.deleteLocationSuggestion(id);
         }
@@ -205,6 +214,8 @@ public class ChangedAppResources implements IChangedAppResources {
     public SuggestionPerson getPerson(int id) throws DataAccessException, NotFoundException {
         SuggestionPerson suggestionPerson = connector.getPeopleSuggestion(id);
 
+        System.out.println("BUG HERE : " + suggestionPerson);
+
         if(suggestionPerson == null){
             throw new NotFoundException("No People suggestion with ID "+id+" found");
         }else{
@@ -226,12 +237,22 @@ public class ChangedAppResources implements IChangedAppResources {
 
     @Override
     public void approvePerson(int id) throws DataAccessException, NotFoundException {
-        SuggestionPerson suggestionPerson = connector.getPeopleSuggestion(id);
+        SuggestionPerson suggestionPerson = getPerson(id);
+
+        System.out.println("THIS "+suggestionPerson);
 
         if(suggestionPerson == null){
             throw new NotFoundException("No People suggestion with ID "+id+" found");
         }else{
-            connector.createPerson(suggestionPerson.toPerson());
+            if(connector.getPeople(suggestionPerson.getId()) == null)
+                connector.createPerson(suggestionPerson.toPerson());
+            else {
+                connector.deletePerson(suggestionPerson.getId());
+                connector.createPerson(suggestionPerson.toPerson());
+
+            }
+
+            connector.deletePeopleSuggestion(id);
         }
     }
 

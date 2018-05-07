@@ -27,9 +27,9 @@ public class ChangedAppResourcesTest {
 
             ArrayList<String> tags = new ArrayList<>();
 
-            tags.add("insecure");
-            tags.add("dirty");
-            tags.add("depression");
+            tags.add("Blackboard");
+            tags.add("CAE");
+            //tags.add("depression");
 
             SuggestionLocation location = new SuggestionLocation();
             location.setTags(tags);
@@ -45,10 +45,10 @@ public class ChangedAppResourcesTest {
 
             controls.addLocation(location);
 
-            System.out.println(controls.getAllChangedLocations());
+            System.out.println("NO U LOCATION :"+controls.getAllChangedLocations());
 
             System.out.println("Approuve location : No U");
-            controls.approveLocation(2);
+            //controls.approveLocation(3);
 
             SuggestionPerson person = new SuggestionPerson();
             person.setPicture("https://pics.me.me/no-u-spell-card-no-u-deflects-all-roasts-29807977.png");
@@ -64,7 +64,7 @@ public class ChangedAppResourcesTest {
 
             System.out.println(controls.getAllChangedLocations());
 
-            //controls.approvePerson(3);
+            controls.approvePerson(3);
 
             System.out.println(controls.getAllChangedPeople());
 
