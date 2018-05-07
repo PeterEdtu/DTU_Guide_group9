@@ -17,16 +17,16 @@ public class Connector implements IConnector {
     //JDBC driver name, and database URL:
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String DB_URL = "jdbc:mysql://localhost/distdb?useSSL=false";
-    //private static final String DB_URL = "jdbc:mysql://arvid-langsoe.dk:3306/distdb?useSSL=false";
+    //private static final String DB_URL = "jdbc:mysql://localhost/distdb?useSSL=false";
+    private static final String DB_URL = "jdbc:mysql://arvid-langsoe.dk:3306/distdb?useSSL=false";
 
 
     // Database credentials:
-    private static final String USER = "root";
-    //private static final String USER = "remoteDist";
+    //private static final String USER = "root";
+    private static final String USER = "remoteDist";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String PASS = "Mads";
-    //private static final String PASS = "qwerty";
+    //private static final String PASS = "Mads";
+    private static final String PASS = "qwerty";
 
     private Connection establishedConnection() {
         Connection conn = null;

@@ -3,6 +3,7 @@ package api.rest;
 import api.HTTPException;
 import api.rest.utility.ArrayListManipulator;
 import api.rest.pojos.PersonChange;
+import controllers.ChangedAppResources;
 import controllers.security.Auth;
 import controllers.security.AuthenticatedUser;
 import controllers.stub.StubChangedAppResources;
@@ -21,10 +22,10 @@ import java.util.List;
 @Path("/searchable/suggestions/people")
 public class EditedPeopleResource {
 
-    private static StubChangedAppResources suggestedResources;
+    private static ChangedAppResources suggestedResources;
 
     static {
-        suggestedResources= StubChangedAppResources.getInstance();
+        suggestedResources = ChangedAppResources.getInstance();
     }
 
     @GET

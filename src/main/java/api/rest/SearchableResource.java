@@ -1,6 +1,9 @@
 package api.rest;
 
 import api.rest.utility.ArrayListManipulator;
+import controllers.AppResources;
+import controllers.exceptions.DataAccessException;
+import controllers.exceptions.NotFoundException;
 import controllers.stub.StubAppResources;
 import data.Location;
 import data.Person;
@@ -14,10 +17,10 @@ import java.util.List;
 
 @Path("/searchable")
 public class SearchableResource {
-    static StubAppResources res;
+    static AppResources res;
 
     static {
-        res = StubAppResources.getInstance();
+        res = AppResources.getInstance();
     }
 
     @GET
@@ -28,7 +31,14 @@ public class SearchableResource {
                                       @QueryParam("limit") Integer limit,
                                       @QueryParam("type") String type)
     {
-        List<Searchable> searchables =res.search(searchMatch);
+        List<Searchable> searchables = null;
+        try {
+            searchables = res.search(searchMatch);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        } catch (NotFoundException e) {
+            return e.getHttpResponse();
+        }
         if(limit==null){
             limit=Integer.MAX_VALUE;
         }

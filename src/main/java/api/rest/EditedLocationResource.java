@@ -3,6 +3,7 @@ package api.rest;
 import api.HTTPException;
 import api.rest.utility.ArrayListManipulator;
 import api.rest.pojos.LocationChange;
+import controllers.ChangedAppResources;
 import controllers.exceptions.NotFoundException;
 import controllers.security.Auth;
 import controllers.security.AuthenticatedUser;
@@ -22,10 +23,10 @@ import java.util.List;
 @Path("/searchable/suggestions/locations")
 public class EditedLocationResource {
 
-    private static StubChangedAppResources suggestedResources;
+    private static ChangedAppResources suggestedResources;
 
     static {
-        suggestedResources= StubChangedAppResources.getInstance();
+        suggestedResources= ChangedAppResources.getInstance();
     }
 
     @GET

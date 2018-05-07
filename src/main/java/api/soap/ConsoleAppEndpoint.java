@@ -1,5 +1,7 @@
 package api.soap;
 
+import controllers.AdminControls;
+import controllers.exceptions.DataAccessException;
 import controllers.stub.StubAdminControls;
 
 import javax.jws.WebService;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 @WebService(endpointInterface = "api.soap.ConsoleAppInterface")
 public class ConsoleAppEndpoint implements ConsoleAppInterface {
 
-    private StubAdminControls adminControl=StubAdminControls.getInstance();
+    private AdminControls adminControl= AdminControls.getInstance();
 
     public ConsoleAppEndpoint(){
         System.out.println("Starting soap interface");
@@ -18,18 +20,33 @@ public class ConsoleAppEndpoint implements ConsoleAppInterface {
 
     @Override
     public boolean addAdmin(String name) {
-        adminControl.addAdmin(name);
+        try {
+            adminControl.addAdmin(name);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
     @Override
     public boolean removeAdmin(String name) {
-        adminControl.removeAdmin(name);
+        try {
+            adminControl.removeAdmin(name);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
     @Override
     public ArrayList<String> getAdminList() {
-        return adminControl.getAdminNames();
+        try {
+            return adminControl.getAdminNames();
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
