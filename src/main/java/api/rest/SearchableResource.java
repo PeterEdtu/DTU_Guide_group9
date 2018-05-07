@@ -32,11 +32,15 @@ public class SearchableResource {
                                       @QueryParam("type") String type)
     {
         List<Searchable> searchables = null;
+        if(searchMatch==null){
+            searchMatch="";
+        }
         try {
             searchables = res.search(searchMatch);
         } catch (DataAccessException e) {
             e.printStackTrace();
         } catch (NotFoundException e) {
+            e.printStackTrace();
             return e.getHttpResponse();
         }
         if(limit==null){
