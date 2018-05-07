@@ -17,16 +17,16 @@ public class Connector implements IConnector {
     //JDBC driver name, and database URL:
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     @SuppressWarnings("SpellCheckingInspection")
-    //private static final String DB_URL = "jdbc:mysql://localhost/distdb?useSSL=false";
-    private static final String DB_URL = "jdbc:mysql://arvid-langsoe.dk:3306/distdb?useSSL=false";
+    private static final String DB_URL = "jdbc:mysql://localhost/distdb?useSSL=false";
+    //private static final String DB_URL = "jdbc:mysql://arvid-langsoe.dk:3306/distdb?useSSL=false";
 
 
     // Database credentials:
-    //private static final String USER = "root";
-    private static final String USER = "remoteDist";
+    private static final String USER = "root";
+    //private static final String USER = "remoteDist";
     @SuppressWarnings("SpellCheckingInspection")
-    //private static final String PASS = "MySQLPass!1";
-    private static final String PASS = "qwerty";
+    private static final String PASS = "Mads";
+    //private static final String PASS = "qwerty";
 
     private Connection establishedConnection() {
         Connection conn = null;
@@ -152,6 +152,65 @@ public class Connector implements IConnector {
 
     }
 
+    public Person getPeople(int id) throws DataAccessException {
+        PreparedStatement preparedStatement = null;
+        Person person;
+        Location location;
+
+        String sqlGetPeople = "SELECT * FROM people_locations WHERE ppl_ID = ?;";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlGetPeople);
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                person = new Person();
+                location = new Location();
+
+                person.setId(resultSet.getInt("ppl_ID"));
+                person.setName(resultSet.getString("ppl_raw_name"));
+                person.setMail(resultSet.getString("ppl_mail"));
+                person.setDescription(resultSet.getString("ppl_desc"));
+                person.setPicture(resultSet.getString("ppl_picture"));
+                person.setRole(resultSet.getString("ppl_role"));
+
+
+                location.setName(resultSet.getString("loc_name"));
+                location.setDescription(resultSet.getString("loc_desc"));
+                location.setFloor(resultSet.getInt("loc_floor"));
+                location.setLandmark(resultSet.getString("loc_landmark"));
+                location.setLatitude(resultSet.getDouble("loc_latitude"));
+                location.setLongitude(resultSet.getDouble("loc_longitude"));
+                try {
+                    location.setTags(getTagsFromLocation(location.getName()));
+                } catch (DataAccessException e) {
+                    e.printStackTrace();
+                }
+
+                person.setLocation(location);
+
+                return person;
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+                System.out.println("Retrieved information from people_locations!");
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+
+        }
+        return null;
+
+    }
+
     /**
      * @return Returns an array list of all admins in the system.
      * @throws DataAccessException Exception thrown in case a SQL command fails.
@@ -219,10 +278,10 @@ public class Connector implements IConnector {
         PreparedStatement preparedStatement = null;
         ArrayList<String> tempArrayList = new ArrayList<>();
 
-        String sqlGetSuggestionTags = "SELECT * FROM tagssuggestionlocations WHERE suggestion_loc_ID = ?;";
+        String sqlGetTags = "SELECT * FROM tagssuggestionlocations WHERE suggestion_loc_ID = ?;";
 
         try {
-            preparedStatement = establishedConnection().prepareStatement(sqlGetSuggestionTags);
+            preparedStatement = establishedConnection().prepareStatement(sqlGetTags);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -349,6 +408,7 @@ public class Connector implements IConnector {
      */
     @Override
     public ArrayList<SuggestionLocation> getLocationSuggestions() throws DataAccessException {
+
         PreparedStatement preparedStatement = null;
         SuggestionLocation suggestionLocation;
         ArrayList<SuggestionLocation> tempArrayList = new ArrayList<>();
@@ -361,6 +421,7 @@ public class Connector implements IConnector {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                System.out.println("________________________________________________________________________");
                 suggestionLocation = new SuggestionLocation();
 
                 suggestionLocation.setSuggestionID(resultSet.getInt("suggestion_loc_ID"));
@@ -550,7 +611,7 @@ public class Connector implements IConnector {
     }
 
     /*Does not work properly at the current time (4th of may)*/
-    private void updateTagsForLocation(String name, ArrayList<String> newTags) throws DataAccessException {
+    private void updateTagsForLocationSuggestion(int id, ArrayList<String> newTags) throws DataAccessException {
         if (newTags == null) {
             return;
         }
@@ -558,15 +619,17 @@ public class Connector implements IConnector {
         for (String tag : newTags) {
 
             PreparedStatement preparedStatement = null;
-            String sqlUpdateLocation = "INSERT INTO room_tags (loc_name, tag_ID) VALUES (?, ?) ";
+            String sqlUpdateLocation = "INSERT INTO suggestion_tags (suggestion_loc_ID, suggestion_tag) VALUES (?, ?);";
 
             try {
                 preparedStatement = establishedConnection().prepareStatement(sqlUpdateLocation);
-                preparedStatement.setString(1, name);
+                preparedStatement.setInt(1, id);
                 preparedStatement.setInt(2, getTagID(tag));
 
+                //getTagID(tag)
+
                 preparedStatement.executeUpdate();
-                System.out.println("Updated location tags for: " + name);
+                System.out.println("Updated location tags for: " + id);
             } catch (SQLException e) {
                 throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
             }
@@ -676,9 +739,20 @@ public class Connector implements IConnector {
 
             preparedStatement.setDate(8, sqlDate);
 
-            updateTagsForLocation(suggestionLocation.getName(), suggestionLocation.getTags());
-
             preparedStatement.executeUpdate();
+
+            ArrayList<SuggestionLocation> arrayList = getLocationSuggestions();
+            int index = -1;
+
+            preparedStatement = establishedConnection().prepareStatement("SELECT MAX(suggestion_loc_ID) AS new_id FROM suggestion_locations;");
+            ResultSet resultSet =preparedStatement.executeQuery();
+
+
+            resultSet.first();
+            index = resultSet.getInt("new_id");
+
+            updateTagsForLocationSuggestion(index, suggestionLocation.getTags());
+
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
@@ -976,9 +1050,8 @@ public class Connector implements IConnector {
     @SuppressWarnings("Duplicates")
     @Override
     public void deletePeopleSuggestion(int id) throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        String sqlDeletePeopleSuggestion = "DELETE FROM suggestion_people WHERE suggestion_ppl_ID= ?";
+        String sqlDeletePeopleSuggestion = "DELETE FROM suggestion_people WHERE suggestion_ppl_ID = ?;";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlDeletePeopleSuggestion);
@@ -1043,12 +1116,11 @@ public class Connector implements IConnector {
     @Override
     public void createTag(Tag tag) throws DataAccessException {
         PreparedStatement preparedStatement = null;
-        String sqlCreateTag = "INSERT INTO tags (tag_ID, tag_text) VALUES (?, ?)";
+        String sqlCreateTag = "INSERT INTO tags (tag_text) VALUES (?);";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlCreateTag);
-            preparedStatement.setInt(1, tag.getId());
-            preparedStatement.setString(2, tag.getTagText());
+            preparedStatement.setString(1, tag.getTagText());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -1069,9 +1141,8 @@ public class Connector implements IConnector {
     @SuppressWarnings("Duplicates")
     @Override
     public void deleteTag(int id) throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        String sqlDeleteTag = "DELETE FROM tags WHERE tag_ID = ?";
+        String sqlDeleteTag = "DELETE FROM tags WHERE tag_ID = ?;";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlDeleteTag);
