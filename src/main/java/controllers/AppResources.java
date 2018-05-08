@@ -8,6 +8,8 @@ import data.Person;
 import data.Searchable;
 import database.connector.Connector;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,6 +36,7 @@ public class AppResources implements IAppResources {
 
 
     @Override
+    @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Searchable> search(String searchText) throws DataAccessException, NotFoundException {
         ArrayList<Searchable> result = new ArrayList<>();
 

@@ -30,6 +30,7 @@ public class EditedLocationResource {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getEditedLocations(@CookieParam("sessionToken") Cookie cookie,
                                        @QueryParam("searchString") String searchMatch,
                                        @QueryParam("sort") String sortItem,
@@ -71,6 +72,7 @@ public class EditedLocationResource {
 
     @Path("/{id}")
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getEditedLocation(@CookieParam("sessionToken") Cookie cookie, @PathParam("id") int id){
         try {
             Auth.authorize(cookie);

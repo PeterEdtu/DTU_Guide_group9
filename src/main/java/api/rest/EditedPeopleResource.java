@@ -29,6 +29,7 @@ public class EditedPeopleResource {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getEditedPeoples(@CookieParam("sessionToken") Cookie cookie,
                                      @QueryParam("searchString") String searchMatch,
                                      @QueryParam("sort") String sortItem,
@@ -68,6 +69,7 @@ public class EditedPeopleResource {
 
     @Path("/{id}")
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getEditedPerson(@CookieParam("sessionToken") Cookie cookie, @PathParam("id") int id){
         try {
             Auth.authorize(cookie);
