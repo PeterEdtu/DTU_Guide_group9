@@ -32,7 +32,7 @@ public class ChangedAppResources implements IChangedAppResources {
 
 
     @Override
-    public void updateLocation(SuggestionLocation newLoc, SuggestionLocation previousLocation) throws ItemOverwriteException, DataAccessException {
+    public void updateLocation(SuggestionLocation newLoc, SuggestionLocation previousLocation) throws ItemOverwriteException, DataAccessException, NotFoundException {
         //Compare the previousLocation with the
         //actual (instance) location before update it
         //with the variable "newLoc" wich is the new location
@@ -40,6 +40,10 @@ public class ChangedAppResources implements IChangedAppResources {
         boolean isDifferent = false;
 
         SuggestionLocation actualLocation = connector.getLocationSuggestion(previousLocation.getSuggestionID());
+
+        if(actualLocation.getName() == null){
+            throw new NotFoundException("No Location suggestion with name "+previousLocation.getName()+" found");
+        }
 
         SuggestionLocation overwrite = new SuggestionLocation(actualLocation.getSuggestionID(),
                 actualLocation.getDate(),
@@ -166,12 +170,14 @@ public class ChangedAppResources implements IChangedAppResources {
     }
 
     @Override
-    public void updatePerson(SuggestionPerson person, SuggestionPerson previousPerson) throws DataAccessException, ItemOverwriteException {
-        //TODO ...
-
+    public void updatePerson(SuggestionPerson person, SuggestionPerson previousPerson) throws DataAccessException, ItemOverwriteException, NotFoundException {
         boolean isDifferent = false;
 
         SuggestionPerson actualPerson = connector.getPeopleSuggestion(previousPerson.getSuggestionID());
+
+        if(actualPerson.getName() == null){
+            throw new NotFoundException("No People suggestion with ID "+person.getSuggestionID()+" found");
+        }
 
         SuggestionPerson overwrite = new SuggestionPerson(actualPerson.getSuggestionID(),
                 actualPerson.getDate(),

@@ -2,6 +2,7 @@ package controllers.tests;
 
 import api.HTTPException;
 import controllers.ChangedAppResources;
+import data.SuggestionLocation;
 import data.SuggestionPerson;
 
 import java.util.Date;
@@ -45,11 +46,11 @@ public class ApprovePeopleTest {
             person.setAuthor("s165202");
             person.setDate(new Date());
             person.setSuggestionID(2);
-            person.setDescription("Easter Egg CHANGED");
-            person.setMail("no@u.meme");
+            //person.setDescription("Easter Egg CHANGED");
+            //person.setMail("no@u.meme");
             person.setName("M No U");
-            person.setRoom("X1.13");
-            person.setRole("null");
+            //person.setRoom("X1.13");
+            //person.setRole("null");
 
             controls.updatePerson(person, oldperson);
 

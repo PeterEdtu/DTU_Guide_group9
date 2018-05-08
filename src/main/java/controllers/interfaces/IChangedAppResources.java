@@ -17,7 +17,7 @@ public interface IChangedAppResources {
      */
     void addLocation(SuggestionLocation location) throws DataAccessException, HTTPException;
 
-    void updateLocation(SuggestionLocation newLoc,SuggestionLocation previousLocation) throws DataAccessException, ItemOverwriteException;
+    void updateLocation(SuggestionLocation newLoc,SuggestionLocation previousLocation) throws DataAccessException, ItemOverwriteException, NotFoundException;
 
     ArrayList<SuggestionLocation> getAllChangedLocations() throws DataAccessException, NotFoundException;
 
@@ -29,7 +29,7 @@ public interface IChangedAppResources {
 
     void addPerson(SuggestionPerson person) throws DataAccessException, HTTPException;
 
-    void updatePerson(SuggestionPerson person, SuggestionPerson previousPerson) throws DataAccessException, ItemOverwriteException;
+    void updatePerson(SuggestionPerson person, SuggestionPerson previousPerson) throws DataAccessException, ItemOverwriteException, NotFoundException;
 
     ArrayList<SuggestionPerson> getAllChangedPeople() throws DataAccessException, NotFoundException;
 

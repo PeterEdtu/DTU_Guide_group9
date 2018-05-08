@@ -30,7 +30,7 @@ public class Person extends Searchable {
         description = "";
         picture = "https://www.shareicon.net/data/128x128/2015/11/17/673383_question_512x512.png";
         role = "None";
-        room = "None";
+        room = "¤";
         location = new Location();
     }
 

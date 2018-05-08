@@ -23,7 +23,7 @@ public class Location extends Searchable {
     }
 
     public void _init_(){
-        name = "null";
+        name = null;
         description = "null";
         floor = 0;
         landmark = "null";
