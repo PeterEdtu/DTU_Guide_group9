@@ -33,7 +33,6 @@ public class ApproveLocationTest {
 
             controls.addLocation(location);
 
-            //______________________________________
 
             controls.approveLocation(2);
 
