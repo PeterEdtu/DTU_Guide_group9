@@ -5,7 +5,6 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="DTU_Guide_group9" />
-          <element id="module-output" name="distServerside" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0.1" />
@@ -35,15 +34,14 @@
           <element id="library" level="project" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" />
           <element id="library" level="project" name="Maven: junit:junit:4.10" />
           <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.1" />
-          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.40" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:6.0.6" />
+          <element id="library" level="project" name="Maven: org.tuckey:urlrewritefilter:4.0.3" />
         </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/diplomBackend/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="DTU_Guide_group9/web/Web" />
-      <element id="javaee-facet-resources" facet="distServerside/web/Web" />
     </root>
   </artifact>
 </component>
