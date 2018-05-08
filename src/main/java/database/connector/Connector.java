@@ -17,16 +17,16 @@ public class Connector implements IConnector {
     //JDBC driver name, and database URL:
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String DB_URL = "jdbc:mysql://localhost/distdb?useSSL=false";
-    //private static final String DB_URL = "jdbc:mysql://arvid-langsoe.dk:3306/distdb?useSSL=false";
+    //private static final String DB_URL = "jdbc:mysql://localhost/distdb?useSSL=false";
+    private static final String DB_URL = "jdbc:mysql://arvid-langsoe.dk:3306/distdb?useSSL=false";
 
 
     // Database credentials:
-    private static final String USER = "root";
-    //private static final String USER = "remoteDist";
+    //private static final String USER = "root";
+    private static final String USER = "remoteDist";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String PASS = "Mads";
-    //private static final String PASS = "qwerty";
+    //private static final String PASS = "Mads";
+    private static final String PASS = "qwerty";
 
     private Connection establishedConnection() {
         Connection conn = null;
@@ -645,6 +645,67 @@ public class Connector implements IConnector {
         }
     }
 
+    private void resetTagsForLocation(String name) throws DataAccessException {
+
+        PreparedStatement preparedStatement = null;
+        String sqlUpdateLocation = "DELETE FROM room_tags WHERE loc_name = ?;";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlUpdateLocation);
+            preparedStatement.setString(1, name);
+
+            preparedStatement.executeUpdate();
+            System.out.println("Removed location tags for: " + name);
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+    }
+
+    private void updateTagsForLocation(String name, ArrayList<String> newTags) throws DataAccessException {
+        if (newTags == null) {
+            return;
+        }
+
+        resetTagsForLocation(name);
+
+        for (String tag : newTags) {
+
+            PreparedStatement preparedStatement = null;
+            String sqlUpdateLocation = "INSERT INTO room_tags (loc_name, tag_ID) VALUES (?, ?);";
+
+            try {
+                preparedStatement = establishedConnection().prepareStatement(sqlUpdateLocation);
+                preparedStatement.setString(1, name);
+                preparedStatement.setInt(2, getTagID(tag));
+
+                //getTagID(tag)
+
+                preparedStatement.executeUpdate();
+                System.out.println("Updated location tags for: " + name);
+            } catch (SQLException e) {
+                throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+            }
+            //Close connection and statement.
+            finally {
+                try {
+                    preparedStatement.close();
+                    establishedConnection().close();
+                } catch (SQLException e) {
+                    System.out.println("Failed to close connection/statement: " + e.getMessage());
+                }
+            }
+        }
+    }
+
     /**
      * @param location Input inserted, to be changed.
      * @throws DataAccessException Exception thrown in case a SQL command fails.
@@ -663,7 +724,7 @@ public class Connector implements IConnector {
             preparedStatement.setDouble(5, location.getLongitude());
             preparedStatement.setString(6, location.getName());
 
-            //updateTagsForLocation(location.getName(), location.getTags());
+            updateTagsForLocation(location.getName(), location.getTags());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -687,7 +748,6 @@ public class Connector implements IConnector {
      */
     @Override
     public void deleteLocation(String locationName) throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
         String sqlDeleteLocation = "DELETE FROM locations WHERE loc_name = ?;";
 
@@ -865,6 +925,9 @@ public class Connector implements IConnector {
             preparedStatement.setDouble(6, location.getLongitude());
 
             preparedStatement.executeUpdate();
+
+            updateTagsForLocation(location.getName(), location.getTags());
+
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }

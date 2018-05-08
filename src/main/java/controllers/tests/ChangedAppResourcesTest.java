@@ -1,5 +1,6 @@
 package controllers.tests;
 
+import api.HTTPException;
 import controllers.ChangedAppResources;
 import controllers.exceptions.DataAccessException;
 import controllers.exceptions.NotFoundException;
@@ -68,9 +69,7 @@ public class ChangedAppResourcesTest {
 
             System.out.println(controls.getAllChangedPeople());
 
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        } catch (NotFoundException e) {
+        } catch (HTTPException e) {
             e.printStackTrace();
         }
     }
