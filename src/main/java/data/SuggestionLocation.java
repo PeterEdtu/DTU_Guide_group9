@@ -34,7 +34,7 @@ public class SuggestionLocation extends Location implements ISuggestion {
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date = new Date(date.getTime());
     }
 
     public String getAuthor() {

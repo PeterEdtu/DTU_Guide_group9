@@ -8,6 +8,8 @@ import data.Person;
 import data.Searchable;
 import database.connector.Connector;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,6 +36,7 @@ public class AppResources implements IAppResources {
 
 
     @Override
+    @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Searchable> search(String searchText) throws DataAccessException, NotFoundException {
         ArrayList<Searchable> result = new ArrayList<>();
 
@@ -44,7 +47,7 @@ public class AppResources implements IAppResources {
             throw new DataAccessException("Null pointer at Searchable List");
         }else if(locations.isEmpty() && persons.isEmpty()){
             //TODO
-            throw new NotFoundException("Null pointer at Searchable List");
+            return new ArrayList<>();
         }else{
             result.addAll(locations.values());
             result.addAll(persons.values());

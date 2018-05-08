@@ -3,6 +3,7 @@ package api.rest;
 import api.HTTPException;
 import api.rest.utility.ArrayListManipulator;
 import api.rest.pojos.LocationChange;
+import controllers.ChangedAppResources;
 import controllers.exceptions.NotFoundException;
 import controllers.security.Auth;
 import controllers.security.AuthenticatedUser;
@@ -22,13 +23,14 @@ import java.util.List;
 @Path("/searchable/suggestions/locations")
 public class EditedLocationResource {
 
-    private static StubChangedAppResources suggestedResources;
+    private static ChangedAppResources suggestedResources;
 
     static {
-        suggestedResources= StubChangedAppResources.getInstance();
+        suggestedResources= ChangedAppResources.getInstance();
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getEditedLocations(@CookieParam("sessionToken") Cookie cookie,
                                        @QueryParam("searchString") String searchMatch,
                                        @QueryParam("sort") String sortItem,
@@ -70,6 +72,7 @@ public class EditedLocationResource {
 
     @Path("/{id}")
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getEditedLocation(@CookieParam("sessionToken") Cookie cookie, @PathParam("id") int id){
         try {
             Auth.authorize(cookie);
@@ -87,6 +90,8 @@ public class EditedLocationResource {
         try {
             AuthenticatedUser user = Auth.authorize(cookie);
             SuggestionLocation newLocation = new SuggestionLocation(changedLocation.newLocation,id, Calendar.getInstance().getTime(),user.getUsername());
+            System.out.println("NEW: " +newLocation);
+            System.out.println("OLD: "+changedLocation.oldLocation);
             suggestedResources.updateLocation(newLocation,changedLocation.oldLocation);
             return Response.ok().build();
         }catch (HTTPException e) {

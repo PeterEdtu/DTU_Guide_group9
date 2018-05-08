@@ -11,6 +11,8 @@ import brugerautorisation.data.Bruger;
 import brugerautorisation.transport.rmi.Brugeradmin;
 import com.sun.javaws.exceptions.InvalidArgumentException;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import controllers.AdminControls;
+import controllers.exceptions.DataAccessException;
 import controllers.security.exception.PermissionToLow;
 import controllers.stub.StubAdminControls;
 import io.jsonwebtoken.Claims;
@@ -30,7 +32,7 @@ public class Auth {
     private final static Key jwtKey = MacProvider.generateKey();
     private static Brugeradmin ba;
 
-    private static StubAdminControls adminInfo;
+    private static AdminControls adminInfo;
 
     static{
         try {
@@ -38,7 +40,7 @@ public class Auth {
         }catch (Exception e){
             e.printStackTrace();
         }
-        adminInfo=StubAdminControls.getInstance();
+        adminInfo= AdminControls.getInstance();
     }
 
 
@@ -48,6 +50,7 @@ public class Auth {
 
         try {
             loggedInUser = ba.hentBruger(username, password);
+            return generateJWT(loggedInUser);
         }catch(RemoteException e){
             e.printStackTrace();
             throw new RuntimeException("Unable to connect to BrugerAutorisation");
@@ -57,7 +60,7 @@ public class Auth {
             e.printStackTrace();
             throw new InvalidCredentials();
         }
-        return generateJWT(loggedInUser);
+
     }
 
 
@@ -95,7 +98,7 @@ public class Auth {
     }
 
 
-    private static String generateJWT(Bruger loggedInUser) {
+    private static String generateJWT(Bruger loggedInUser) throws DataAccessException {
 
         Date currentDate = new Date();
 

@@ -7,11 +7,7 @@ import java.util.ArrayList;
 
 @WebService()
 public interface ConsoleAppInterface {
-
-    @WebMethod
-    boolean addAdmin(String name);
-    @WebMethod
-    boolean removeAdmin(String name);
-    @WebMethod
-    ArrayList<String> getAdminList();
+    @WebMethod boolean addAdmin(String name);
+    @WebMethod boolean removeAdmin(String name);
+    @WebMethod ArrayList<String> getAdminList();
 }

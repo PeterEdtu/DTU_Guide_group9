@@ -58,6 +58,7 @@ public class Person extends Searchable {
         this.location=pers.location;
     }
 
+
     @Override
     public String toString() {
         return "Person{" +
