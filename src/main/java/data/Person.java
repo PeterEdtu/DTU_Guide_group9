@@ -28,7 +28,7 @@ public class Person extends Searchable {
         name = null;
         mail = "";
         description = "";
-        picture = "https://www.dropbox.com/s/wc7u4rk5eec3neq/unknown_person.png";
+        picture = "https://cdn.discordapp.com/attachments/390440892009414657/443416059761000448/unknown.png";
         role = "None";
         room = "¤";
         location = new Location();
@@ -41,7 +41,9 @@ public class Person extends Searchable {
         this.name = name;
         this.mail = mail;
         this.description = description;
-        this.picture = picture;
+        if(picture!=null) {
+            this.picture = picture;
+        }
         this.role = role;
         this.room = room;
     }
