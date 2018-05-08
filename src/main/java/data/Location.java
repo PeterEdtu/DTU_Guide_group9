@@ -26,7 +26,7 @@ public class Location extends Searchable {
         name = null;
         description = "null";
         floor = 0;
-        landmark = "null";
+        landmark = "NONE";
         latitude = 0.0;
         longitude = 0.0;
         tags = new ArrayList<>();
@@ -41,12 +41,20 @@ public class Location extends Searchable {
         _init_();
 
         this.name = name;
-        this.description = description;
+        if(description!=null){
+            this.description = description;
+        }
         this.floor = floor;
-        this.landmark = landmark;
+
+        if(landmark!=null) {
+            this.landmark = landmark;
+        }
         this.latitude = latitude;
         this.longitude = longitude;
-        this.tags = tags;
+
+        if(tags!=null) {
+            this.tags = tags;
+        }
     }
 
     public Location(Location loc) {

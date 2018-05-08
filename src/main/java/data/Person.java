@@ -39,13 +39,22 @@ public class Person extends Searchable {
 
         this.id = id;
         this.name = name;
-        this.mail = mail;
-        this.description = description;
+        if(mail!=null) {
+            this.mail = mail;
+        }
+        if(description!=null) {
+            this.description = description;
+        }
         if(picture!=null) {
             this.picture = picture;
         }
-        this.role = role;
-        this.room = room;
+        if(role!=null){
+            this.role = role;
+        }
+        if(room!=null){
+            this.room = room;
+        }
+
     }
 
     public Person(Person pers) {
