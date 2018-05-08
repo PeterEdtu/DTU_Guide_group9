@@ -44,7 +44,7 @@ public class AppResources implements IAppResources {
             throw new DataAccessException("Null pointer at Searchable List");
         }else if(locations.isEmpty() && persons.isEmpty()){
             //TODO
-            throw new NotFoundException("Null pointer at Searchable List");
+            return new ArrayList<>();
         }else{
             result.addAll(locations.values());
             result.addAll(persons.values());
