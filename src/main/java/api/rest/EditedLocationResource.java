@@ -90,6 +90,8 @@ public class EditedLocationResource {
         try {
             AuthenticatedUser user = Auth.authorize(cookie);
             SuggestionLocation newLocation = new SuggestionLocation(changedLocation.newLocation,id, Calendar.getInstance().getTime(),user.getUsername());
+            System.out.println("NEW: " +newLocation);
+            System.out.println("OLD: "+changedLocation.oldLocation);
             suggestedResources.updateLocation(newLocation,changedLocation.oldLocation);
             return Response.ok().build();
         }catch (HTTPException e) {
