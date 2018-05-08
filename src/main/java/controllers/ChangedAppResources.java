@@ -244,8 +244,6 @@ public class ChangedAppResources implements IChangedAppResources {
     public SuggestionPerson getPerson(int id) throws DataAccessException, NotFoundException {
         SuggestionPerson suggestionPerson = connector.getPeopleSuggestion(id);
 
-        System.out.println("BUG HERE : " + suggestionPerson);
-
         if(suggestionPerson == null){
             throw new NotFoundException("No People suggestion with ID "+id+" found");
         }else{
@@ -269,7 +267,7 @@ public class ChangedAppResources implements IChangedAppResources {
     public void approvePerson(int id) throws DataAccessException, NotFoundException {
         SuggestionPerson suggestionPerson = getPerson(id);
 
-        System.out.println("THIS "+suggestionPerson);
+        System.out.println("Approve: "+suggestionPerson);
 
         if(suggestionPerson.getName() == null){
             throw new NotFoundException("No People suggestion with ID "+id+" found");

@@ -28,7 +28,7 @@ public class Person extends Searchable {
         name = null;
         mail = "";
         description = "";
-        picture = "https://www.shareicon.net/data/128x128/2015/11/17/673383_question_512x512.png";
+        picture = "https://www.dropbox.com/s/wc7u4rk5eec3neq/unknown_person.png";
         role = "None";
         room = "¤";
         location = new Location();

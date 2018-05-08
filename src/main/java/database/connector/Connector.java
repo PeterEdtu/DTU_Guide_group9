@@ -423,7 +423,6 @@ public class Connector implements IConnector {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                System.out.println("________________________________________________________________________");
                 suggestionLocation = new SuggestionLocation();
 
                 suggestionLocation.setSuggestionID(resultSet.getInt("suggestion_loc_ID"));
