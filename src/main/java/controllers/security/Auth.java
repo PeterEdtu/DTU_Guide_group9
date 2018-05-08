@@ -91,20 +91,19 @@ public class Auth {
 
         Claims body =myjwt.getBody();
 
-        return new AuthenticatedUser(body.getSubject(),(Boolean)body.remove("isAdmin"),(int)body.remove("exp"));
+        return new AuthenticatedUser(
+                body.getSubject(),
+                (Boolean)body.remove("isAdmin"),
+                (int)body.remove("exp"));
     }
 
 
     private static String generateJWT(Bruger loggedInUser) {
 
         Date currentDate = new Date();
-
-
         Date expDate = new Date(currentDate.getTime() + timeToMidnight());
 
-
         int jwtID = (int)(Math.random()*64000);
-
         boolean isAdmin = adminInfo.isAdmin(loggedInUser.brugernavn);
 
         return Jwts.builder()
