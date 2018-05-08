@@ -154,8 +154,8 @@ public class Connector implements IConnector {
 
     public Person getPeople(int id) throws DataAccessException {
         PreparedStatement preparedStatement = null;
-        Person person;
-        Location location;
+        Person person = new Person();
+        Location location = new Location();
 
         String sqlGetPeople = "SELECT * FROM people_locations WHERE ppl_ID = ?;";
 
@@ -165,9 +165,7 @@ public class Connector implements IConnector {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                person = new Person();
-                location = new Location();
+            if(resultSet.next()) {
 
                 person.setId(resultSet.getInt("ppl_ID"));
                 person.setName(resultSet.getString("ppl_raw_name"));
@@ -191,8 +189,10 @@ public class Connector implements IConnector {
 
                 person.setLocation(location);
 
-                return person;
             }
+
+                return person;
+
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
@@ -207,7 +207,6 @@ public class Connector implements IConnector {
             }
 
         }
-        return null;
 
     }
 
@@ -579,7 +578,7 @@ public class Connector implements IConnector {
                 suggestionPerson.setRoom(resultSet.getString("suggestion_ppl_room"));
                 suggestionPerson.setDate(resultSet.getDate("suggestion_ppl_date"));
 
-                System.out.println("Retrieved information about " + suggestionPerson.getName() + " from suggestion_locations!");
+                System.out.println("Retrieved information about " + suggestionPerson.getName() + " from suggestion_people !");
 
             }
         } catch (SQLException e) {
@@ -1027,7 +1026,7 @@ public class Connector implements IConnector {
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlCreatePeopleSuggestion);
             preparedStatement.setString(1, suggestionPerson.getAuthor());
-            preparedStatement.setInt(2, suggestionPerson.getId());
+            preparedStatement.setInt(2, 0);
             preparedStatement.setString(3, suggestionPerson.getName());
             preparedStatement.setString(4, suggestionPerson.getMail());
             preparedStatement.setString(5, suggestionPerson.getDescription());
@@ -1052,7 +1051,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
-                System.out.println("Created " + suggestionPerson.getName() + " in suggestion_locations!");
+                System.out.println("Created " + suggestionPerson.getName() + " in suggestion_people !");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }

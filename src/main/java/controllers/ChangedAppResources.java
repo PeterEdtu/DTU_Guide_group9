@@ -72,10 +72,10 @@ public class ChangedAppResources implements IChangedAppResources {
                 isDifferent = true;
             }
 
-            if(!actualLocation.getTags().containsAll(previousLocation.getTags())){
-                overwrite.setTags(actualLocation.getTags());
-                isDifferent = true;
-            }
+            //if(!actualLocation.getTags().containsAll(previousLocation.getTags())){
+            //    overwrite.setTags(actualLocation.getTags());
+            //    isDifferent = true;
+            //}
 
             System.out.println("OVERWRITE : " + overwrite);
 
@@ -145,7 +145,7 @@ public class ChangedAppResources implements IChangedAppResources {
     public void approveLocation(int id) throws DataAccessException, NotFoundException {
         SuggestionLocation suggestionLocation = connector.getLocationSuggestion(id);
 
-        if(suggestionLocation == null){
+        if(suggestionLocation.getName() == null){
             throw new NotFoundException("Suggestion ID "+id+" cannot be found");
         }else{
             if(connector.getLocations(suggestionLocation.getName()).isEmpty())
@@ -162,9 +162,6 @@ public class ChangedAppResources implements IChangedAppResources {
 
     @Override
     public void addPerson(SuggestionPerson person) throws HTTPException {
-        if(connector.getPeopleSuggestion(person.getSuggestionID()).getName() != null)
-            throw new AlreadyExistException("Item "+person+" already exists !");
-
         connector.createPeopleSuggestion(person);
     }
 
@@ -172,46 +169,56 @@ public class ChangedAppResources implements IChangedAppResources {
     public void updatePerson(SuggestionPerson person, SuggestionPerson previousPerson) throws DataAccessException, ItemOverwriteException {
         //TODO ...
 
+        boolean isDifferent = false;
+
         SuggestionPerson actualPerson = connector.getPeopleSuggestion(previousPerson.getSuggestionID());
 
         SuggestionPerson overwrite = new SuggestionPerson(actualPerson.getSuggestionID(),
                 actualPerson.getDate(),
                 actualPerson.getAuthor());
 
-        if (!actualPerson.equals(previousPerson)) {
 
             if (!actualPerson.getName().equals(previousPerson.getName())) {
                 overwrite.setName(actualPerson.getName());
+                isDifferent = true;
             }
 
             if (!actualPerson.getDescription().equals(previousPerson.getDescription())) {
                 overwrite.setDescription(actualPerson.getDescription());
+                isDifferent = true;
             }
 
             if (!actualPerson.getMail().equals(previousPerson.getMail())) {
                 overwrite.setMail(actualPerson.getMail());
+                isDifferent = true;
             }
 
             if (!actualPerson.getPicture().equals(previousPerson.getPicture())) {
                 overwrite.setPicture(actualPerson.getPicture());
+                isDifferent = true;
             }
 
             if (!actualPerson.getRole().equals(previousPerson.getRole())) {
                 overwrite.setRole(actualPerson.getRole());
+                isDifferent = true;
             }
 
             if (!actualPerson.getRoom().equals(previousPerson.getRoom())) {
                 overwrite.setRoom(actualPerson.getRoom());
+                isDifferent = true;
+
             }
 
 
             ItemOverwriteException exception = new ItemOverwriteException(overwrite);
 
-            throw exception;
+            if(isDifferent)
+                throw exception;
 
-        } else {
-            connector.updatePerson(person);
-        }
+            connector.deletePeopleSuggestion(person.getSuggestionID());
+            connector.createPeopleSuggestion(person);
+
+
     }
 
     @Override
@@ -258,17 +265,10 @@ public class ChangedAppResources implements IChangedAppResources {
 
         System.out.println("THIS "+suggestionPerson);
 
-        if(suggestionPerson == null){
+        if(suggestionPerson.getName() == null){
             throw new NotFoundException("No People suggestion with ID "+id+" found");
         }else{
-            if(connector.getPeople(suggestionPerson.getId()) == null)
-                connector.createPerson(suggestionPerson.toPerson());
-            else {
-                connector.deletePerson(suggestionPerson.getId());
-                connector.createPerson(suggestionPerson.toPerson());
-
-            }
-
+            connector.createPerson(suggestionPerson.toPerson());
             connector.deletePeopleSuggestion(id);
         }
     }

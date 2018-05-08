@@ -20,10 +20,23 @@ public class Person extends Searchable {
     }
 
     public Person() {
+        _init_();
+    }
 
+    public void _init_(){
+        id = 0;
+        name = null;
+        mail = "";
+        description = "";
+        picture = "https://www.shareicon.net/data/128x128/2015/11/17/673383_question_512x512.png";
+        role = "None";
+        room = "None";
+        location = new Location();
     }
 
     public Person(int id, String name, String mail, String description, String picture, String role, String room) {
+        _init_();
+
         this.id = id;
         this.name = name;
         this.mail = mail;
