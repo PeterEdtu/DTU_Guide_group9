@@ -1,5 +1,6 @@
 package controllers.interfaces;
 
+import api.HTTPException;
 import controllers.exceptions.DataAccessException;
 import controllers.exceptions.ItemOverwriteException;
 import controllers.exceptions.NotFoundException;
@@ -14,7 +15,7 @@ public interface IChangedAppResources {
      * @param location The location to be added.
      * @return Location that was added including id.
      */
-    void addLocation(SuggestionLocation location) throws DataAccessException;
+    void addLocation(SuggestionLocation location) throws DataAccessException, HTTPException;
 
     void updateLocation(SuggestionLocation newLoc,SuggestionLocation previousLocation) throws DataAccessException, ItemOverwriteException;
 
@@ -26,7 +27,7 @@ public interface IChangedAppResources {
 
     void approveLocation(int id) throws DataAccessException, NotFoundException;
 
-    void addPerson(SuggestionPerson person) throws DataAccessException;
+    void addPerson(SuggestionPerson person) throws DataAccessException, HTTPException;
 
     void updatePerson(SuggestionPerson person, SuggestionPerson previousPerson) throws DataAccessException, ItemOverwriteException;
 

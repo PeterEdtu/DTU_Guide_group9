@@ -1,5 +1,7 @@
 package controllers;
 
+import api.HTTPException;
+import controllers.exceptions.AlreadyExistException;
 import controllers.exceptions.DataAccessException;
 import controllers.exceptions.ItemOverwriteException;
 import controllers.exceptions.NotFoundException;
@@ -35,6 +37,8 @@ public class ChangedAppResources implements IChangedAppResources {
         //actual (instance) location before update it
         //with the variable "newLoc" wich is the new location
 
+        boolean isDifferent = false;
+
         SuggestionLocation actualLocation = connector.getLocationSuggestion(previousLocation.getSuggestionID());
 
         SuggestionLocation overwrite = new SuggestionLocation(actualLocation.getSuggestionID(),
@@ -45,45 +49,55 @@ public class ChangedAppResources implements IChangedAppResources {
 
             if (!actualLocation.getDescription().equals(previousLocation.getDescription())) {
                 overwrite.setDescription(actualLocation.getDescription());
+                isDifferent = true;
             }
             if (actualLocation.getFloor() != previousLocation.getFloor()) {
                 overwrite.setFloor(actualLocation.getFloor());
+                isDifferent = true;
             }
             if (!actualLocation.getLandmark().equals(previousLocation.getLandmark())) {
                 overwrite.setLandmark(actualLocation.getLandmark());
+                isDifferent = true;
             }
             if (actualLocation.getLatitude() != previousLocation.getLatitude()) {
                 overwrite.setLatitude(actualLocation.getLatitude());
+                isDifferent = true;
             }
             if (actualLocation.getLongitude() != previousLocation.getLongitude()) {
                 overwrite.setLongitude(actualLocation.getLongitude());
+                isDifferent = true;
             }
             if (!actualLocation.getName().equals(previousLocation.getName())) {
                 overwrite.setName(actualLocation.getName());
+                isDifferent = true;
             }
 
             if(!actualLocation.getTags().containsAll(previousLocation.getTags())){
                 overwrite.setTags(actualLocation.getTags());
+                isDifferent = true;
             }
+
+            System.out.println("OVERWRITE : " + overwrite);
 
             ItemOverwriteException exception = new ItemOverwriteException(overwrite);
 
-            throw exception;
+            if(isDifferent)
+                throw exception;
 
-        } else {
-
-            if(previousLocation.getName().equals(newLoc.getName()))
-                connector.updateLocation(newLoc);
-            else
-                throw new DataAccessException("The name of the location "+previousLocation.getName()+" cannot be changed");
         }
+
+            if(previousLocation.getName().equals(newLoc.getName())) {
+                connector.deleteLocationSuggestion(newLoc.getSuggestionID());
+                connector.createLocationSuggestion(newLoc);
+            }else
+                throw new DataAccessException("The name of the location "+previousLocation.getName()+" cannot be changed");
 
     }
 
     @Override
-    public void addLocation(SuggestionLocation location) throws DataAccessException {
-        if(connector.getLocationSuggestion(location.getSuggestionID()) != null)
-            connector.deleteLocationSuggestion(location.getSuggestionID());
+    public void addLocation(SuggestionLocation location) throws HTTPException {
+        if(connector.getLocationSuggestion(location.getSuggestionID()).getName() != null)
+            throw new AlreadyExistException("Item "+location+" already exists !");
 
         connector.createLocationSuggestion(location);
 
@@ -134,11 +148,11 @@ public class ChangedAppResources implements IChangedAppResources {
         if(suggestionLocation == null){
             throw new NotFoundException("Suggestion ID "+id+" cannot be found");
         }else{
-            if(connector.getLocations(suggestionLocation.getName()) == null)
+            if(connector.getLocations(suggestionLocation.getName()).isEmpty())
                 connector.createLocation(suggestionLocation.toLocation());
             else {
-                connector.deleteLocation(suggestionLocation.getName());
-                connector.createLocation(suggestionLocation.toLocation());
+                System.out.println("Try to update location : "+suggestionLocation.getName());
+                connector.updateLocation(suggestionLocation.toLocation());
 
             }
 
@@ -147,7 +161,10 @@ public class ChangedAppResources implements IChangedAppResources {
     }
 
     @Override
-    public void addPerson(SuggestionPerson person) throws DataAccessException {
+    public void addPerson(SuggestionPerson person) throws HTTPException {
+        if(connector.getPeopleSuggestion(person.getSuggestionID()).getName() != null)
+            throw new AlreadyExistException("Item "+person+" already exists !");
+
         connector.createPeopleSuggestion(person);
     }
 
