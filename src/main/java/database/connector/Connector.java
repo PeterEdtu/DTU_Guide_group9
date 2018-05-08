@@ -611,7 +611,7 @@ public class Connector implements IConnector {
         return -1;
     }
 
-    /*Does not work properly at the current time (4th of may)*/
+
     private void updateTagsForLocationSuggestion(int id, ArrayList<String> newTags) throws DataAccessException {
         if (newTags == null) {
             return;
@@ -626,8 +626,6 @@ public class Connector implements IConnector {
                 preparedStatement = establishedConnection().prepareStatement(sqlUpdateLocation);
                 preparedStatement.setInt(1, id);
                 preparedStatement.setInt(2, getTagID(tag));
-
-                //getTagID(tag)
 
                 preparedStatement.executeUpdate();
                 System.out.println("Updated location tags for: " + id);
@@ -688,8 +686,6 @@ public class Connector implements IConnector {
                 preparedStatement.setString(1, name);
                 preparedStatement.setInt(2, getTagID(tag));
 
-                //getTagID(tag)
-
                 preparedStatement.executeUpdate();
                 System.out.println("Updated location tags for: " + name);
             } catch (SQLException e) {
@@ -711,7 +707,7 @@ public class Connector implements IConnector {
      * @param location Input inserted, to be changed.
      * @throws DataAccessException Exception thrown in case a SQL command fails.
      */
-    @Override //room_tags
+    @Override
     public void updateLocation(Location location) throws DataAccessException {
         PreparedStatement preparedStatement = null;
         String sqlUpdateLocation = "UPDATE locations SET loc_desc = ?, loc_floor = ?, loc_landmark = ?, loc_latitude = ?, loc_longitude = ? WHERE loc_name = ?;";
