@@ -20,10 +20,23 @@ public class Person extends Searchable {
     }
 
     public Person() {
+        _init_();
+    }
 
+    public void _init_(){
+        id = 0;
+        name = null;
+        mail = "";
+        description = "";
+        picture = "https://www.dropbox.com/s/wc7u4rk5eec3neq/unknown_person.png";
+        role = "None";
+        room = "¤";
+        location = new Location();
     }
 
     public Person(int id, String name, String mail, String description, String picture, String role, String room) {
+        _init_();
+
         this.id = id;
         this.name = name;
         this.mail = mail;
@@ -44,6 +57,7 @@ public class Person extends Searchable {
         );
         this.location=pers.location;
     }
+
 
     @Override
     public String toString() {

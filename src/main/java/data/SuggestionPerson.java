@@ -28,7 +28,7 @@ public class SuggestionPerson extends Person implements ISuggestion {
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date = new Date(date.getTime());
     }
 
     public int getSuggestionID() {

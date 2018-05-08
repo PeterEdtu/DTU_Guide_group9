@@ -19,7 +19,17 @@ public class Location extends Searchable {
     private ArrayList<String> tags;
 
     public Location() {
+        _init_();
+    }
 
+    public void _init_(){
+        name = null;
+        description = "null";
+        floor = 0;
+        landmark = "null";
+        latitude = 0.0;
+        longitude = 0.0;
+        tags = new ArrayList<>();
     }
 
     @Override
@@ -28,6 +38,8 @@ public class Location extends Searchable {
     }
 
     public Location(String name, String description, int floor, String landmark, double latitude, double longitude, ArrayList<String> tags) {
+        _init_();
+
         this.name = name;
         this.description = description;
         this.floor = floor;

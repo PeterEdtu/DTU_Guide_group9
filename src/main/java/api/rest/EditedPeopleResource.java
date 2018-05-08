@@ -3,6 +3,7 @@ package api.rest;
 import api.HTTPException;
 import api.rest.utility.ArrayListManipulator;
 import api.rest.pojos.PersonChange;
+import controllers.ChangedAppResources;
 import controllers.security.Auth;
 import controllers.security.AuthenticatedUser;
 import controllers.stub.StubChangedAppResources;
@@ -21,13 +22,14 @@ import java.util.List;
 @Path("/searchable/suggestions/people")
 public class EditedPeopleResource {
 
-    private static StubChangedAppResources suggestedResources;
+    private static ChangedAppResources suggestedResources;
 
     static {
-        suggestedResources= StubChangedAppResources.getInstance();
+        suggestedResources = ChangedAppResources.getInstance();
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getEditedPeoples(@CookieParam("sessionToken") Cookie cookie,
                                      @QueryParam("searchString") String searchMatch,
                                      @QueryParam("sort") String sortItem,
@@ -67,6 +69,7 @@ public class EditedPeopleResource {
 
     @Path("/{id}")
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getEditedPerson(@CookieParam("sessionToken") Cookie cookie, @PathParam("id") int id){
         try {
             Auth.authorize(cookie);

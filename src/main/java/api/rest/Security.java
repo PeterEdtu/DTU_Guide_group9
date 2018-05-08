@@ -19,6 +19,7 @@ public class Security {
 
     @Path("session")
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getSession(@CookieParam("sessionToken") Cookie cookie) {
         String jsonString = null;
         try{
@@ -42,6 +43,7 @@ public class Security {
     @Path("session")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response login(LoginPojo loginInfo) {
 
 

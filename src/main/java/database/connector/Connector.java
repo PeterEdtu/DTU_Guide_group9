@@ -17,21 +17,28 @@ public class Connector implements IConnector {
     //JDBC driver name, and database URL:
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String DB_URL = "jdbc:mysql://localhost/distdb?useSSL=false";
+    //private static final String DB_URL = "jdbc:mysql://localhost/distdb?useSSL=false";
+    private static final String DB_URL = "jdbc:mysql://arvid-langsoe.dk:3306/distdb?useSSL=false";
+
 
     // Database credentials:
-    private static final String USER = "root";
+    //private static final String USER = "root";
+    private static final String USER = "remoteDist";
     @SuppressWarnings("SpellCheckingInspection")
-    private static final String PASS = "MySQLPass!1";
+    //private static final String PASS = "Mads";
+    private static final String PASS = "qwerty";
 
     private Connection establishedConnection() {
         Connection conn = null;
         //     System.out.println("Connecting to database...");
         try {
+            Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             //          System.out.println("Connected successfully!");
         } catch (SQLException e) {
             System.out.println("Connection to database failed: " + e.getMessage() + "\n");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return conn;
@@ -148,6 +155,64 @@ public class Connector implements IConnector {
 
     }
 
+    public Person getPeople(int id) throws DataAccessException {
+        PreparedStatement preparedStatement = null;
+        Person person = new Person();
+        Location location = new Location();
+
+        String sqlGetPeople = "SELECT * FROM people_locations WHERE ppl_ID = ?;";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlGetPeople);
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()) {
+
+                person.setId(resultSet.getInt("ppl_ID"));
+                person.setName(resultSet.getString("ppl_raw_name"));
+                person.setMail(resultSet.getString("ppl_mail"));
+                person.setDescription(resultSet.getString("ppl_desc"));
+                person.setPicture(resultSet.getString("ppl_picture"));
+                person.setRole(resultSet.getString("ppl_role"));
+
+
+                location.setName(resultSet.getString("loc_name"));
+                location.setDescription(resultSet.getString("loc_desc"));
+                location.setFloor(resultSet.getInt("loc_floor"));
+                location.setLandmark(resultSet.getString("loc_landmark"));
+                location.setLatitude(resultSet.getDouble("loc_latitude"));
+                location.setLongitude(resultSet.getDouble("loc_longitude"));
+                try {
+                    location.setTags(getTagsFromLocation(location.getName()));
+                } catch (DataAccessException e) {
+                    e.printStackTrace();
+                }
+
+                person.setLocation(location);
+
+            }
+
+                return person;
+
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+                System.out.println("Retrieved information from people_locations!");
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+
+        }
+
+    }
+
     /**
      * @return Returns an array list of all admins in the system.
      * @throws DataAccessException Exception thrown in case a SQL command fails.
@@ -191,6 +256,35 @@ public class Connector implements IConnector {
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlGetTags);
             preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                tempArrayList.add(resultSet.getString("tag_text"));
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+        return tempArrayList;
+    }
+
+    private ArrayList<String> getTagsFromSuggestionLocation(int id) throws DataAccessException {
+        PreparedStatement preparedStatement = null;
+        ArrayList<String> tempArrayList = new ArrayList<>();
+
+        String sqlGetTags = "SELECT * FROM tagssuggestionlocations WHERE suggestion_loc_ID = ?;";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlGetTags);
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -316,6 +410,7 @@ public class Connector implements IConnector {
      */
     @Override
     public ArrayList<SuggestionLocation> getLocationSuggestions() throws DataAccessException {
+
         PreparedStatement preparedStatement = null;
         SuggestionLocation suggestionLocation;
         ArrayList<SuggestionLocation> tempArrayList = new ArrayList<>();
@@ -340,7 +435,7 @@ public class Connector implements IConnector {
                 suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
                 suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
 
-                suggestionLocation.setTags(getTagsFromLocation(suggestionLocation.getName()));
+                suggestionLocation.setTags(getTagsFromSuggestionLocation(suggestionLocation.getSuggestionID()));
 
                 tempArrayList.add(suggestionLocation);
             }
@@ -435,6 +530,8 @@ public class Connector implements IConnector {
                 suggestionLocation.setLongitude(resultSet.getDouble("suggestion_loc_longitude"));
                 suggestionLocation.setDate(resultSet.getDate("suggestion_loc_date"));
 
+                suggestionLocation.setTags(getTagsFromSuggestionLocation(suggestionLocation.getSuggestionID()));
+
 
                 System.out.println("Retrieved information about " + suggestionLocation.getName() + " from suggestion_locations!");
             }
@@ -483,7 +580,7 @@ public class Connector implements IConnector {
                 suggestionPerson.setRoom(resultSet.getString("suggestion_ppl_room"));
                 suggestionPerson.setDate(resultSet.getDate("suggestion_ppl_date"));
 
-                System.out.println("Retrieved information about " + suggestionPerson.getName() + " from suggestion_locations!");
+                System.out.println("Retrieved information about " + suggestionPerson.getName() + " from suggestion_people !");
 
             }
         } catch (SQLException e) {
@@ -515,7 +612,7 @@ public class Connector implements IConnector {
     }
 
     /*Does not work properly at the current time (4th of may)*/
-    private void updateTagsForLocation(String name, ArrayList<String> newTags) throws DataAccessException {
+    private void updateTagsForLocationSuggestion(int id, ArrayList<String> newTags) throws DataAccessException {
         if (newTags == null) {
             return;
         }
@@ -523,12 +620,75 @@ public class Connector implements IConnector {
         for (String tag : newTags) {
 
             PreparedStatement preparedStatement = null;
-            String sqlUpdateLocation = "INSERT INTO room_tags (loc_name, tag_ID) VALUES (?, ?) ";
+            String sqlUpdateLocation = "INSERT INTO suggestion_tags (suggestion_loc_ID, suggestion_tag) VALUES (?, ?);";
+
+            try {
+                preparedStatement = establishedConnection().prepareStatement(sqlUpdateLocation);
+                preparedStatement.setInt(1, id);
+                preparedStatement.setInt(2, getTagID(tag));
+
+                //getTagID(tag)
+
+                preparedStatement.executeUpdate();
+                System.out.println("Updated location tags for: " + id);
+            } catch (SQLException e) {
+                throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+            }
+            //Close connection and statement.
+            finally {
+                try {
+                    preparedStatement.close();
+                    establishedConnection().close();
+                } catch (SQLException e) {
+                    System.out.println("Failed to close connection/statement: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    private void resetTagsForLocation(String name) throws DataAccessException {
+
+        PreparedStatement preparedStatement = null;
+        String sqlUpdateLocation = "DELETE FROM room_tags WHERE loc_name = ?;";
+
+        try {
+            preparedStatement = establishedConnection().prepareStatement(sqlUpdateLocation);
+            preparedStatement.setString(1, name);
+
+            preparedStatement.executeUpdate();
+            System.out.println("Removed location tags for: " + name);
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
+        }
+        //Close connection and statement.
+        finally {
+            try {
+                preparedStatement.close();
+                establishedConnection().close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close connection/statement: " + e.getMessage());
+            }
+        }
+    }
+
+    private void updateTagsForLocation(String name, ArrayList<String> newTags) throws DataAccessException {
+        if (newTags == null) {
+            return;
+        }
+
+        resetTagsForLocation(name);
+
+        for (String tag : newTags) {
+
+            PreparedStatement preparedStatement = null;
+            String sqlUpdateLocation = "INSERT INTO room_tags (loc_name, tag_ID) VALUES (?, ?);";
 
             try {
                 preparedStatement = establishedConnection().prepareStatement(sqlUpdateLocation);
                 preparedStatement.setString(1, name);
                 preparedStatement.setInt(2, getTagID(tag));
+
+                //getTagID(tag)
 
                 preparedStatement.executeUpdate();
                 System.out.println("Updated location tags for: " + name);
@@ -565,7 +725,7 @@ public class Connector implements IConnector {
             preparedStatement.setDouble(5, location.getLongitude());
             preparedStatement.setString(6, location.getName());
 
-            //updateTagsForLocation(location.getName(), location.getTags());
+            updateTagsForLocation(location.getName(), location.getTags());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -576,7 +736,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
-                System.out.println("Updated location data for: " + location.getName());
+                System.out.println("Updated location data for: " + location.getName() + ("!"));
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -589,7 +749,6 @@ public class Connector implements IConnector {
      */
     @Override
     public void deleteLocation(String locationName) throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
         String sqlDeleteLocation = "DELETE FROM locations WHERE loc_name = ?;";
 
@@ -605,7 +764,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
-                System.out.println("Deleted location, " + locationName + ", from locations");
+                System.out.println("Deleted location, " + locationName + ", from locations!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -641,9 +800,20 @@ public class Connector implements IConnector {
 
             preparedStatement.setDate(8, sqlDate);
 
-            updateTagsForLocation(suggestionLocation.getName(), suggestionLocation.getTags());
-
             preparedStatement.executeUpdate();
+
+            ArrayList<SuggestionLocation> arrayList = getLocationSuggestions();
+            int index = -1;
+
+            preparedStatement = establishedConnection().prepareStatement("SELECT MAX(suggestion_loc_ID) AS new_id FROM suggestion_locations;");
+            ResultSet resultSet =preparedStatement.executeQuery();
+
+
+            resultSet.first();
+            index = resultSet.getInt("new_id");
+
+            updateTagsForLocationSuggestion(index, suggestionLocation.getTags());
+
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
@@ -729,7 +899,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
-                System.out.println("Deleted " + id + " from suggestion_locations!");
+                System.out.println("Deleted location id: " + id + ", from suggestion_locations!");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -756,6 +926,9 @@ public class Connector implements IConnector {
             preparedStatement.setDouble(6, location.getLongitude());
 
             preparedStatement.executeUpdate();
+
+            updateTagsForLocation(location.getName(), location.getTags());
+
         } catch (SQLException e) {
             throw new DataAccessException("SQL command failed to execute:" + e.getMessage());
         }
@@ -855,7 +1028,7 @@ public class Connector implements IConnector {
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlCreatePeopleSuggestion);
             preparedStatement.setString(1, suggestionPerson.getAuthor());
-            preparedStatement.setInt(2, suggestionPerson.getId());
+            preparedStatement.setInt(2, 0);
             preparedStatement.setString(3, suggestionPerson.getName());
             preparedStatement.setString(4, suggestionPerson.getMail());
             preparedStatement.setString(5, suggestionPerson.getDescription());
@@ -880,7 +1053,7 @@ public class Connector implements IConnector {
             try {
                 preparedStatement.close();
                 establishedConnection().close();
-                System.out.println("Created " + suggestionPerson.getName() + " in suggestion_locations!");
+                System.out.println("Created " + suggestionPerson.getName() + " in suggestion_people !");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection/statement: " + e.getMessage());
             }
@@ -941,9 +1114,8 @@ public class Connector implements IConnector {
     @SuppressWarnings("Duplicates")
     @Override
     public void deletePeopleSuggestion(int id) throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        String sqlDeletePeopleSuggestion = "DELETE FROM suggestion_people WHERE suggestion_ppl_ID= ?";
+        String sqlDeletePeopleSuggestion = "DELETE FROM suggestion_people WHERE suggestion_ppl_ID = ?;";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlDeletePeopleSuggestion);
@@ -1008,12 +1180,11 @@ public class Connector implements IConnector {
     @Override
     public void createTag(Tag tag) throws DataAccessException {
         PreparedStatement preparedStatement = null;
-        String sqlCreateTag = "INSERT INTO tags (tag_ID, tag_text) VALUES (?, ?)";
+        String sqlCreateTag = "INSERT INTO tags (tag_text) VALUES (?);";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlCreateTag);
-            preparedStatement.setInt(1, tag.getId());
-            preparedStatement.setString(2, tag.getTagText());
+            preparedStatement.setString(1, tag.getTagText());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -1034,9 +1205,8 @@ public class Connector implements IConnector {
     @SuppressWarnings("Duplicates")
     @Override
     public void deleteTag(int id) throws DataAccessException {
-        establishedConnection();
         PreparedStatement preparedStatement = null;
-        String sqlDeleteTag = "DELETE FROM tags WHERE tag_ID = ?";
+        String sqlDeleteTag = "DELETE FROM tags WHERE tag_ID = ?;";
 
         try {
             preparedStatement = establishedConnection().prepareStatement(sqlDeleteTag);

@@ -22,6 +22,7 @@ public class ArrayListManipulator {
 
     public static Response getPageResponse(List<Searchable> searchables, Integer page, Integer limit, String sortItem){
         int totalItems= searchables.size();
+
         if(limit==null){
             limit=Integer.MAX_VALUE;
         }

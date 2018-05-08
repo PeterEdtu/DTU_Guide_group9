@@ -33,6 +33,8 @@ public class AppResourcesTest {
 
             System.out.println(controls.search("(test)"));
 
+            System.out.println(controls.search("No U"));
+
         } catch (DataAccessException e) {
             e.printStackTrace();
         } catch (NotFoundException e) {
